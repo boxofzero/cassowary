@@ -1,18 +1,18 @@
 import { useStorage } from '@vueuse/core';
 
 export const useStaminaRepo = () => {
-	const getDefaultSettings = () => ({
+	const getDefaultStaminaRepo = () => ({
 		stamina: 0,
 		staminaUpdatedAt: Math.floor(Date.now() / 1000),
 	});
 
-	// this is object that provide data while should also be able to update the data
-	const staminaData = () => {
-		return useStorage('stamina', getDefaultSettings());
+	// this is localstorage adapter object
+	const staminaRepo = () => {
+		return useStorage('stamina', getDefaultStaminaRepo());
 	};
 
 	return {
-		getDefaultSettings,
-		staminaData,
+		getDefaultStaminaRepo,
+		staminaRepo,
 	};
 };
