@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { transactionViewOptions } from '~/constants';
+import { transactionViewOptions } from '~/libraries/constants';
 const selectedView = ref(transactionViewOptions[1]);
 const transactions = ref([]);
 const isLoading = ref(false);
