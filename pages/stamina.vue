@@ -29,7 +29,7 @@
 				<USkeleton class="h-8 w-full" v-if="loading" />
 				<!-- <div v-else @stamina-updated="getFullStaminaAt()"> -->
 				<div v-else>
-					{{ moment(staminaStore.fullStaminaAt).format('YYYY-MM-DD HH:mm:SS') }}
+					{{ moment(staminaStore.fullStaminaAt).format('YYYY-MM-DD HH:mm:ss') }}
 				</div>
 			</div>
 		</div>

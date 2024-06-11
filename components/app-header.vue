@@ -9,7 +9,7 @@
 					<NuxtLink to="/stamina">Stamina Tracker</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/stamina2">Stamina2 Tracker</NuxtLink>
+					<NuxtLink to="/inventories">Inventories</NuxtLink>
 				</li>
 			</ul>
 		</nav>
