@@ -64,11 +64,14 @@ const loading = false;
 
 const staminaStore = useStaminaStore();
 
-onMounted(() => {
+onBeforeMount(() => {
 	if (!process.client) return;
 	// init stamina state values
 	staminaStore.initStaminaData();
+});
 
+onMounted(() => {
+	if (!process.client) return;
 	// update stamina every interval time
 	setInterval(() => {
 		staminaStore.updateStamina(1);
