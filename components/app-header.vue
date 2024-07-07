@@ -11,6 +11,12 @@
 				<li>
 					<NuxtLink to="/inventories">Inventories</NuxtLink>
 				</li>
+				<li>
+					<NuxtLink to="/characters">Characters</NuxtLink>
+				</li>
+				<li>
+					<NuxtLink to="/characters/new">New Characters</NuxtLink>
+				</li>
 			</ul>
 		</nav>
 		<NuxtLink to="/" class="text-xl font-bold"> Finance Tracker </NuxtLink>
