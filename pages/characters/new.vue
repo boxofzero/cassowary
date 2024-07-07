@@ -37,18 +37,19 @@
 			<div class="grid grid-cols-2 gap-2">
 				<FormKit
 					type="number"
-					label="current_level"
+					name="current_level"
 					number="integer"
-					name="Current Level"
+					label="Current Level"
 					min="0"
 					value="0"
 					@input=""
 				/>
+
 				<FormKit
 					type="number"
-					label="target_level"
+					name="target_level"
 					number="integer"
-					name="Target Level"
+					label="Target Level"
 					min="0"
 					value="0"
 					@input=""
@@ -58,18 +59,18 @@
 			<div class="grid grid-cols-2 gap-2">
 				<FormKit
 					type="number"
-					label="current_level"
+					name="current_level"
 					number="integer"
-					name="Current Level"
+					label="Current Level"
 					min="0"
 					value="0"
 					@input=""
 				/>
 				<FormKit
 					type="number"
-					label="target_level"
+					name="target_level"
 					number="integer"
-					name="Target Level"
+					label="Target Level"
 					min="0"
 					value="0"
 					@input=""
@@ -79,18 +80,18 @@
 			<div class="grid grid-cols-2 gap-2">
 				<FormKit
 					type="number"
-					label="current_level"
+					name="current_level"
 					number="integer"
-					name="Current Level"
+					label="Current Level"
 					min="0"
 					value="0"
 					@input=""
 				/>
 				<FormKit
 					type="number"
-					label="target_level"
+					name="target_level"
 					number="integer"
-					name="Target Level"
+					label="Target Level"
 					min="0"
 					value="0"
 					@input=""
@@ -100,18 +101,18 @@
 			<div class="grid grid-cols-2 gap-2">
 				<FormKit
 					type="number"
-					label="current_level"
+					name="current_level"
 					number="integer"
-					name="Current Level"
+					label="Current Level"
 					min="0"
 					value="0"
 					@input=""
 				/>
 				<FormKit
 					type="number"
-					label="target_level"
+					name="target_level"
 					number="integer"
-					name="Target Level"
+					label="Target Level"
 					min="0"
 					value="0"
 					@input=""
@@ -121,18 +122,18 @@
 			<div class="grid grid-cols-2 gap-2">
 				<FormKit
 					type="number"
-					label="current_level"
+					name="current_level"
 					number="integer"
-					name="Current Level"
+					label="Current Level"
 					min="0"
 					value="0"
 					@input=""
 				/>
 				<FormKit
 					type="number"
-					label="target_level"
+					name="target_level"
 					number="integer"
-					name="Target Level"
+					label="Target Level"
 					min="0"
 					value="0"
 					@input=""
@@ -173,24 +174,46 @@
 	<UChip inset text="3" size="2xl">
 		<div class="box-border h-16 w-16 mx-1">
 			<img src="https://placehold.co/64/png" alt="Material" />
-			<UInput type="number" />
+			<FormKit
+				type="number"
+				name="item_count"
+				number="integer"
+				min="0"
+				value="0"
+				@input=""
+			/>
 		</div>
 	</UChip>
 	<UChip inset text="3" size="2xl">
 		<div class="box-border h-16 w-16 mx-1">
 			<img src="https://placehold.co/64/png" alt="Material" />
-			<UInput type="number" />
+			<FormKit
+				type="number"
+				name="item_count"
+				number="integer"
+				min="0"
+				value="0"
+				@input=""
+			/>
 		</div>
 	</UChip>
 	<UChip inset text="3" size="2xl">
 		<div class="box-border h-16 w-16 mx-1">
 			<img src="https://placehold.co/64/png" alt="Material" />
-			<UInput type="number" />
+			<FormKit
+				type="number"
+				name="item_count"
+				number="integer"
+				min="0"
+				value="0"
+				@input=""
+			/>
 		</div>
 	</UChip>
 </template>
 
 <script setup>
+const value = ref(null);
 const passiveSkills = [
 	{
 		value: 'passive1',
