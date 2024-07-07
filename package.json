@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@formkit/nuxt": "^1.6.5",
     "@nuxt/ui": "^2.16.0",
     "@pinia/nuxt": "^0.5.1",
     "moment": "^2.30.1",
