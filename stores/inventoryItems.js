@@ -1,6 +1,5 @@
 import * as inventoryStructures from '~/libraries/inventoryStructures';
-import { useStorage } from '@vueuse/core';
-
+import { useStorage, useDebounceFn } from '@vueuse/core';
 // not exported
 const inventoryRepo = () => {
 	return useStorage('inventoryItems', inventoryStructures.inventoryItems);
@@ -13,9 +12,19 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 		inventoryItems.value = inventoryRepo().value;
 	}
 
+	const debouncedStoreToStorage = useDebounceFn(
+		() => {
+			console.log('storing inventoryItems to localStorage');
+			inventoryRepo.value = inventoryItems.value;
+		},
+		500,
+		{ maxWait: 5000 }
+	);
+
 	function updateInventory(inventoryType, stuff, value) {
 		inventoryItems.value[inventoryType][stuff]['count'] = parseInt(value);
-		inventoryRepo.value = inventoryItems;
+
+		debouncedStoreToStorage();
 	}
 
 	return {
