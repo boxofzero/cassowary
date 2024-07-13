@@ -1,6 +1,6 @@
 import { useStorage } from '@vueuse/core';
 
-import * as inventoryStructures from '~/libraries/inventory-structures';
+import * as inventoryStructures from '~/libraries/inventoryStructures';
 
 export const useInventoryRepo = () => {
 	const getDefaultInventoryRepo = () => {
