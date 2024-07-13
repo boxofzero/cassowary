@@ -5,8 +5,8 @@ export const characters = {
 	yinlin: {
 		weapon: 'rectifier',
 		materials: {
-			ascencion_material: 'coriolus',
-			resonator_ascencion_material: 'group_abomination_tacet_core',
+			ascension_material: 'coriolus',
+			resonator_ascension_material: 'group_abomination_tacet_core',
 			weapon_skill_material_enemy_drop: 'whispering_core',
 			skill_upgrade_material: 'dreamless_feather',
 			weapon_skill_material: 'helix',

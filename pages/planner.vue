@@ -5,21 +5,21 @@
 	<!--
 	 this will show
 	 - to do list daily text-based
-	 - planned inventories
+	 - planned inventoryItems
 	 - planned character
 	 - planned weapon
 	 -->
 </template>
 
 <script setup>
-import { useInventoryStore } from '@/stores/inventories';
+import { useInventoryItemStore } from '@/stores/inventoryItems';
 
 const loading = false;
-const inventoryStore = useInventoryStore();
+const inventoryItemStore = useInventoryItemStore();
 
 onBeforeMount(() => {
 	if (!process.client) return;
 
-	inventoryStore.initAllInventories();
+	// inventoryItemStore.initInventories();
 });
 </script>

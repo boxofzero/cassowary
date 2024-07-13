@@ -14,14 +14,14 @@
 </template>
 
 <script setup>
-import { useInventoryStore } from '@/stores/inventories';
+import { useInventoryItemStore } from '@/stores/inventoryItems';
 
 const loading = false;
-const inventoryStore = useInventoryStore();
+const inventoryItemStore = useInventoryItemStore();
 
 onBeforeMount(() => {
 	if (!process.client) return;
 
-	inventoryStore.initAllInventories();
+	// inventoryItemStore.initInventories();
 });
 </script>

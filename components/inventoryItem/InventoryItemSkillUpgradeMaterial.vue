@@ -1,14 +1,14 @@
 <template>
-	<section class="">
+	<section>
 		<div>
 			<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
-				Resonator Ascension Boss Material
+				Skill Upgrade Material
 			</h2>
 			<!-- outer div of each item -->
-			<div class="grid grid-cols-3 gap-3">
+			<div class="grid grid-cols-3 gap-4">
 				<div
-					v-for="(stuff, index) in inventoryStore.allInventories
-						.resonator_ascension_boss_material"
+					v-for="(stuff, index) in inventoryItemStore.inventoryItems
+						.skill_upgrade_material"
 					:key="stuff.name"
 					class=""
 				>
@@ -24,8 +24,8 @@
 								min="0"
 								:value="stuff.count"
 								@input="
-									inventoryStore.updateInventory(
-										'resonator_ascension_boss_material',
+									inventoryItemStore.updateInventory(
+										'skill_upgrade_material',
 										index,
 										$event
 									)
@@ -42,6 +42,6 @@
 <script setup>
 const props = defineProps({
 	loading: Boolean,
-	inventoryStore: Object,
+	inventoryItemStore: Object,
 });
 </script>

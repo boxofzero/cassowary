@@ -369,7 +369,7 @@ export const ascension_material = {
 	},
 };
 
-export const allInventories = {
+export const inventoryItems = {
 	resonator_ascension_boss_material: resonator_ascension_boss_material,
 	skill_upgrade_material: skill_upgrade_material,
 	resonator_exp_material: resonator_exp_material,

@@ -9,4 +9,11 @@ export default defineNuxtConfig({
 		// Experimental support for auto loading (see note):
 		autoImport: true,
 	},
+	compatibilityDate: '2024-07-13',
+	ssr: false,
+	hooks: {
+		'prerender:routes'({ routes }) {
+			routes.clear(); // Do not generate any routes (except the defaults)
+		},
+	},
 });
