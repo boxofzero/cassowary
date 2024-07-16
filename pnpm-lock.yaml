@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@formkit/icons':
-        specifier: ^1.6.5
-        version: 1.6.5
-      '@formkit/nuxt':
-        specifier: ^1.6.5
-        version: 1.6.5(magicast@0.3.4)(rollup@4.18.1)(tailwindcss@3.4.4)(vite@5.3.3(@types/node@20.14.10)(terser@5.31.2))(vue@3.4.31)
       '@mdi/font':
         specifier: ^7.4.47
         version: 7.4.47
@@ -686,55 +680,6 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
-
-  '@formkit/core@1.6.5':
-    resolution: {integrity: sha512-LLq8+vLd9ddPYA0NkyvnKycN4ESU8Wqcl9TrllPyU/axduJunSIJMZz4LHzlwK8G26b0pQNegXF/hXaj4wbmng==}
-
-  '@formkit/dev@1.6.5':
-    resolution: {integrity: sha512-dg62HTehLPi9lLBShixr9AoYgIv13gpxTZgiHEvf1UZz2HQq0Lcp63d0a+XT/tQ2HTz2ewLUGeXSN9dUVkYFSg==}
-
-  '@formkit/i18n@1.6.5':
-    resolution: {integrity: sha512-mM1UKGSa0Mdd8a8AAF+6BCNFnf8gUD1nOzU6dJ9UoPE8M/qA+hmcPR3PJm39p6e3OaT5O0Gn/J6JxgccPyWmGA==}
-
-  '@formkit/icons@1.6.5':
-    resolution: {integrity: sha512-Owlw/aGi8R5koMKwq2j5bz59H/4bwscmGdgmRpAns7Fgm9ceZmbrYLcbV4t2m0NYnb+1X7IySP5UutEKt6yuPw==}
-
-  '@formkit/inputs@1.6.5':
-    resolution: {integrity: sha512-mHLMF0JMFZL/JC6NYrG4xaIdi7lUNE+tdC+QMipBdhobUhND0EJSpO6QNPGF6OLd9Zm9MDgqAzNXEtc05/nvow==}
-
-  '@formkit/nuxt@1.6.5':
-    resolution: {integrity: sha512-/jzQ833DoUmD3qWc7RHxJDpfT1kRQBi4oqRzwKIzOJ1+s0/Q1p11m1XAWayF4io/kEs3rHEnIn6X+nzpxzjICw==}
-
-  '@formkit/observer@1.6.5':
-    resolution: {integrity: sha512-3Vh2Pj6tHX3wosbNm5VvwVVlTI5Zq0FT3dl/+DAuaCG84abpTLoc3O0C2pmbQcDaJ4aCuxu3+tBmhY9J7qFXMQ==}
-
-  '@formkit/rules@1.6.5':
-    resolution: {integrity: sha512-j9ylAibBvNx+3tEAkYzl2HjQwDzWV2mRPmFH7GTAmtxijFiktPS8HTU9H88H/x2stkYk9S13/MMeqDgZnc3VrQ==}
-
-  '@formkit/themes@1.6.5':
-    resolution: {integrity: sha512-C+ANzH6qw4zS7niv+RamJAqpASOPfrZvMURVj5HQcT1XlcYB7ULvA9UmDW/AKOqP/OGf/OL6WvOzA7B16UkiiA==}
-    peerDependencies:
-      tailwindcss: ^3.2.0
-      unocss: 0.x.x
-      windicss: ^3.0.0
-    peerDependenciesMeta:
-      tailwindcss:
-        optional: true
-      unocss:
-        optional: true
-      windicss:
-        optional: true
-
-  '@formkit/utils@1.6.5':
-    resolution: {integrity: sha512-fohOg344tqFujHlEwvyHzzH5YiOBgecuOPkg7r7QObUrsH8gP1N8Rp9CHZlafxZ1zAEHZY2nTNx0VVQBkVmJbA==}
-
-  '@formkit/validation@1.6.5':
-    resolution: {integrity: sha512-mnU+F6uXsNlczbU7QOq6QfsafSYNmMF9zvOpk4ravn9mba0IDXRhkPgU/+VFpcF/EEiXmqQql3pqQ7Vqv2wVbg==}
-
-  '@formkit/vue@1.6.5':
-    resolution: {integrity: sha512-D5W8JfhFJXUXm8RX0OfPbPZt3Ds68iqxSrvbvmyabae2cBlGl8sqhMEuc48FptnsGOYqYXOhG+CPni+uE72Whw==}
-    peerDependencies:
-      vue: ^3.4.0
 
   '@headlessui/tailwindcss@0.2.1':
     resolution: {integrity: sha512-2+5+NZ+RzMyrVeCZOxdbvkUSssSxGvcUxphkIfSVLpRiKsj+/63T2TOL9dBYMXVfj/CGr6hMxSRInzXv6YY7sA==}
@@ -3506,23 +3451,6 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-  unplugin-formkit@0.2.13:
-    resolution: {integrity: sha512-qNHz7/0QDO0uVD5MoUZz49CI7q8cHM24RQDwbs5NfRJ6EiyZ1gBmWq9ta3QHR2nD7xacXV+yzmfDbnwlNpkzsg==}
-    peerDependencies:
-      esbuild: '*'
-      rollup: '*'
-      vite: '*'
-      webpack: '*'
-    peerDependenciesMeta:
-      esbuild:
-        optional: true
-      rollup:
-        optional: true
-      vite:
-        optional: true
-      webpack:
-        optional: true
-
   unplugin-vue-router@0.10.0:
     resolution: {integrity: sha512-t9cwRvNONcrh7CZLUYrd4kGOH4xZRhsHeT+exaAuYFn7z87pkTHiHh3wBnGerfKGs22SnmJIIjcKyEa62CO+4w==}
     peerDependencies:
@@ -4345,94 +4273,6 @@ snapshots:
     optional: true
 
   '@fastify/busboy@2.1.1': {}
-
-  '@formkit/core@1.6.5':
-    dependencies:
-      '@formkit/utils': 1.6.5
-
-  '@formkit/dev@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/utils': 1.6.5
-
-  '@formkit/i18n@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/utils': 1.6.5
-      '@formkit/validation': 1.6.5
-
-  '@formkit/icons@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-
-  '@formkit/inputs@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/utils': 1.6.5
-
-  '@formkit/nuxt@1.6.5(magicast@0.3.4)(rollup@4.18.1)(tailwindcss@3.4.4)(vite@5.3.3(@types/node@20.14.10)(terser@5.31.2))(vue@3.4.31)':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/i18n': 1.6.5
-      '@formkit/vue': 1.6.5(tailwindcss@3.4.4)(vue@3.4.31)
-      '@nuxt/kit': 3.12.3(magicast@0.3.4)(rollup@4.18.1)
-      chokidar: 3.6.0
-      pathe: 1.1.2
-      unplugin: 1.11.0
-      unplugin-formkit: 0.2.13(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(terser@5.31.2))
-    transitivePeerDependencies:
-      - esbuild
-      - magicast
-      - rollup
-      - supports-color
-      - tailwindcss
-      - unocss
-      - vite
-      - vue
-      - webpack
-      - windicss
-
-  '@formkit/observer@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/utils': 1.6.5
-
-  '@formkit/rules@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/utils': 1.6.5
-      '@formkit/validation': 1.6.5
-
-  '@formkit/themes@1.6.5(tailwindcss@3.4.4)':
-    dependencies:
-      '@formkit/core': 1.6.5
-    optionalDependencies:
-      tailwindcss: 3.4.4
-
-  '@formkit/utils@1.6.5': {}
-
-  '@formkit/validation@1.6.5':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/observer': 1.6.5
-      '@formkit/utils': 1.6.5
-
-  '@formkit/vue@1.6.5(tailwindcss@3.4.4)(vue@3.4.31)':
-    dependencies:
-      '@formkit/core': 1.6.5
-      '@formkit/dev': 1.6.5
-      '@formkit/i18n': 1.6.5
-      '@formkit/inputs': 1.6.5
-      '@formkit/observer': 1.6.5
-      '@formkit/rules': 1.6.5
-      '@formkit/themes': 1.6.5(tailwindcss@3.4.4)
-      '@formkit/utils': 1.6.5
-      '@formkit/validation': 1.6.5
-      vue: 3.4.31
-    transitivePeerDependencies:
-      - tailwindcss
-      - unocss
-      - windicss
 
   '@headlessui/tailwindcss@0.2.1(tailwindcss@3.4.4)':
     dependencies:
@@ -7717,14 +7557,6 @@ snapshots:
       - rollup
 
   universalify@2.0.1: {}
-
-  unplugin-formkit@0.2.13(rollup@4.18.1)(vite@5.3.3(@types/node@20.14.10)(terser@5.31.2)):
-    dependencies:
-      pathe: 1.1.2
-      unplugin: 1.11.0
-    optionalDependencies:
-      rollup: 4.18.1
-      vite: 5.3.3(@types/node@20.14.10)(terser@5.31.2)
 
   unplugin-vue-router@0.10.0(rollup@4.18.1)(vue-router@4.4.0(vue@3.4.31))(vue@3.4.31):
     dependencies:

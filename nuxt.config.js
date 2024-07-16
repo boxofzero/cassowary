@@ -10,7 +10,6 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'@vueuse/nuxt',
 		'@pinia/nuxt',
-		'@formkit/nuxt',
 		'nuxt-lodash',
 		(_options, nuxt) => {
 			nuxt.hooks.hook('vite:extendConfig', (config) => {
@@ -19,10 +18,6 @@ export default defineNuxtConfig({
 			});
 		},
 	],
-	formkit: {
-		// Experimental support for auto loading (see note):
-		autoImport: true,
-	},
 	compatibilityDate: '2024-07-13',
 	ssr: false,
 	hooks: {

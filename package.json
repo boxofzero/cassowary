@@ -10,8 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@formkit/icons": "^1.6.5",
-    "@formkit/nuxt": "^1.6.5",
     "@mdi/font": "^7.4.47",
     "@nuxt/ui": "^2.16.0",
     "@pinia/nuxt": "^0.5.1",
