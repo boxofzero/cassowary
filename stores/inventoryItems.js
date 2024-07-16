@@ -1,12 +1,12 @@
-import * as inventoryStructures from '~/libraries/inventoryStructures';
+import * as inventoryItemScheme from '~/dbSchemeData/inventoryItem';
 import { useStorage, useDebounceFn } from '@vueuse/core';
 // not exported
 const inventoryRepo = () => {
-	return useStorage('inventoryItems', inventoryStructures.inventoryItems);
+	return useStorage('inventoryItems', inventoryItemScheme.inventoryItems);
 };
 
 export const useInventoryItemStore = defineStore('inventoryItems', () => {
-	const inventoryItems = ref(inventoryStructures.inventoryItems);
+	const inventoryItems = ref(inventoryItemScheme.inventoryItems);
 
 	function init() {
 		inventoryItems.value = inventoryRepo().value;

@@ -1,7 +1,4 @@
-// TODO
-// this is supposed to be a skeleton for the data object
-// data will be served from somewhere
-export const charactersV2 = {
+export const charactersStatMaterial = {
 	yinlin: {
 		game_id: 1302,
 		weapon: 'rectifier',

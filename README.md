@@ -1,3 +1,19 @@
+# Cassowary
+
+## File structure
+
+### gameData
+
+This folder contains data from game.
+
+### dbSchemeData
+
+This folder contains each object data structure.
+
+### forms
+
+This folder contains structure of form for the front-end.
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

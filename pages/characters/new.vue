@@ -145,17 +145,17 @@
 </template>
 
 <script setup>
-import { charactersV2 } from '~/libraries/charactersV2';
-import { characterFormScheme } from '~/libraries/plannedCharacters';
+import { charactersStatMaterial } from '~/gameData/charactersStatMaterial';
+import { characterFormScheme } from '~/dbSchemeData/plannedCharacter';
 import {
 	levelItems,
 	activeSkills,
 	passiveSkills,
-} from '~/libraries/characters/new/charactersNewFormData';
+} from '~/forms/characters/new/charactersNewFormData';
 import { usePlannedCharacterStore } from '@/stores/plannedCharacters';
 
 // FORM DATA
-const characterList = Object.keys(charactersV2);
+const characterList = Object.keys(charactersStatMaterial);
 
 // STORE
 const plannedCharacterStore = usePlannedCharacterStore();

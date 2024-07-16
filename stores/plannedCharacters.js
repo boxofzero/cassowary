@@ -1,5 +1,5 @@
 import { useStorage, useDebounceFn } from '@vueuse/core';
-import { characterFormScheme } from '~/libraries/plannedCharacters';
+import { characterFormScheme } from '~/dbSchemeData/plannedCharacter';
 
 const plannedCharactersRepo = () => {
 	return useStorage('plannedCharacters', {});

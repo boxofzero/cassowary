@@ -11,9 +11,9 @@
 				<li>
 					<NuxtLink to="/inventoryItems">Inventory</NuxtLink>
 				</li>
-				<li>
+				<!-- <li>
 					<NuxtLink to="/characters">Characters</NuxtLink>
-				</li>
+				</li> -->
 				<li>
 					<NuxtLink to="/characters/new">New Characters</NuxtLink>
 				</li>

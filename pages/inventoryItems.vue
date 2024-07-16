@@ -39,12 +39,12 @@
 
 <script setup>
 import { useInventoryItemStore } from '@/stores/inventoryItems';
-import * as inventoryStructures from '~/libraries/inventoryStructures';
+import * as inventoryItemScheme from '~/dbSchemeData/inventoryItem';
 
 // STORE inventoryItemStore
 const inventoryItemStore = useInventoryItemStore();
 
-const inventoryItemFormScheme = ref({ ...inventoryStructures.inventoryItems });
+const inventoryItemFormScheme = ref({ ...inventoryItemScheme.inventoryItems });
 
 onBeforeMount(() => {
 	inventoryItemStore.init();
