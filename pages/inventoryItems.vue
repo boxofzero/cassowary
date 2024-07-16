@@ -26,14 +26,11 @@
 						:min="0"
 						:max="99999"
 						:model-value="stuffValue['count']"
-						v-model="
-							inventoryItemStore.inventoryItems[itemType][stuffKey]['count']
-						"
+						v-model="inventoryItemStore.get(itemType, stuffKey)['count']"
 						@update:modelValue="
 							inventoryItemStore.updateInventory(itemType, stuffKey, $event)
 						"
 					></v-number-input>
-					<!-- {{ inventoryItemFormScheme[itemType][stuffKey] }} -->
 				</div>
 			</div>
 		</div>
@@ -47,24 +44,7 @@ import * as inventoryStructures from '~/libraries/inventoryStructures';
 // STORE inventoryItemStore
 const inventoryItemStore = useInventoryItemStore();
 
-// watcher
 const inventoryItemFormScheme = ref({ ...inventoryStructures.inventoryItems });
-watch(
-	inventoryItemFormScheme,
-	() => {
-		// console
-		// 	.log
-		// 	'inventoryItem watched: ' + JSON.stringify(inventoryItemFormScheme.value)
-		// 	();
-		// TODO call
-		// inventoryItemStore.updateInventory(
-		// 								'resonator_ascension_boss_material',
-		// 								index,
-		// 								$event
-		// 							)
-	},
-	{ deep: true }
-);
 
 onBeforeMount(() => {
 	inventoryItemStore.init();
