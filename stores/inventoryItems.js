@@ -21,8 +21,9 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 		{ maxWait: 5000 }
 	);
 
-	function updateInventory(inventoryType, stuff, value) {
-		inventoryItems.value[inventoryType][stuff]['count'] = parseInt(value);
+	function updateInventory(itemType, stuffKey, value) {
+		console.log('updateInventory: ', itemType, stuffKey, value);
+		inventoryItems.value[itemType][stuffKey]['count'] = parseInt(value);
 
 		debouncedStoreToStorage();
 	}
