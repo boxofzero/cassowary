@@ -1,5 +1,5 @@
-import { plannedCharacters } from '~/libraries/plannedCharacters';
 import { useStorage, useDebounceFn } from '@vueuse/core';
+import { characterFormScheme } from '~/libraries/plannedCharacters';
 
 const plannedCharactersRepo = () => {
 	return useStorage('plannedCharacters', {});
@@ -14,13 +14,26 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 
 	const debouncedStoreToStorage = useDebounceFn(
 		() => {
+			console.log('storing plannedCharacters to localStorage');
 			plannedCharactersRepo.value = plannedCharacters.value;
 		},
 		500,
 		{ maxWait: 5000 }
 	);
 
-	function upsertPlannedCharacter(characterName, key, value) {
+	function getOrInitEntry(characterName) {
+		if (
+			Object.prototype.hasOwnProperty.call(
+				plannedCharacters.value,
+				characterName
+			)
+		) {
+			return plannedCharacters.value[characterName];
+		}
+		return { ...characterFormScheme };
+	}
+
+	function upsert(characterName, character) {
 		// if the name does not exist in the plannedCharacters key, init it
 		if (
 			!Object.prototype.hasOwnProperty.call(
@@ -32,9 +45,13 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			plannedCharacters.value[characterName]['created_at'] =
 				new Date().toISOString();
 		}
-		plannedCharacters.value[characterName][key] = value;
 		plannedCharacters.value[characterName]['updated_at'] =
 			new Date().toISOString();
+
+		plannedCharacters.value[characterName] = useAssign(
+			plannedCharacters.value[characterName],
+			useOmit(character, 'name')
+		);
 
 		debouncedStoreToStorage();
 	}
@@ -42,6 +59,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 	return {
 		plannedCharacters,
 		init,
-		upsertPlannedCharacter,
+		getOrInitEntry,
+		upsert,
 	};
 });

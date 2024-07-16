@@ -11,6 +11,7 @@ export default defineNuxtConfig({
 		'@vueuse/nuxt',
 		'@pinia/nuxt',
 		'@formkit/nuxt',
+		'nuxt-lodash',
 		(_options, nuxt) => {
 			nuxt.hooks.hook('vite:extendConfig', (config) => {
 				// @ts-expect-error
