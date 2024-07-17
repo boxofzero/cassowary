@@ -1,9 +1,3 @@
-import {
-	enemy_drop_weapon_skill_material,
-	weapon_skill_material,
-	weekly_boss_skill_upgrade_material,
-} from './inventoryItemMetadata';
-
 export const charLevellingMaterialsCount = [
 	{ level: '1', materials: {} },
 	{ level: 20, materials: { exp: 1000, credit: 1000 } },
@@ -11,8 +5,7 @@ export const charLevellingMaterialsCount = [
 		level: '20A',
 		materials: {
 			enemy_drop_weapon_skill_material: {
-				tier: 1,
-				count: 4,
+				1: 4,
 			},
 			credit: 5000,
 		},
@@ -24,8 +17,7 @@ export const charLevellingMaterialsCount = [
 			boss_ascension_material: 3,
 			overworld_resource_ascension_material: 4,
 			enemy_drop_weapon_skill_material: {
-				tier: 2,
-				count: 4,
+				2: 4,
 			},
 			credit: 10000,
 		},
@@ -37,8 +29,7 @@ export const charLevellingMaterialsCount = [
 			boss_ascension_material: 6,
 			overworld_resource_ascension_material: 8,
 			enemy_drop_weapon_skill_material: {
-				tier: 2,
-				count: 8,
+				2: 8,
 			},
 			credit: 10000,
 		},
@@ -50,8 +41,7 @@ export const charLevellingMaterialsCount = [
 			boss_ascension_material: 9,
 			overworld_resource_ascension_material: 12,
 			enemy_drop_weapon_skill_material: {
-				tier: 3,
-				count: 4,
+				3: 4,
 			},
 			credit: 20000,
 		},
@@ -63,8 +53,7 @@ export const charLevellingMaterialsCount = [
 			boss_ascension_material: 12,
 			overworld_resource_ascension_material: 16,
 			enemy_drop_weapon_skill_material: {
-				tier: 3,
-				count: 8,
+				3: 8,
 			},
 			credit: 40000,
 		},
@@ -76,8 +65,7 @@ export const charLevellingMaterialsCount = [
 			boss_ascension_material: 16,
 			overworld_resource_ascension_material: 20,
 			enemy_drop_weapon_skill_material: {
-				tier: 4,
-				count: 4,
+				4: 4,
 			},
 			credit: 80000,
 		},
@@ -93,12 +81,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 1500,
 			enemy_drop_weapon_skill_material: {
-				tier: 1,
-				count: 2,
+				1: 2,
 			},
 			weapon_skill_material: {
-				tier: 1,
-				count: 2,
+				1: 2,
 			},
 		},
 	},
@@ -108,12 +94,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 2000,
 			enemy_drop_weapon_skill_material: {
-				tier: 1,
-				count: 3,
+				1: 3,
 			},
 			weapon_skill_material: {
-				tier: 1,
-				count: 3,
+				1: 3,
 			},
 		},
 	},
@@ -123,12 +107,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 4500,
 			enemy_drop_weapon_skill_material: {
-				tier: 2,
-				count: 2,
+				2: 2,
 			},
 			weapon_skill_material: {
-				tier: 2,
-				count: 2,
+				2: 2,
 			},
 		},
 	},
@@ -138,12 +120,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 6000,
 			enemy_drop_weapon_skill_material: {
-				tier: 2,
-				count: 3,
+				2: 3,
 			},
 			weapon_skill_material: {
-				tier: 2,
-				count: 3,
+				2: 3,
 			},
 		},
 	},
@@ -153,12 +133,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 16000,
 			enemy_drop_weapon_skill_material: {
-				tier: 3,
-				count: 2,
+				3: 2,
 			},
 			weapon_skill_material: {
-				tier: 3,
-				count: 3,
+				3: 3,
 			},
 		},
 	},
@@ -168,12 +146,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 30000,
 			enemy_drop_weapon_skill_material: {
-				tier: 3,
-				count: 3,
+				3: 3,
 			},
 			weapon_skill_material: {
-				tier: 3,
-				count: 5,
+				3: 5,
 			},
 			weekly_boss_skill_upgrade_material: 1,
 		},
@@ -184,12 +160,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 50000,
 			enemy_drop_weapon_skill_material: {
-				tier: 4,
-				count: 2,
+				4: 2,
 			},
 			weapon_skill_material: {
-				tier: 4,
-				count: 2,
+				4: 2,
 			},
 			weekly_boss_skill_upgrade_material: 1,
 		},
@@ -200,12 +174,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 70000,
 			enemy_drop_weapon_skill_material: {
-				tier: 4,
-				count: 3,
+				4: 3,
 			},
 			weapon_skill_material: {
-				tier: 4,
-				count: 3,
+				4: 3,
 			},
 			weekly_boss_skill_upgrade_material: 1,
 		},
@@ -216,12 +188,10 @@ export const activeSkillLevellingMaterialsCount = [
 			exp: 1000,
 			credit: 100000,
 			enemy_drop_weapon_skill_material: {
-				tier: 4,
-				count: 4,
+				4: 4,
 			},
 			weapon_skill_material: {
-				tier: 4,
-				count: 6,
+				4: 6,
 			},
 			weekly_boss_skill_upgrade_material: 1,
 		},
@@ -232,116 +202,96 @@ export const passiveSkillLevellingMaterialsCount = {
 	passive_skill_1: {
 		credit: 10000,
 		enemy_drop_weapon_skill_material: {
-			tier: 2,
-			count: 3,
+			2: 3,
 		},
 		weapon_skill_material: {
-			tier: 2,
-			count: 3,
+			2: 3,
 		},
 		weekly_boss_skill_upgrade_material: 1,
 	},
 	passive_skill_2: {
 		credit: 20000,
 		enemy_drop_buy_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 		weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_1_stat_1: {
 		credit: 50000,
 		enemy_drop_weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 		weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 	},
 	bonus_stat_tier_1_stat_2: {
 		credit: 50000,
 		enemy_drop_weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 		weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 	},
 	bonus_stat_tier_1_stat_3: {
 		credit: 50000,
 		enemy_drop_weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 		weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 	},
 	bonus_stat_tier_1_stat_4: {
 		credit: 50000,
 		enemy_drop_weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 		weapon_skill_material: {
-			tier: 3,
-			count: 3,
+			3: 3,
 		},
 	},
 	bonus_stat_tier_2_stat_1: {
 		credit: 100000,
 		enemy_drop_weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_2_stat_2: {
 		credit: 100000,
 		enemy_drop_weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_2_stat_3: {
 		credit: 100000,
 		enemy_drop_weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_2_stat_4: {
 		credit: 100000,
 		enemy_drop_weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weapon_skill_material: {
-			tier: 4,
-			count: 3,
+			4: 3,
 		},
 		weekly_boss_skill_upgrade_material: 1,
 	},
