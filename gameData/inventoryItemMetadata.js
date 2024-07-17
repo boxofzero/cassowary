@@ -1,4 +1,4 @@
-export const resonator_ascension_boss_material = {
+export const boss_ascension_material = {
 	mysterious_code: {
 		icon: 'x.png',
 	},
@@ -33,7 +33,7 @@ export const resonator_ascension_boss_material = {
 	},
 };
 
-export const skill_upgrade_material = {
+export const weekly_boss_skill_upgrade_material = {
 	dreamless_feather: {
 		icon: 'x.png',
 	},
@@ -50,23 +50,14 @@ export const resonator_exp_material = {
 	basic_resonance_potion: {
 		icon: 'exp-weapon-1.png',
 		exp_value: 1000,
-		synthesizable: {
-			to: 'medium_resonance_potion',
-		},
 	},
 	medium_resonance_potion: {
 		icon: 'exp-weapon-1.png',
 		exp_value: 3000,
-		synthesizable: {
-			to: 'advanced_resonance_potion',
-		},
 	},
 	advanced_resonance_potion: {
 		icon: 'exp-weapon-1.png',
 		exp_value: 8000,
-		synthesizable: {
-			to: 'premium_resonance_potion',
-		},
 	},
 	premium_resonance_potion: {
 		icon: 'exp-weapon-0.png',
@@ -79,23 +70,14 @@ export const weapon_exp_material = {
 	basic_energy_core: {
 		icon: 'exp-weapon-0.png',
 		exp_value: 1000,
-		synthesizable: {
-			to: 'medium_energy_core',
-		},
 	},
 	medium_energy_core: {
 		icon: 'exp-weapon-1.png',
 		exp_value: 3000,
-		synthesizable: {
-			to: 'advanced_energy_core',
-		},
 	},
 	advanced_energy_core: {
 		icon: 'exp-weapon-1.png',
 		exp_value: 8000,
-		synthesizable: {
-			to: 'premium_energy_core',
-		},
 	},
 	premium_energy_core: {
 		icon: 'exp-weapon-1.png',
@@ -103,98 +85,128 @@ export const weapon_exp_material = {
 	},
 };
 
-export const weapon_skill_material_enemy_drop = {
-	// display_name: 'Weapon & Skill Material (Enemy Drops)',
-	// ff_howler_core
-	lf_howler_core: {
-		icon: 'exp-weapon-0.png',
-		synthesizable: {
-			to: 'mf_howler_core',
+export const enemy_drop_weapon_skill_material = {
+	howler_core: {
+		1: {
+			name: 'lf_howler_core',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	mf_howler_core: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'hf_howler_core',
+		2: {
+			name: 'mf_howler_core',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	hf_howler_core: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'ff_howler_core',
+		3: {
+			name: 'hf_howler_core',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	ff_howler_core: {
-		icon: 'exp-weapon-1.png',
+		4: {
+			name: 'ff_howler_core',
+			icon: 'exp-weapon-1.png',
+		},
 	},
 
-	// whisperin_core
-	lf_whisperin_core: {
-		icon: 'exp-weapon-0.png',
-		synthesizable: {
-			to: 'mf_whisperin_core',
+	whisperin_core: {
+		1: {
+			name: 'lf_whisperin_core',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	mf_whisperin_core: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'hf_whisperin_core',
+		2: {
+			name: 'mf_whisperin_core',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	hf_whisperin_core: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'ff_whisperin_core',
+		3: {
+			name: 'hf_whisperin_core',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	ff_whisperin_core: {
-		icon: 'exp-weapon-1.png',
+		4: {
+			name: 'ff_whisperin_core',
+			icon: 'exp-weapon-1.png',
+		},
 	},
 
-	// mask
-	mask_of_constraint: {
-		icon: 'exp-weapon-0.png',
-		synthesizable: {
-			to: 'mask_of_erosion',
+	mask: {
+		1: {
+			name: 'mask_of_constraint',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
+		},
+		2: {
+			name: 'mask_of_erosion',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
+		},
+		3: {
+			name: 'mask_of_distortion',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
+		},
+		4: {
+			name: 'mask_of_insanity',
+			icon: 'exp-weapon-1.png',
 		},
 	},
-	mask_of_erosion: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'mask_of_distortion',
+	ring: {
+		1: {
+			name: 'crude_ring',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	mask_of_distortion: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'mask_of_insanity',
+		2: {
+			name: 'basic_ring',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	mask_of_insanity: {
-		icon: 'exp-weapon-1.png',
-	},
-
-	// ring
-	crude_ring: {
-		icon: 'exp-weapon-0.png',
-		synthesizable: {
-			to: 'basic_ring',
+		3: {
+			name: 'improved_ring',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	basic_ring: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'improved_ring',
+		4: {
+			name: 'tailored_ring',
+			icon: 'exp-weapon-1.png',
 		},
-	},
-	improved_ring: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'tailored_ring',
-		},
-	},
-	tailored_ring: {
-		icon: 'exp-weapon-1.png',
 	},
 };
 
@@ -251,100 +263,132 @@ export const echo_development_material = {
 };
 
 export const weapon_skill_material = {
-	// cadence
-	cadence_seed: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'cadence_bud',
+	cadence: {
+		1: {
+			name: 'cadence_seed',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	cadence_bud: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'cadence_leaf',
+		2: {
+			name: 'cadence_bud',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	cadence_leaf: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'cadence_blossom',
+		3: {
+			name: 'cadence_leaf',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	cadence_blossom: {
-		icon: 'exp-weapon-1.png',
+		4: {
+			name: 'cadence_blossom',
+			icon: 'exp-weapon-1.png',
+		},
 	},
 
-	// phlohiston
-	impure_phlohiston: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'extracted_phlohiston',
+	phlohiston: {
+		1: {
+			name: 'impure_phlohiston',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	extracted_phlohiston: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'refined_phlohiston',
+		2: {
+			name: 'extracted_phlohiston',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	refined_phlohiston: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'flawless_phlohiston',
+		3: {
+			name: 'refined_phlohiston',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	flawless_phlohiston: {
-		icon: 'exp-weapon-1.png',
+		4: {
+			name: 'flawless_phlohiston',
+			icon: 'exp-weapon-1.png',
+		},
 	},
 
-	// metallic_drip
-	inert_metallic_drip: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'reactive_metallic_drip',
+	metallic_drip: {
+		1: {
+			name: 'inert_metallic_drip',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	reactive_metallic_drip: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'polarized_metallic_drip',
+		2: {
+			name: 'reactive_metallic_drip',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	polarized_metallic_drip: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'heterized_metallic_drip',
+		3: {
+			name: 'polarized_metallic_drip',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	heterized_metallic_drip: {
-		icon: 'exp-weapon-1.png',
+		4: {
+			name: 'heterized_metallic_drip',
+			icon: 'exp-weapon-1.png',
+		},
 	},
 
-	// helix
-	lento_helix: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'adagio_helix',
+	helix: {
+		1: {
+			name: 'lento_helix',
+			icon: 'exp-weapon-0.png',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
 		},
-	},
-	adagio_helix: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'andante_helix',
+		2: {
+			name: 'adagio_helix',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
 		},
-	},
-	andante_helix: {
-		icon: 'exp-weapon-1.png',
-		synthesizable: {
-			to: 'presto_helix',
+		3: {
+			name: 'andante_helix',
+			icon: 'exp-weapon-1.png',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
 		},
-	},
-	presto_helix: {
-		icon: 'exp-weapon-1.png',
+		4: {
+			name: 'presto_helix',
+			icon: 'exp-weapon-1.png',
+		},
 	},
 };
 
-export const ascension_material = {
+export const overworld_resource_ascension_material = {
 	belle_poppy: {
 		icon: 'x.png',
 	},
@@ -375,12 +419,12 @@ export const ascension_material = {
 };
 
 export const inventoryItems = {
-	resonator_ascension_boss_material: resonator_ascension_boss_material,
-	skill_upgrade_material: skill_upgrade_material,
+	boss_ascension_material: boss_ascension_material,
+	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
 	resonator_exp_material: resonator_exp_material,
 	weapon_exp_material: weapon_exp_material,
-	weapon_skill_material_enemy_drop: weapon_skill_material_enemy_drop,
+	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
 	echo_development_material: echo_development_material,
 	weapon_skill_material: weapon_skill_material,
-	ascension_material: ascension_material,
+	overworld_resource_ascension_material: overworld_resource_ascension_material,
 };
