@@ -1,6 +1,7 @@
 export const charLevellingMaterialsCount = [
+	// TODO fix exp and credit levelling number counts
 	{ level: '1', materials: {} },
-	{ level: 20, materials: { exp: 1000, credit: 1000 } },
+	{ level: '20', materials: { exp: 1000, credit: 1000 } },
 	{
 		level: '20A',
 		materials: {
@@ -10,7 +11,7 @@ export const charLevellingMaterialsCount = [
 			credit: 5000,
 		},
 	},
-	{ level: 40, materials: { exp: 1000, credit: 1000 } },
+	{ level: '40', materials: { exp: 1000, credit: 1000 } },
 	{
 		level: '40A',
 		materials: {
@@ -22,7 +23,7 @@ export const charLevellingMaterialsCount = [
 			credit: 10000,
 		},
 	},
-	{ level: 50, materials: { exp: 1000, credit: 1000 } },
+	{ level: '50', materials: { exp: 1000, credit: 1000 } },
 	{
 		level: '50A',
 		materials: {
@@ -34,7 +35,7 @@ export const charLevellingMaterialsCount = [
 			credit: 10000,
 		},
 	},
-	{ level: 60, materials: { exp: 1000, credit: 1000 } },
+	{ level: '60', materials: { exp: 1000, credit: 1000 } },
 	{
 		level: '60A',
 		materials: {
@@ -46,7 +47,7 @@ export const charLevellingMaterialsCount = [
 			credit: 20000,
 		},
 	},
-	{ level: 70, materials: { exp: 1000, credit: 1000 } },
+	{ level: '70', materials: { exp: 1000, credit: 1000 } },
 	{
 		level: '70A',
 		materials: {
@@ -58,7 +59,7 @@ export const charLevellingMaterialsCount = [
 			credit: 40000,
 		},
 	},
-	{ level: 80, materials: { exp: 1000, credit: 1000 } },
+	{ level: '80', materials: { exp: 1000, credit: 1000 } },
 	{
 		level: '80A',
 		materials: {
@@ -70,7 +71,7 @@ export const charLevellingMaterialsCount = [
 			credit: 80000,
 		},
 	},
-	{ level: 90, materials: { exp: 1000, credit: 1000 } },
+	{ level: '90', materials: { exp: 1000, credit: 1000 } },
 ];
 
 export const activeSkillLevellingMaterialsCount = [
@@ -200,100 +201,120 @@ export const activeSkillLevellingMaterialsCount = [
 
 export const passiveSkillLevellingMaterialsCount = {
 	passive_skill_1: {
-		credit: 10000,
-		enemy_drop_weapon_skill_material: {
-			2: 3,
+		materials: {
+			credit: 10000,
+			enemy_drop_weapon_skill_material: {
+				2: 3,
+			},
+			weapon_skill_material: {
+				2: 3,
+			},
+			weekly_boss_skill_upgrade_material: 1,
 		},
-		weapon_skill_material: {
-			2: 3,
-		},
-		weekly_boss_skill_upgrade_material: 1,
 	},
 	passive_skill_2: {
-		credit: 20000,
-		enemy_drop_buy_skill_material: {
-			3: 3,
+		materials: {
+			credit: 20000,
+			enemy_drop_weapon_skill_material: {
+				3: 3,
+			},
+			weapon_skill_material: {
+				3: 3,
+			},
+			weekly_boss_skill_upgrade_material: 1,
 		},
-		weapon_skill_material: {
-			3: 3,
-		},
-		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_1_stat_1: {
-		credit: 50000,
-		enemy_drop_weapon_skill_material: {
-			3: 3,
-		},
-		weapon_skill_material: {
-			3: 3,
+		materials: {
+			credit: 50000,
+			enemy_drop_weapon_skill_material: {
+				3: 3,
+			},
+			weapon_skill_material: {
+				3: 3,
+			},
 		},
 	},
 	bonus_stat_tier_1_stat_2: {
-		credit: 50000,
-		enemy_drop_weapon_skill_material: {
-			3: 3,
-		},
-		weapon_skill_material: {
-			3: 3,
+		materials: {
+			credit: 50000,
+			enemy_drop_weapon_skill_material: {
+				3: 3,
+			},
+			weapon_skill_material: {
+				3: 3,
+			},
 		},
 	},
 	bonus_stat_tier_1_stat_3: {
-		credit: 50000,
-		enemy_drop_weapon_skill_material: {
-			3: 3,
-		},
-		weapon_skill_material: {
-			3: 3,
+		materials: {
+			credit: 50000,
+			enemy_drop_weapon_skill_material: {
+				3: 3,
+			},
+			weapon_skill_material: {
+				3: 3,
+			},
 		},
 	},
 	bonus_stat_tier_1_stat_4: {
-		credit: 50000,
-		enemy_drop_weapon_skill_material: {
-			3: 3,
-		},
-		weapon_skill_material: {
-			3: 3,
+		materials: {
+			credit: 50000,
+			enemy_drop_weapon_skill_material: {
+				3: 3,
+			},
+			weapon_skill_material: {
+				3: 3,
+			},
 		},
 	},
 	bonus_stat_tier_2_stat_1: {
-		credit: 100000,
-		enemy_drop_weapon_skill_material: {
-			4: 3,
+		materials: {
+			credit: 100000,
+			enemy_drop_weapon_skill_material: {
+				4: 3,
+			},
+			weapon_skill_material: {
+				4: 3,
+			},
+			weekly_boss_skill_upgrade_material: 1,
 		},
-		weapon_skill_material: {
-			4: 3,
-		},
-		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_2_stat_2: {
-		credit: 100000,
-		enemy_drop_weapon_skill_material: {
-			4: 3,
+		materials: {
+			credit: 100000,
+			enemy_drop_weapon_skill_material: {
+				4: 3,
+			},
+			weapon_skill_material: {
+				4: 3,
+			},
+			weekly_boss_skill_upgrade_material: 1,
 		},
-		weapon_skill_material: {
-			4: 3,
-		},
-		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_2_stat_3: {
-		credit: 100000,
-		enemy_drop_weapon_skill_material: {
-			4: 3,
+		materials: {
+			credit: 100000,
+			enemy_drop_weapon_skill_material: {
+				4: 3,
+			},
+			weapon_skill_material: {
+				4: 3,
+			},
+			weekly_boss_skill_upgrade_material: 1,
 		},
-		weapon_skill_material: {
-			4: 3,
-		},
-		weekly_boss_skill_upgrade_material: 1,
 	},
 	bonus_stat_tier_2_stat_4: {
-		credit: 100000,
-		enemy_drop_weapon_skill_material: {
-			4: 3,
+		materials: {
+			credit: 100000,
+			enemy_drop_weapon_skill_material: {
+				4: 3,
+			},
+			weapon_skill_material: {
+				4: 3,
+			},
+			weekly_boss_skill_upgrade_material: 1,
 		},
-		weapon_skill_material: {
-			4: 3,
-		},
-		weekly_boss_skill_upgrade_material: 1,
 	},
 };
 

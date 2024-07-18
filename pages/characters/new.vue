@@ -86,9 +86,9 @@
 					<v-btn-toggle
 						color="primary"
 						class="size-full"
-						:name="item.item_name"
-						:model-value="character[item.item_name]"
-						v-model="character[item.item_name]"
+						:name="item.label"
+						:model-value="character[item.model_value]"
+						v-model="character[item.model_value]"
 						@update:modelValue="upsertPlannedCharacter()"
 					>
 						<v-btn class="size-1/2">🔔</v-btn>
@@ -109,9 +109,9 @@
 					<v-btn-toggle
 						color="primary"
 						class="size-full"
-						:name="item.item_name"
-						:model-value="character[item.item_name]"
-						v-model="character[item.item_name]"
+						:name="item.label"
+						:model-value="character[item.model_value]"
+						v-model="character[item.model_value]"
 						@update:modelValue="upsertPlannedCharacter()"
 					>
 						<v-btn class="size-1/2">🔔</v-btn>
@@ -153,6 +153,7 @@ import {
 	passiveSkills,
 } from '~/forms/characters/new/charactersNewFormData';
 import { usePlannedCharacterStore } from '@/stores/plannedCharacters';
+import * as plannerService from '@/services/plannerService';
 
 // FORM DATA
 const characterList = Object.keys(charactersStatMaterial);
@@ -166,6 +167,9 @@ const character = ref({ ...characterFormScheme });
 const getOrInitPlannedCharacter = (characterName) => {
 	character.value = plannedCharacterStore.getOrInitEntry(characterName);
 	character.value['name'] = characterName;
+
+	const mats = plannerService.getMaterialsNeeded(characterName);
+	console.log('levellingMaterials: ' + JSON.stringify(mats));
 };
 
 const upsertPlannedCharacter = () => {
@@ -174,42 +178,10 @@ const upsertPlannedCharacter = () => {
 		character.value['name'],
 		useOmit(character.value, 'name')
 	);
+
+	const mats = plannerService.getMaterialsNeeded(characterName.value);
+	console.log('levellingMaterials: ' + JSON.stringify(mats));
 };
-
-// FORM ACTION
-// characterName watcher
-// will load plannedCharacter for that characterName if exists
-// watch(characterName, () => {
-// 	console.log('characterName changed into: ' + characterName.value);
-// 	// load plannedCharacter for that characterName
-// 	plannedCharacterStore.firstOrNew(characterName.value);
-// 	character.value =
-// 		plannedCharacterStore.plannedCharacters[characterName.value];
-// 	character.value['name'] = characterName.value;
-// });
-
-// character watcher
-// will update plannedCharacter for that characterName
-// every time form updated
-// watch(
-// 	character,
-// 	(newCharacter, oldCharacter) => {
-// 		if (
-// 			newCharacter['name'] == '' ||
-// 			oldCharacter['name'] == '' ||
-// 			newCharacter['name'] != oldCharacter['name']
-// 		) {
-// 			console.log('name not updated');
-// 			return;
-// 		}
-// 		console.log('character changed into: ' + JSON.stringify(character.value));
-// 		console.log('newCharacter: ' + JSON.stringify(newCharacter.value));
-// 		console.log('oldCharacter: ' + JSON.stringify(oldCharacter.value));
-// 		// store to storage
-// 		plannedCharacterStore.upsert(characterName, character.value);
-// 	},
-// 	{ deep: true }
-// );
 
 // TODO material needed
 const mat1 = ref(0);
