@@ -23,9 +23,10 @@ export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 };
 
 export const isTieredMaterialType = (material) => {
-	return ['enemy_drop_weapon_skill_material', 'weapon_skill_material'].includes(
-		material
-	);
+	return [
+		'enemy_drop_weapon_skill_material',
+		'forgery_weapon_skill_material',
+	].includes(material);
 };
 
 export const getMaterialsFromLevelListStatList = (

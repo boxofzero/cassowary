@@ -85,7 +85,7 @@ export const weapon_exp_material = {
 	},
 };
 
-export const enemy_drop_weapon_skill_material = {
+export const tiered_enemy_drop_weapon_skill_material = {
 	howler_core: {
 		1: {
 			name: 'lf_howler_core',
@@ -210,6 +210,101 @@ export const enemy_drop_weapon_skill_material = {
 	},
 };
 
+export const enemy_drop_weapon_skill_material = {
+	// display_name: 'Weapon & Skill Material (Enemy Drops)',
+	// ff_howler_core
+	lf_howler_core: {
+		icon: 'exp-weapon-0.png',
+		synthesizable: {
+			to: 'mf_howler_core',
+		},
+	},
+	mf_howler_core: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'hf_howler_core',
+		},
+	},
+	hf_howler_core: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'ff_howler_core',
+		},
+	},
+	ff_howler_core: {
+		icon: 'exp-weapon-1.png',
+	},
+
+	// whisperin_core
+	lf_whisperin_core: {
+		icon: 'exp-weapon-0.png',
+		synthesizable: {
+			to: 'mf_whisperin_core',
+		},
+	},
+	mf_whisperin_core: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'hf_whisperin_core',
+		},
+	},
+	hf_whisperin_core: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'ff_whisperin_core',
+		},
+	},
+	ff_whisperin_core: {
+		icon: 'exp-weapon-1.png',
+	},
+
+	// mask
+	mask_of_constraint: {
+		icon: 'exp-weapon-0.png',
+		synthesizable: {
+			to: 'mask_of_erosion',
+		},
+	},
+	mask_of_erosion: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'mask_of_distortion',
+		},
+	},
+	mask_of_distortion: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'mask_of_insanity',
+		},
+	},
+	mask_of_insanity: {
+		icon: 'exp-weapon-1.png',
+	},
+
+	// ring
+	crude_ring: {
+		icon: 'exp-weapon-0.png',
+		synthesizable: {
+			to: 'basic_ring',
+		},
+	},
+	basic_ring: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'improved_ring',
+		},
+	},
+	improved_ring: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'tailored_ring',
+		},
+	},
+	tailored_ring: {
+		icon: 'exp-weapon-1.png',
+	},
+};
+
 export const echo_development_material = {
 	// tuner
 	basic_tuner: {
@@ -262,7 +357,7 @@ export const echo_development_material = {
 	},
 };
 
-export const weapon_skill_material = {
+export const tiered_forgery_weapon_skill_material = {
 	cadence: {
 		1: {
 			name: 'cadence_seed',
@@ -388,6 +483,100 @@ export const weapon_skill_material = {
 	},
 };
 
+export const forgery_weapon_skill_material = {
+	// cadence
+	cadence_seed: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'cadence_bud',
+		},
+	},
+	cadence_bud: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'cadence_leaf',
+		},
+	},
+	cadence_leaf: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'cadence_blossom',
+		},
+	},
+	cadence_blossom: {
+		icon: 'exp-weapon-1.png',
+	},
+
+	// phlohiston
+	impure_phlohiston: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'extracted_phlohiston',
+		},
+	},
+	extracted_phlohiston: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'refined_phlohiston',
+		},
+	},
+	refined_phlohiston: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'flawless_phlohiston',
+		},
+	},
+	flawless_phlohiston: {
+		icon: 'exp-weapon-1.png',
+	},
+
+	// metallic_drip
+	inert_metallic_drip: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'reactive_metallic_drip',
+		},
+	},
+	reactive_metallic_drip: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'polarized_metallic_drip',
+		},
+	},
+	polarized_metallic_drip: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'heterized_metallic_drip',
+		},
+	},
+	heterized_metallic_drip: {
+		icon: 'exp-weapon-1.png',
+	},
+
+	// helix
+	lento_helix: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'adagio_helix',
+		},
+	},
+	adagio_helix: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'andante_helix',
+		},
+	},
+	andante_helix: {
+		icon: 'exp-weapon-1.png',
+		synthesizable: {
+			to: 'presto_helix',
+		},
+	},
+	presto_helix: {
+		icon: 'exp-weapon-1.png',
+	},
+};
+
 export const overworld_resource_ascension_material = {
 	belle_poppy: {
 		icon: 'x.png',
@@ -420,4 +609,15 @@ export const overworld_resource_ascension_material = {
 
 export const credit = {
 	icon: 'x.png',
+};
+
+export const inventoryItems = {
+	boss_ascension_material: boss_ascension_material,
+	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
+	resonator_exp_material: resonator_exp_material,
+	weapon_exp_material: weapon_exp_material,
+	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
+	echo_development_material: echo_development_material,
+	forgery_weapon_skill_material: forgery_weapon_skill_material,
+	overworld_resource_ascension_material: overworld_resource_ascension_material,
 };

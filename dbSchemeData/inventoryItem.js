@@ -76,63 +76,60 @@ export const weapon_exp_material = {
 };
 
 export const enemy_drop_weapon_skill_material = {
-	howler_core: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	// ff_howler_core
+	lf_howler_core: {
+		count: 0,
+	},
+	mf_howler_core: {
+		count: 0,
+	},
+	hf_howler_core: {
+		count: 0,
+	},
+	ff_howler_core: {
+		count: 0,
 	},
 
-	whisperin_core: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	// whisperin_core
+	lf_whisperin_core: {
+		count: 0,
+	},
+	mf_whisperin_core: {
+		count: 0,
+	},
+	hf_whisperin_core: {
+		count: 0,
+	},
+	ff_whisperin_core: {
+		count: 0,
 	},
 
-	mask: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	// mask
+	mask_of_constraint: {
+		count: 0,
 	},
-	ring: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	mask_of_erosion: {
+		count: 0,
+	},
+	mask_of_distortion: {
+		count: 0,
+	},
+	mask_of_insanity: {
+		count: 0,
+	},
+
+	// ring
+	crude_ring: {
+		count: 0,
+	},
+	basic_ring: {
+		count: 0,
+	},
+	improved_ring: {
+		count: 0,
+	},
+	tailored_ring: {
+		count: 0,
 	},
 };
 
@@ -166,65 +163,61 @@ export const echo_development_material = {
 	},
 };
 
-export const weapon_skill_material = {
-	cadence: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+export const forgery_weapon_skill_material = {
+	// cadence
+	cadence_seed: {
+		count: 0,
+	},
+	cadence_bud: {
+		count: 0,
+	},
+	cadence_leaf: {
+		count: 0,
+	},
+	cadence_blossom: {
+		count: 0,
 	},
 
-	phlohiston: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	// phlohiston
+	impure_phlohiston: {
+		count: 0,
+	},
+	extracted_phlohiston: {
+		count: 0,
+	},
+	refined_phlohiston: {
+		count: 0,
+	},
+	flawless_phlohiston: {
+		count: 0,
 	},
 
-	metallic_drip: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	// metallic_drip
+	inert_metallic_drip: {
+		count: 0,
+	},
+	reactive_metallic_drip: {
+		count: 0,
+	},
+	polarized_metallic_drip: {
+		count: 0,
+	},
+	heterized_metallic_drip: {
+		count: 0,
 	},
 
-	helix: {
-		1: {
-			count: 0,
-		},
-		2: {
-			count: 0,
-		},
-		3: {
-			count: 0,
-		},
-		4: {
-			count: 0,
-		},
+	// helix
+	lento_helix: {
+		count: 0,
+	},
+	adagio_helix: {
+		count: 0,
+	},
+	andante_helix: {
+		count: 0,
+	},
+	presto_helix: {
+		count: 0,
 	},
 };
 
@@ -258,6 +251,7 @@ export const overworld_resource_ascension_material = {
 	},
 };
 
+// inventory contains inventory items (materials)
 // exp, credit: material type -> count
 // materials type -> material -> count, meta
 // tiered materials type -> material -> tier -> count, meta
@@ -269,7 +263,7 @@ export const inventoryItems = {
 	weapon_exp_material: weapon_exp_material,
 	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
 	echo_development_material: echo_development_material,
-	weapon_skill_material: weapon_skill_material,
+	forgery_weapon_skill_material: forgery_weapon_skill_material,
 	overworld_resource_ascension_material: overworld_resource_ascension_material,
 	credit: 0,
 };
@@ -278,7 +272,7 @@ export const materialNeeded = {
 	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
 	boss_ascension_material: boss_ascension_material,
 	overworld_resource_ascension_material: overworld_resource_ascension_material,
-	weapon_skill_material: weapon_skill_material,
+	forgery_weapon_skill_material: forgery_weapon_skill_material,
 	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
 	resonator_exp_material: resonator_exp_material,
 	weapon_exp_material: weapon_exp_material,

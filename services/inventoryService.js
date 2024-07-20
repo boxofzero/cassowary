@@ -116,11 +116,11 @@ export const getMaterialNeededResponseData = (neededMaterials) => {
 		'enemy_drop_weapon_skill_material'
 	);
 
-	// weapon_skill_material :
+	// forgery_weapon_skill_material :
 	const weaponSkillMaterial = getTieredMaterialsData(
 		ownedMaterials,
 		neededMaterials,
-		'weapon_skill_material'
+		'forgery_weapon_skill_material'
 	);
 
 	responseData = {
