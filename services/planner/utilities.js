@@ -24,8 +24,8 @@ export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 
 export const isTieredMaterialType = (material) => {
 	return [
-		'enemy_drop_weapon_skill_material',
-		'forgery_weapon_skill_material',
+		'tiered_enemy_drop_weapon_skill_material',
+		'tiered_forgery_weapon_skill_material',
 	].includes(material);
 };
 
@@ -38,50 +38,49 @@ export const getMaterialsFromLevelListStatList = (
 	// looping into stats
 	for (let stat in statsToFarm) {
 		// looping into list of levels to farm
-		// passive will not have level but data is adjusted
+		// passive will not have level but data is adjusted (pretend only level 1)
 		for (let level of statsToFarm[stat]) {
-			for (let material in level.materials) {
+			for (let materialType in level.materials) {
 				// inventory exp and credit (not named materials)
-				if (['exp', 'credit'].includes(material)) {
+				if (['exp', 'credit'].includes(materialType)) {
 					useSet(
 						materials,
-						material,
-						useGet(materials, material, 0) + level.materials[material]
+						materialType,
+						useGet(materials, materialType, 0) + level.materials[materialType]
 					);
 					continue;
 				}
 
-				// get the material name
-				const materialName = charactersStatMaterial[characterName][material];
+				// get the materialType's material name
+				const materialName =
+					charactersStatMaterial[characterName][materialType];
 				// inventory tiered materials
-				if (isTieredMaterialType(material)) {
-					if (materials[material] === undefined) {
-						materials[material] = {
-							[materialName]: {},
-						};
+				if (isTieredMaterialType(materialType)) {
+					if (materials[materialType] === undefined) {
+						materials[materialType] = {};
+						materials[materialType][materialName] = {};
 					}
-					for (let tier in level.materials[material]) {
+					for (let tier in level.materials[materialType]) {
 						useSet(
-							materials[material][materialName],
+							materials[materialType][materialName],
 							tier,
-							useGet(materials[material][materialName], tier, 0) +
-								level.materials[material][tier]
+							useGet(materials[materialType][materialName], tier, 0) +
+								level.materials[materialType][tier]
 						);
 					}
 					continue;
 				}
 
 				// inventory other materials
-				if (materials[material] === undefined) {
-					materials[material] = {
-						[materialName]: 0,
-					};
+				if (materials[materialType] === undefined) {
+					materials[materialType] = {};
+					materials[materialType][materialName] = 0;
 				}
 				useSet(
-					materials[material],
+					materials[materialType],
 					materialName,
-					useGet(materials[material], materialName, 0) +
-						level.materials[material]
+					useGet(materials[materialType], materialName, 0) +
+						level.materials[materialType]
 				);
 			}
 		}

@@ -11,7 +11,7 @@ const getNonTieredMaterialsData = (
 		data[material] = {
 			owned: ownedMaterials[materialType][material] || {},
 			needed: neededMaterials[materialType][material] || {},
-			metadata: inventoryItemMetadata[materialType][material],
+			icon: inventoryItemMetadata[materialType][material].icon,
 		};
 	}
 	return data;
@@ -30,47 +30,55 @@ const getTieredMaterialsData = (
 	for (let material in neededMaterials[materialType]) {
 		data[material] = {};
 		for (let tier of [1, 2, 3, 4]) {
-			data[material][tier] = {
+			// make it flatten data like in inventoryItems
+			const materialName =
+				inventoryItemMetadata.tiered_materials[material][tier].name;
+			data[materialName] = {
 				owned: ownedMaterials[materialType][material][tier] || {},
 				needed: neededMaterials[materialType][material][tier] || {},
-				metadata: inventoryItemMetadata[materialType][material][tier],
+				icon: inventoryItemMetadata.tiered_materials[material][tier].icon,
 			};
 		}
 	}
 	return data;
 };
 
-const generateExpData = (expNeeded, ownedExpMaterials, expMaterialType) => {
+const generateExpData = (
+	expNeeded,
+	ownedExpMaterials,
+	expMaterialTypeStructure
+) => {
 	const data = {};
 	// calculate exp_value I have
 	// const ownedExp = useReduce(
 	// 	ownedExpMaterials,
 	// 	function (acc, data, expMaterial) {
 	// 		// owned count * exp_value
-	// 		acc = acc + data.count * expMaterialType[expMaterial].exp_value;
+	// 		acc = acc + data.count * expMaterialTypeStructure[expMaterial].exp_value;
 	// 		return acc;
 	// 	},
 	// 	0
 	// );
 	let expNeededCounting = expNeeded;
 	let expLeftover = 0;
-	for (let expData of useSortBy(
-		useToPairs(expMaterialType),
-		(v) => v[1].exp_value
-	)) {
+	const expDataSortedDesc = useSortBy(
+		useToPairs(expMaterialTypeStructure),
+		(v) => -v[1].exp_value
+	);
+	for (let expData of expDataSortedDesc) {
 		const expDataNeeded = expNeededCounting / expData[1].exp_value;
 		expLeftover = expNeededCounting % expData[1].exp_value;
 		data[expData[0]] = {
 			owned: ownedExpMaterials[expData[0]] || 0,
 			needed: expDataNeeded || 0,
-			metadata: expData[1],
+			icon: expData[1].icon,
 		};
 		expNeededCounting = expLeftover;
 	}
 
 	return data;
 };
-export const getMaterialNeededResponseData = (neededMaterials) => {
+export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 	let responseData = {};
 	const ownedMaterials = useInventoryItemStore().inventoryItems;
 
@@ -85,7 +93,7 @@ export const getMaterialNeededResponseData = (neededMaterials) => {
 		credit: {
 			owned: ownedMaterials.credit,
 			needed: neededMaterials.credit,
-			metadata: inventoryItemMetadata.credit,
+			icon: inventoryItemMetadata.credit.icon,
 		},
 	};
 	// non-tiered materials

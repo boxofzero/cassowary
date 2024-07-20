@@ -121,9 +121,9 @@
 	</div>
 
 	<UDivider label="MATERIAL NEEDED" />
-	<div>
+	<div class="grid grid-cols-6 gap-6">
 		<div class="" v-for="(item, index) in materials" :key="index">
-			<v-card class="w-1/6">
+			<v-card class="w-full">
 				<v-img
 					src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
 					cover
@@ -174,7 +174,6 @@ const getOrInitPlannedCharacter = (characterName) => {
 	character.value['name'] = characterName;
 
 	materials.value = getMaterialsNeeded(characterName);
-	console.log('levellingMaterials: ' + JSON.stringify(materials.value));
 };
 
 const upsertPlannedCharacter = () => {
@@ -185,15 +184,21 @@ const upsertPlannedCharacter = () => {
 	);
 
 	materials.value = getMaterialsNeeded(characterName.value);
-	console.log('levellingMaterials: ' + JSON.stringify(materials.value));
 };
 
 // TODO material needed
 const getMaterialsNeeded = (characterName) => {
 	const neededMaterials = plannerService.getMaterialsNeeded(characterName);
-	// console.log('neededMaterials: ' + JSON.stringify(neededMaterials));
+	console.log('getMaterialsNeeded: ' + JSON.stringify(neededMaterials));
 
-	return inventoryService.getMaterialNeededResponseData(neededMaterials);
+	const ownedNeededMaterialsResponseData =
+		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
+
+	console.log(
+		'ownedNeededMaterialsResponseData: ' +
+			JSON.stringify(ownedNeededMaterialsResponseData)
+	);
+	return ownedNeededMaterialsResponseData;
 };
 
 // TODO set DONE (consume material

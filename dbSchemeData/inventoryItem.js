@@ -254,7 +254,7 @@ export const overworld_resource_ascension_material = {
 // inventory contains inventory items (materials)
 // exp, credit: material type -> count
 // materials type -> material -> count, meta
-// tiered materials type -> material -> tier -> count, meta
+// tiered materials type -> material -> tierMaterial -> count, meta
 
 export const inventoryItems = {
 	boss_ascension_material: boss_ascension_material,

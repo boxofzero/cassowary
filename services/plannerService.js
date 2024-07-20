@@ -3,11 +3,7 @@ import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,
 } from '@/services/planner/utilities';
-import {
-	charLevellingMaterialsCount,
-	activeSkillLevellingMaterialsCount,
-	passiveSkillLevellingMaterialsCount,
-} from '@/gameData/charactersStatMaterial';
+import * as charactersStatMaterial from '@/gameData/charactersStatMaterial';
 import * as charactersNewFormData from '@/forms/characters/new/charactersNewFormData';
 import { isTieredMaterialType } from '@/services/planner/utilities';
 
@@ -82,12 +78,13 @@ export const getMaterialsNeeded = (characterName) => {
 	if (!plannedCharacter) return {};
 	// temporary assign name for business logic
 	plannedCharacter['name'] = characterName;
+
 	const currentLevel = plannedCharacter.char_current_level;
 	const targetLevel = plannedCharacter.char_target_level;
 
 	const levelsToFarm = {
 		charLevel: getLevelRangeDiff(
-			charLevellingMaterialsCount,
+			charactersStatMaterial.charLevellingMaterialsCount,
 			currentLevel,
 			targetLevel
 		),
@@ -109,14 +106,8 @@ export const getMaterialsNeeded = (characterName) => {
 
 const getPassiveSkillsToFarm = (plannedCharacter) => {
 	const passiveSkills = {};
-	const tier_1 = useMap(
-		charactersNewFormData.passiveSkills.tier_1,
-		'model_value'
-	);
-	const tier_2 = useMap(
-		charactersNewFormData.passiveSkills.tier_2,
-		'model_value'
-	);
+	const tier_1 = charactersStatMaterial.passiveSkills.tier_1;
+	const tier_2 = charactersStatMaterial.passiveSkills.tier_2;
 	const skills = [tier_1, tier_2].flat();
 	for (let skill of skills) {
 		// console.log('skill: ' + JSON.stringify(skill));
@@ -124,7 +115,9 @@ const getPassiveSkillsToFarm = (plannedCharacter) => {
 		// 	'plannedCharacter[skill]: ' + JSON.stringify(plannedCharacter[skill])
 		// );
 		if (plannedCharacter[skill] == 0) {
-			passiveSkills[skill] = [passiveSkillLevellingMaterialsCount[skill]];
+			passiveSkills[skill] = [
+				charactersStatMaterial.passiveSkillLevellingMaterialsCount[skill],
+			];
 		}
 	}
 	return passiveSkills;
@@ -132,10 +125,10 @@ const getPassiveSkillsToFarm = (plannedCharacter) => {
 
 const getActiveSkillsToFarm = (plannedCharacter) => {
 	const activeSkills = {};
-	const skills = useMap(charactersNewFormData.activeSkills, 'model_value');
+	const skills = charactersStatMaterial.activeSkills;
 	for (let skill of skills) {
 		activeSkills[skill] = getLevelRangeDiff(
-			activeSkillLevellingMaterialsCount,
+			charactersStatMaterial.activeSkillLevellingMaterialsCount,
 			plannedCharacter[skill + '_current_level'],
 			plannedCharacter[skill + '_target_level']
 		);

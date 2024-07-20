@@ -621,3 +621,9 @@ export const inventoryItems = {
 	forgery_weapon_skill_material: forgery_weapon_skill_material,
 	overworld_resource_ascension_material: overworld_resource_ascension_material,
 };
+
+export const tiered_materials = {
+	tiered_enemy_drop_weapon_skill_material:
+		tiered_enemy_drop_weapon_skill_material,
+	tiered_forgery_weapon_skill_material: tiered_forgery_weapon_skill_material,
+};
