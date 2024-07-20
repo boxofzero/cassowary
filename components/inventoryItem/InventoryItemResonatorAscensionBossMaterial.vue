@@ -8,7 +8,7 @@
 			<div class="grid grid-cols-3 gap-3">
 				<div
 					v-for="(stuff, index) in inventoryItemStore.inventoryItems
-						.resonator_ascension_boss_material"
+						.boss_ascension_material"
 					:key="stuff.name"
 					class=""
 				>
@@ -25,7 +25,7 @@
 								:value="stuff.count"
 								@input="
 									inventoryItemStore.updateInventory(
-										'resonator_ascension_boss_material',
+										'boss_ascension_material',
 										index,
 										$event
 									)

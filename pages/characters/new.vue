@@ -53,7 +53,7 @@
 						inset
 						density="compact"
 						label="Current Level"
-						:min="0"
+						:min="1"
 						:max="10"
 						:model-value="character[item.model_value + '_current_level']"
 						v-model="character[item.model_value + '_current_level']"
@@ -65,7 +65,7 @@
 						inset
 						density="compact"
 						label="Target Level"
-						:min="0"
+						:min="1"
 						:max="10"
 						:model-value="character[item.model_value + '_target_level']"
 						v-model="character[item.model_value + '_target_level']"
@@ -86,7 +86,6 @@
 					<v-btn-toggle
 						color="primary"
 						class="size-full"
-						:name="item.label"
 						:model-value="character[item.model_value]"
 						v-model="character[item.model_value]"
 						@update:modelValue="upsertPlannedCharacter()"
@@ -109,7 +108,6 @@
 					<v-btn-toggle
 						color="primary"
 						class="size-full"
-						:name="item.label"
 						:model-value="character[item.model_value]"
 						v-model="character[item.model_value]"
 						@update:modelValue="upsertPlannedCharacter()"
@@ -124,22 +122,26 @@
 
 	<UDivider label="MATERIAL NEEDED" />
 	<div>
-		<!-- show the material needed -->
-		<div>
-			<UChip inset text="3" size="2xl">
-				<div class="box-border h-16 w-16 mx-1">
-					<img src="https://placehold.co/64/png" alt="Material" />
-					<v-number-input
-						:min="0"
-						:max="99999"
-						:model-value="1"
-						v-model="mat1"
-						control-variant="stacked"
-						inset
-						density="compact"
-					></v-number-input>
-				</div>
-			</UChip>
+		<div class="" v-for="(item, index) in materials" :key="index">
+			<v-card class="w-1/6">
+				<v-img
+					src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+					cover
+				></v-img>
+				<v-card-text>{{ index }}</v-card-text>
+				<v-card-text>
+					<v-chip class="" color="indigo" prepend-icon="mdi-account-circle">
+						{{ item.needed }}
+					</v-chip>
+					<v-chip append-icon="mdi-star" class="" color="orange">
+						synthesizable
+					</v-chip>
+				</v-card-text>
+				<v-text-field
+					label="material owned count"
+					:model-value="item.owned.count"
+				></v-text-field>
+			</v-card>
 		</div>
 	</div>
 </template>
@@ -154,6 +156,7 @@ import {
 } from '~/forms/characters/new/charactersNewFormData';
 import { usePlannedCharacterStore } from '@/stores/plannedCharacters';
 import * as plannerService from '@/services/plannerService';
+import * as inventoryService from '@/services/inventoryService';
 
 // FORM DATA
 const characterList = Object.keys(charactersStatMaterial);
@@ -163,13 +166,15 @@ const plannedCharacterStore = usePlannedCharacterStore();
 
 const characterName = ref('');
 const character = ref({ ...characterFormScheme });
+const materials = ref({});
 
+// METHODS
 const getOrInitPlannedCharacter = (characterName) => {
 	character.value = plannedCharacterStore.getOrInitEntry(characterName);
 	character.value['name'] = characterName;
 
-	const mats = plannerService.getMaterialsNeeded(characterName);
-	console.log('levellingMaterials: ' + JSON.stringify(mats));
+	materials.value = getMaterialsNeeded(characterName);
+	console.log('levellingMaterials: ' + JSON.stringify(materials.value));
 };
 
 const upsertPlannedCharacter = () => {
@@ -179,12 +184,17 @@ const upsertPlannedCharacter = () => {
 		useOmit(character.value, 'name')
 	);
 
-	const mats = plannerService.getMaterialsNeeded(characterName.value);
-	console.log('levellingMaterials: ' + JSON.stringify(mats));
+	materials.value = getMaterialsNeeded(characterName.value);
+	console.log('levellingMaterials: ' + JSON.stringify(materials.value));
 };
 
 // TODO material needed
-const mat1 = ref(0);
+const getMaterialsNeeded = (characterName) => {
+	const neededMaterials = plannerService.getMaterialsNeeded(characterName);
+	// console.log('neededMaterials: ' + JSON.stringify(neededMaterials));
+
+	return inventoryService.getMaterialNeededResponseData(neededMaterials);
+};
 
 // TODO set DONE (consume material
 // and increase current and set done passive)

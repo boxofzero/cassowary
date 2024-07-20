@@ -418,13 +418,6 @@ export const overworld_resource_ascension_material = {
 	},
 };
 
-export const inventoryItems = {
-	boss_ascension_material: boss_ascension_material,
-	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
-	resonator_exp_material: resonator_exp_material,
-	weapon_exp_material: weapon_exp_material,
-	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
-	echo_development_material: echo_development_material,
-	weapon_skill_material: weapon_skill_material,
-	overworld_resource_ascension_material: overworld_resource_ascension_material,
+export const credit = {
+	icon: 'x.png',
 };

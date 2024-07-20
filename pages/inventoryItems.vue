@@ -46,6 +46,11 @@ const inventoryItemStore = useInventoryItemStore();
 
 const inventoryItemFormScheme = ref({ ...inventoryItemScheme.inventoryItems });
 
+// TODO
+// TODO USE THIS
+// const allMaterials = plannerService.getAllCharactersMaterialsNeeded();
+// console.log('allMaterials: ' + JSON.stringify(allMaterials));
+
 onBeforeMount(() => {
 	inventoryItemStore.init();
 });

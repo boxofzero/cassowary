@@ -22,7 +22,7 @@ export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 	);
 };
 
-export const isTierableMaterialType = (material) => {
+export const isTieredMaterialType = (material) => {
 	return ['enemy_drop_weapon_skill_material', 'weapon_skill_material'].includes(
 		material
 	);
@@ -52,8 +52,8 @@ export const getMaterialsFromLevelListStatList = (
 
 				// get the material name
 				const materialName = charactersStatMaterial[characterName][material];
-				// inventory tierable materials
-				if (isTierableMaterialType(material)) {
+				// inventory tiered materials
+				if (isTieredMaterialType(material)) {
 					if (materials[material] === undefined) {
 						materials[material] = {
 							[materialName]: {},
