@@ -6,7 +6,7 @@
 					<NuxtLink to="/">Main</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/stamina">Stamina Tracker</NuxtLink>
+					<NuxtLink to="/stamina">Stamina</NuxtLink>
 				</li>
 				<li>
 					<NuxtLink to="/inventoryItems">Inventory</NuxtLink>
@@ -15,11 +15,13 @@
 					<NuxtLink to="/characters">Characters</NuxtLink>
 				</li> -->
 				<li>
-					<NuxtLink to="/characters/new">New Characters</NuxtLink>
+					<NuxtLink to="/characters/new">Characters</NuxtLink>
 				</li>
 			</ul>
 		</nav>
-		<NuxtLink to="/" class="text-xl font-bold"> Finance Tracker </NuxtLink>
+		<NuxtLink to="/" class="text-xl font-bold">
+			PRE-ALPHA WUWA TODO APP
+		</NuxtLink>
 		<div>
 			<UAvatar src="https://placehold.co/100/png" alt="Avatar" />
 		</div>

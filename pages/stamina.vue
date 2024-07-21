@@ -9,7 +9,7 @@
 		<div>
 			<div class="font-bold">Track Your Stamina</div>
 
-			<div class="text-2xl font-extrabold text-black dark:text-white mb-2">
+			<div class="text-2xl font-extrabold text-white mb-2">
 				<USkeleton class="h-8 w-full" v-if="loading" />
 				<div v-else>
 					{{ staminaStore.stamina }} / {{ staminaStore.maxStamina }}
@@ -18,14 +18,17 @@
 		</div>
 		<div class="flex items-center justify-between">
 			<div class="font-bold">The stamina regen rate:</div>
-			<div class="text-2xl font-extrabold text-black dark:text-white mb-2">
+			<div class="text-2xl font-extrabold text-white mb-2">
 				<USkeleton class="h-8 w-full" v-if="loading" />
-				<div v-else>{{ staminaStore.secondsPerStamina }} seconds / stamina</div>
+				<!-- <div v-else>{{ staminaStore.secondsPerStamina }} seconds / stamina</div> -->
+				<div v-else>
+					{{ staminaStore.secondsPerStamina / 60 }} minutes / stamina
+				</div>
 			</div>
 		</div>
 		<div class="flex items-center justify-between">
 			<div class="font-bold">Your Stamina will be full at</div>
-			<div class="text-2xl font-extrabold text-black dark:text-white mb-2">
+			<div class="text-2xl font-extrabold text-white mb-2">
 				<USkeleton class="h-8 w-full" v-if="loading" />
 				<!-- <div v-else @stamina-updated="getFullStaminaAt()"> -->
 				<div v-else>
@@ -33,7 +36,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="text-2xl font-extrabold text-black dark:text-white mb-2">
+		<div class="text-2xl font-extrabold text-white mb-2">
+			<UButton
+				color="white"
+				variant="solid"
+				label="-1"
+				@click="staminaStore.updateStaminaOverflow(-1)"
+			/>
+			<UButton
+				color="white"
+				variant="solid"
+				label="+1"
+				@click="staminaStore.updateStaminaOverflow(+1)"
+			/>
 			<UButton
 				color="white"
 				variant="solid"
