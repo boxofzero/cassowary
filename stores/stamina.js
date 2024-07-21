@@ -5,7 +5,7 @@ const { staminaRepo } = useStaminaRepo();
 
 export const useStaminaStore = defineStore('stamina', () => {
 	const maxStamina = ref(MAX_STAMINA);
-	const secondsPerStamina = ref(getSecondsPerStamina);
+	const secondsPerStamina = ref(getSecondsPerStamina());
 	const stamina = ref(0);
 	const staminaUpdatedAt = ref(0);
 	const fullStaminaAt = ref(0);
