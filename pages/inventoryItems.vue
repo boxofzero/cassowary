@@ -3,21 +3,23 @@
 		<h1 class="">Inventories</h1>
 	</section>
 	<div
-		v-for="(itemTypeData, itemType) in inventoryItemFormScheme"
-		:key="itemType"
+		v-for="(
+			materialTypeData, materialType
+		) in inventoryItemMetadata.inventoryItems"
+		:key="materialType"
 	>
 		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
-			{{ itemType }}
+			{{ materialType }}
 		</h2>
 		<!-- outer div of each item -->
-		<div class="grid grid-cols-4 gap-4">
-			<div
-				v-for="(stuffValue, stuffKey) in itemTypeData"
-				:key="stuffKey"
-				class=""
-			>
+		<div class="grid grid-cols-6 gap-6">
+			<div v-for="(item, index) in materialTypeData" :key="index" class="">
+				<InventoryItemMaterialCard
+					:index="index"
+					:item="inventoryItemFormScheme[index]"
+				></InventoryItemMaterialCard>
 				<!-- div for per stuff -->
-				<div class="">
+				<!-- <div class="">
 					<v-number-input
 						:label="stuffKey"
 						control-variant="stacked"
@@ -31,7 +33,7 @@
 							inventoryItemStore.updateInventory(itemType, stuffKey, $event)
 						"
 					></v-number-input>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -39,12 +41,13 @@
 
 <script setup>
 import { useInventoryItemStore } from '@/stores/inventoryItems';
-import * as inventoryItemScheme from '~/dbSchemeData/inventoryItem';
+import * as inventoryService from '@/services/inventoryService';
+import * as inventoryItemMetadata from '@/gameData/inventoryItemMetadata';
 
 // STORE inventoryItemStore
 const inventoryItemStore = useInventoryItemStore();
 
-const inventoryItemFormScheme = ref({ ...inventoryItemScheme.inventoryItems });
+const inventoryItemFormScheme = ref({});
 
 // TODO
 // TODO USE THIS
@@ -53,5 +56,12 @@ const inventoryItemFormScheme = ref({ ...inventoryItemScheme.inventoryItems });
 
 onBeforeMount(() => {
 	inventoryItemStore.init();
+	// console.log('init: ' + JSON.stringify(inventoryItemFormScheme.value));
+	// console.log('allMaterials: ' + JSON.stringify(allMaterials));
+	inventoryItemFormScheme.value = inventoryService.getAllMaterialsDisplayData();
+	console.log(
+		'ownedNeededMaterialsResponseData: ' +
+			JSON.stringify(inventoryItemFormScheme.value)
+	);
 });
 </script>

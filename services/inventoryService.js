@@ -1,5 +1,6 @@
 import { useInventoryItemStore } from '@/stores/inventoryItems';
 import * as inventoryItemMetadata from '@/gameData/inventoryItemMetadata';
+import * as plannerService from '@/services/plannerService';
 
 const getNonTieredMaterialsData = (
 	ownedMaterials,
@@ -80,7 +81,9 @@ const generateExpData = (
 };
 export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 	let responseData = {};
+	useInventoryItemStore().init();
 	const ownedMaterials = useInventoryItemStore().inventoryItems;
+	// console.log('ownedMaterials: ' + JSON.stringify(ownedMaterials));
 
 	// exp : use only the 4th tier
 	const charExp = generateExpData(
@@ -93,7 +96,7 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		credit: {
 			owned: ownedMaterials.credit,
 			needed: neededMaterials.credit,
-			icon: inventoryItemMetadata.credit.icon,
+			icon: inventoryItemMetadata.credit.credit.icon,
 		},
 	};
 	// non-tiered materials
@@ -144,5 +147,42 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 };
 
 export const getAllMaterialsDisplayData = () => {
+	let displayData = {};
+	useInventoryItemStore().init();
+	const allMaterials = plannerService.getAllCharactersMaterialsNeeded();
+	// console.log('allMaterials: ' + JSON.stringify(allMaterials));
+	const ownedNeededMaterialsResponseData =
+		getOwnedNeededMaterialsResponseData(allMaterials);
 	const inventoryItems = useInventoryItemStore().inventoryItems;
+	console.log('inventoryItems: ' + JSON.stringify(inventoryItems));
+
+	for (let materialType in inventoryItems) {
+		if (materialType === 'credit') {
+			displayData[materialType] = {
+				owned: ownedNeededMaterialsResponseData[materialType].owned,
+				needed: ownedNeededMaterialsResponseData[materialType].needed,
+				icon: inventoryItemMetadata.inventoryItems[materialType].credit.icon,
+			};
+			continue;
+		}
+		for (let material in inventoryItems[materialType]) {
+			if (ownedNeededMaterialsResponseData[material] === undefined) {
+				displayData[material] = {
+					owned: 0,
+					needed: 0,
+					icon: inventoryItemMetadata.inventoryItems[materialType][material]
+						.icon,
+				};
+				continue;
+			}
+
+			displayData[material] = {
+				owned: ownedNeededMaterialsResponseData[material].owned,
+				needed: ownedNeededMaterialsResponseData[material].needed,
+				icon: inventoryItemMetadata.inventoryItems[materialType][material].icon,
+			};
+		}
+	}
+
+	return displayData;
 };

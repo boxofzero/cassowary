@@ -257,6 +257,7 @@ export const overworld_resource_ascension_material = {
 // tiered materials type -> material -> tierMaterial -> count, meta
 
 export const inventoryItems = {
+	credit: 0,
 	boss_ascension_material: boss_ascension_material,
 	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
 	resonator_exp_material: resonator_exp_material,
@@ -265,7 +266,6 @@ export const inventoryItems = {
 	echo_development_material: echo_development_material,
 	forgery_weapon_skill_material: forgery_weapon_skill_material,
 	overworld_resource_ascension_material: overworld_resource_ascension_material,
-	credit: 0,
 };
 
 export const materialNeeded = {

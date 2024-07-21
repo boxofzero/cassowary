@@ -599,7 +599,9 @@ export const overworld_resource_ascension_material = {
 };
 
 export const credit = {
-	icon: 'https://prod-alicdn-community.kurobbs.com/forum/ad888096d0d94d92af4807015dbc08da20240519.png',
+	credit: {
+		icon: 'https://prod-alicdn-community.kurobbs.com/forum/ad888096d0d94d92af4807015dbc08da20240519.png',
+	},
 };
 
 export const inventoryItems = {

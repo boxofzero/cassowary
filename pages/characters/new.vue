@@ -121,29 +121,16 @@
 	</div>
 
 	<UDivider label="MATERIAL NEEDED" />
-	<div class="grid grid-cols-6 gap-6">
-		<div class="" v-for="(item, index) in materials" :key="index">
-			<v-card class="w-full">
-				<v-img
-					src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-					cover
-				></v-img>
-				<v-card-text>{{ index }}</v-card-text>
-				<v-card-text>
-					<v-chip class="" color="indigo" prepend-icon="mdi-account-circle">
-						{{ item.needed }}
-					</v-chip>
-					<v-chip append-icon="mdi-star" class="" color="orange">
-						synthesizable
-					</v-chip>
-				</v-card-text>
-				<v-text-field
-					label="material owned count"
-					:model-value="item.owned.count"
-				></v-text-field>
-			</v-card>
+	<section>
+		<div class="grid grid-cols-6 gap-6">
+			<div class="" v-for="(item, index) in materials" :key="index">
+				<InventoryItemMaterialCard
+					:index="index"
+					:item="item"
+				></InventoryItemMaterialCard>
+			</div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script setup>
@@ -189,15 +176,15 @@ const upsertPlannedCharacter = () => {
 // TODO material needed
 const getMaterialsNeeded = (characterName) => {
 	const neededMaterials = plannerService.getMaterialsNeeded(characterName);
-	console.log('getMaterialsNeeded: ' + JSON.stringify(neededMaterials));
+	// console.log('getMaterialsNeeded: ' + JSON.stringify(neededMaterials));
 
 	const ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
 
-	console.log(
-		'ownedNeededMaterialsResponseData: ' +
-			JSON.stringify(ownedNeededMaterialsResponseData)
-	);
+	// console.log(
+	// 	'ownedNeededMaterialsResponseData: ' +
+	// 		JSON.stringify(ownedNeededMaterialsResponseData)
+	// );
 	return ownedNeededMaterialsResponseData;
 };
 

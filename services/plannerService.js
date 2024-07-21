@@ -8,11 +8,13 @@ import * as charactersNewFormData from '@/forms/characters/new/charactersNewForm
 import { isTieredMaterialType } from '@/services/planner/utilities';
 
 export const getAllCharactersMaterialsNeeded = () => {
-	const characters = usePlannedCharacterStore().plannedCharacters;
+	usePlannedCharacterStore().init();
+	let characters = usePlannedCharacterStore().plannedCharacters;
+	// console.log('characters: ' + JSON.stringify(characters));
 	const combinedMaterialsNeeded = {};
 	for (let characterName in characters) {
 		const characterMaterials = getMaterialsNeeded(characterName);
-		console.log('characterMaterials: ' + JSON.stringify(characterMaterials));
+		// console.log('characterMaterials: ' + JSON.stringify(characterMaterials));
 
 		for (let materialType in characterMaterials) {
 			// exp and credit: no material, just add
