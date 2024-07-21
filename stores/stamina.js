@@ -1,11 +1,11 @@
-import { MAX_STAMINA, SECONDS_PER_STAMINA } from '~/libraries/constants';
+import { MAX_STAMINA, getSecondsPerStamina } from '~/libraries/constants';
 import { useStaminaRepo } from '~/composables/useStaminaRepo';
 
 const { staminaRepo } = useStaminaRepo();
 
 export const useStaminaStore = defineStore('stamina', () => {
 	const maxStamina = ref(MAX_STAMINA);
-	const secondsPerStamina = ref(SECONDS_PER_STAMINA);
+	const secondsPerStamina = ref(getSecondsPerStamina);
 	const stamina = ref(0);
 	const staminaUpdatedAt = ref(0);
 	const fullStaminaAt = ref(0);
@@ -14,6 +14,29 @@ export const useStaminaStore = defineStore('stamina', () => {
 		this.stamina = staminaRepo().value.stamina;
 		this.staminaUpdatedAt = staminaRepo().value.staminaUpdatedAt;
 		this.updateFullStaminaAt();
+	}
+
+	function syncStaminaData() {
+		// absolute calculation of stamina
+		// calc additional stamina since staminaUpdatedAt
+		const diffTime = Date.now() - this.staminaUpdatedAt;
+		const additionalStamina = Math.floor(
+			diffTime / 1000 / this.secondsPerStamina
+		);
+		if (additionalStamina <= 0) {
+			return;
+		}
+		this.stamina += additionalStamina;
+		this.staminaUpdatedAt = Date.now();
+
+		// update into staminaRepo
+		// this is a bit direct usage of API
+		// but i don't want to over engineer
+		// should be more agnostic similar to interface but nah
+		staminaRepo().value = {
+			stamina: this.stamina,
+			staminaUpdatedAt: this.staminaUpdatedAt,
+		};
 	}
 	function updateFullStaminaAt() {
 		const diffStamina = this.maxStamina - this.stamina;
@@ -55,6 +78,7 @@ export const useStaminaStore = defineStore('stamina', () => {
 		staminaUpdatedAt,
 		fullStaminaAt,
 		initStaminaData,
+		syncStaminaData,
 		updateFullStaminaAt,
 		updateStaminaOverflow,
 		updateStamina,

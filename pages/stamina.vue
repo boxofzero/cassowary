@@ -84,11 +84,19 @@ onBeforeMount(() => {
 	staminaStore.initStaminaData();
 });
 
+const updateStaminaInterval = () => {
+	return setInterval(() => {
+		staminaStore.syncStaminaData();
+	}, (staminaStore.secondsPerStamina * 1000) / 4);
+};
+
+let intervalId;
 onMounted(() => {
 	// update stamina every interval time
-	setInterval(() => {
-		staminaStore.updateStamina(1);
-	}, staminaStore.secondsPerStamina * 1000);
-	//
+	intervalId = updateStaminaInterval();
+});
+
+onUnmounted(() => {
+	clearInterval(intervalId);
 });
 </script>
