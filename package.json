@@ -11,21 +11,22 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "@nuxt/ui": "^2.16.0",
+    "@nuxt/ui": "^2.17.0",
+    "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.1",
     "moment": "^2.30.1",
-    "nuxt": "^3.12.3",
+    "nuxt": "^3.12.4",
     "pinia": "^2.1.7",
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.2",
+    "vue": "^3.4.33",
+    "vue-router": "^4.4.0",
     "zod": "^3.23.8"
   },
   "packageManager": "pnpm@9.1.4",
   "devDependencies": {
-    "@vueuse/core": "^10.10.0",
-    "@vueuse/nuxt": "^10.10.0",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0",
     "nuxt-lodash": "^2.5.3",
     "vite-plugin-vuetify": "^2.0.3",
-    "vuetify": "^3.6.12"
+    "vuetify": "^3.6.13"
   }
 }
