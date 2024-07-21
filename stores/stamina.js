@@ -17,6 +17,7 @@ export const useStaminaStore = defineStore('stamina', () => {
 	}
 
 	function syncStaminaData() {
+		if (this.stamina >= this.maxStamina) return;
 		// absolute calculation of stamina
 		// calc additional stamina since staminaUpdatedAt
 		const diffTime = Date.now() - this.staminaUpdatedAt;
@@ -47,8 +48,6 @@ export const useStaminaStore = defineStore('stamina', () => {
 		this.updateStamina(additionalStamina, true);
 	}
 	function updateStamina(additionalStamina, allowOverflow = false) {
-		if (!process.client) return;
-
 		// validation
 		if (!allowOverflow) {
 			if (this.stamina >= this.maxStamina) return;
