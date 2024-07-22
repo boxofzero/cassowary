@@ -22,7 +22,8 @@
 				<USkeleton class="h-8 w-full" v-if="loading" />
 				<!-- <div v-else>{{ staminaStore.secondsPerStamina }} seconds / stamina</div> -->
 				<div v-else>
-					{{ staminaStore.secondsPerStamina / 60 }} minutes / stamina
+					{{ (staminaStore.secondsPerStamina / 60).toPrecision(4) }} minutes /
+					stamina
 				</div>
 			</div>
 		</div>

@@ -17,7 +17,6 @@ export const useStaminaStore = defineStore('stamina', () => {
 	}
 
 	function syncStaminaData() {
-		if (this.stamina >= this.maxStamina) return;
 		// absolute calculation of stamina
 		// calc additional stamina since staminaUpdatedAt
 		const diffTime = Date.now() - this.staminaUpdatedAt;
@@ -27,8 +26,14 @@ export const useStaminaStore = defineStore('stamina', () => {
 		if (additionalStamina <= 0) {
 			return;
 		}
+
+		if (this.stamina + additionalStamina > this.maxStamina) {
+			return;
+		}
+
 		this.stamina += additionalStamina;
-		this.staminaUpdatedAt = Date.now();
+		this.staminaUpdatedAt =
+			this.staminaUpdatedAt + additionalStamina * 1000 * this.secondsPerStamina;
 
 		// update into staminaRepo
 		// this is a bit direct usage of API
