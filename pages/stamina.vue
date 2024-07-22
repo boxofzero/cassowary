@@ -21,10 +21,7 @@
 			<div class="text-2xl font-extrabold text-white mb-2">
 				<USkeleton class="h-8 w-full" v-if="loading" />
 				<!-- <div v-else>{{ staminaStore.secondsPerStamina }} seconds / stamina</div> -->
-				<div v-else>
-					{{ (staminaStore.secondsPerStamina / 60).toPrecision(4) }} minutes /
-					stamina
-				</div>
+				<div v-else>{{ staminaRate }} minutes / stamina</div>
 			</div>
 		</div>
 		<div class="flex items-center justify-between">
@@ -79,6 +76,12 @@ import moment from 'moment';
 const loading = false;
 
 const staminaStore = useStaminaStore();
+const staminaRate = computed(() => {
+	if (staminaStore.secondsPerStamina < 60) {
+		return (staminaStore.secondsPerStamina / 60).toPrecision(3);
+	}
+	return staminaStore.secondsPerStamina / 60;
+});
 
 onBeforeMount(() => {
 	// init stamina state values
