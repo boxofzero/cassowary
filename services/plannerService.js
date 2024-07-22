@@ -3,18 +3,15 @@ import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,
 } from '@/services/planner/utilities';
-import * as charactersStatMaterial from '@/gameData/charactersStatMaterial';
-import * as charactersNewFormData from '@/forms/characters/new/charactersNewFormData';
+import * as gameCharacters from '~/data/game/gameCharacters';
 import { isTieredMaterialType } from '@/services/planner/utilities';
 
 export const getAllCharactersMaterialsNeeded = () => {
 	usePlannedCharacterStore().init();
 	let characters = usePlannedCharacterStore().plannedCharacters;
-	// console.log('characters: ' + JSON.stringify(characters));
 	const combinedMaterialsNeeded = {};
 	for (let characterName in characters) {
 		const characterMaterials = getMaterialsNeeded(characterName);
-		// console.log('characterMaterials: ' + JSON.stringify(characterMaterials));
 
 		for (let materialType in characterMaterials) {
 			// exp and credit: no material, just add
@@ -86,15 +83,13 @@ export const getMaterialsNeeded = (characterName) => {
 
 	const levelsToFarm = {
 		charLevel: getLevelRangeDiff(
-			charactersStatMaterial.charLevellingMaterialsCount,
+			gameCharacters.charLevellingMaterialsCount,
 			currentLevel,
 			targetLevel
 		),
 	};
 	const activeSkillsToFarm = getActiveSkillsToFarm(plannedCharacter);
-	// console.log('activeSkillsToFarm: ' + JSON.stringify(activeSkillsToFarm));
 	const passiveSkillsToFarm = getPassiveSkillsToFarm(plannedCharacter);
-	// console.log('passiveSkillsToFarm: ' + JSON.stringify(passiveSkillsToFarm));
 
 	// calculate all materials needed
 	const materialsNeeded = getMaterialsFromLevelListStatList(characterName, {
@@ -108,17 +103,13 @@ export const getMaterialsNeeded = (characterName) => {
 
 const getPassiveSkillsToFarm = (plannedCharacter) => {
 	const passiveSkills = {};
-	const tier_1 = charactersStatMaterial.passiveSkills.tier_1;
-	const tier_2 = charactersStatMaterial.passiveSkills.tier_2;
+	const tier_1 = gameCharacters.passiveSkills.tier_1;
+	const tier_2 = gameCharacters.passiveSkills.tier_2;
 	const skills = [tier_1, tier_2].flat();
 	for (let skill of skills) {
-		// console.log('skill: ' + JSON.stringify(skill));
-		// console.log(
-		// 	'plannedCharacter[skill]: ' + JSON.stringify(plannedCharacter[skill])
-		// );
 		if (plannedCharacter[skill] == 0) {
 			passiveSkills[skill] = [
-				charactersStatMaterial.passiveSkillLevellingMaterialsCount[skill],
+				gameCharacters.passiveSkillLevellingMaterialsCount[skill],
 			];
 		}
 	}
@@ -127,10 +118,10 @@ const getPassiveSkillsToFarm = (plannedCharacter) => {
 
 const getActiveSkillsToFarm = (plannedCharacter) => {
 	const activeSkills = {};
-	const skills = charactersStatMaterial.activeSkills;
+	const skills = gameCharacters.activeSkills;
 	for (let skill of skills) {
 		activeSkills[skill] = getLevelRangeDiff(
-			charactersStatMaterial.activeSkillLevellingMaterialsCount,
+			gameCharacters.activeSkillLevellingMaterialsCount,
 			plannedCharacter[skill + '_current_level'],
 			plannedCharacter[skill + '_target_level']
 		);

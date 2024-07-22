@@ -42,26 +42,15 @@
 <script setup>
 import { useInventoryItemStore } from '@/stores/inventoryItems';
 import * as inventoryService from '@/services/inventoryService';
-import * as inventoryItemMetadata from '@/gameData/inventoryItemMetadata';
+import * as inventoryItemMetadata from '~/data/game/gameInventoryItems';
 
 // STORE inventoryItemStore
 const inventoryItemStore = useInventoryItemStore();
 
 const inventoryItemFormScheme = ref({});
 
-// TODO
-// TODO USE THIS
-// const allMaterials = plannerService.getAllCharactersMaterialsNeeded();
-// console.log('allMaterials: ' + JSON.stringify(allMaterials));
-
 onBeforeMount(() => {
 	inventoryItemStore.init();
-	// console.log('init: ' + JSON.stringify(inventoryItemFormScheme.value));
-	// console.log('allMaterials: ' + JSON.stringify(allMaterials));
 	inventoryItemFormScheme.value = inventoryService.getAllMaterialsDisplayData();
-	console.log(
-		'ownedNeededMaterialsResponseData: ' +
-			JSON.stringify(inventoryItemFormScheme.value)
-	);
 });
 </script>

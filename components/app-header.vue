@@ -11,12 +11,12 @@
 				<li>
 					<NuxtLink to="/inventoryItems">Inventory</NuxtLink>
 				</li>
-				<!-- <li>
-					<NuxtLink to="/characters">Characters</NuxtLink>
-				</li> -->
 				<li>
-					<NuxtLink to="/characters/new">Characters</NuxtLink>
+					<NuxtLink to="/characters">Characters</NuxtLink>
 				</li>
+				<!-- <li>
+					<NuxtLink to="/characters/new">Characters</NuxtLink>
+				</li> -->
 			</ul>
 		</nav>
 		<NuxtLink to="/" class="text-xl font-bold">

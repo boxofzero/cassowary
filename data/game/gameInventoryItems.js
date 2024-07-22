@@ -198,8 +198,7 @@ export const tiered_enemy_drop_weapon_skill_material = {
 };
 
 export const enemy_drop_weapon_skill_material = {
-	// display_name: 'Weapon & Skill Material (Enemy Drops)',
-	// ff_howler_core
+	// howler_core
 	lf_howler_core: {
 		icon: 'https://prod-alicdn-community.kurobbs.com/forum/e47a813a53b24f918e1f655f7eec06f420240518.png',
 		synthesizable: {
@@ -330,7 +329,6 @@ export const tiered_forgery_weapon_skill_material = {
 	cadence: {
 		1: {
 			name: 'cadence_seed',
-
 			synthesizable: {
 				to: 2,
 				count: 3,
@@ -338,7 +336,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		2: {
 			name: 'cadence_bud',
-
 			synthesizable: {
 				to: 3,
 				count: 3,
@@ -346,7 +343,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		3: {
 			name: 'cadence_leaf',
-
 			synthesizable: {
 				to: 4,
 				count: 3,
@@ -360,7 +356,6 @@ export const tiered_forgery_weapon_skill_material = {
 	phlohiston: {
 		1: {
 			name: 'impure_phlohiston',
-
 			synthesizable: {
 				to: 2,
 				count: 3,
@@ -368,7 +363,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		2: {
 			name: 'extracted_phlohiston',
-
 			synthesizable: {
 				to: 3,
 				count: 3,
@@ -376,7 +370,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		3: {
 			name: 'refined_phlohiston',
-
 			synthesizable: {
 				to: 4,
 				count: 3,
@@ -390,7 +383,6 @@ export const tiered_forgery_weapon_skill_material = {
 	metallic_drip: {
 		1: {
 			name: 'inert_metallic_drip',
-
 			synthesizable: {
 				to: 2,
 				count: 3,
@@ -398,7 +390,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		2: {
 			name: 'reactive_metallic_drip',
-
 			synthesizable: {
 				to: 3,
 				count: 3,
@@ -406,7 +397,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		3: {
 			name: 'polarized_metallic_drip',
-
 			synthesizable: {
 				to: 4,
 				count: 3,
@@ -420,7 +410,6 @@ export const tiered_forgery_weapon_skill_material = {
 	helix: {
 		1: {
 			name: 'lento_helix',
-
 			synthesizable: {
 				to: 2,
 				count: 3,
@@ -428,7 +417,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		2: {
 			name: 'adagio_helix',
-
 			synthesizable: {
 				to: 3,
 				count: 3,
@@ -436,7 +424,6 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 		3: {
 			name: 'andante_helix',
-
 			synthesizable: {
 				to: 4,
 				count: 3,
@@ -604,7 +591,7 @@ export const credit = {
 	},
 };
 
-export const inventoryItems = {
+export const categorizedInventoryItems = {
 	credit: credit,
 	boss_ascension_material: boss_ascension_material,
 	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
@@ -614,6 +601,18 @@ export const inventoryItems = {
 	echo_development_material: echo_development_material,
 	forgery_weapon_skill_material: forgery_weapon_skill_material,
 	overworld_resource_ascension_material: overworld_resource_ascension_material,
+};
+
+export const allInventoryItems = {
+	...credit,
+	...resonator_exp_material,
+	...weapon_exp_material,
+	...echo_development_material,
+	...boss_ascension_material,
+	...weekly_boss_skill_upgrade_material,
+	...enemy_drop_weapon_skill_material,
+	...forgery_weapon_skill_material,
+	...overworld_resource_ascension_material,
 };
 
 export const tiered_materials = {
