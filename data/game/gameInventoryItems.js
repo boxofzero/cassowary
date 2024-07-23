@@ -433,6 +433,33 @@ export const tiered_forgery_weapon_skill_material = {
 			name: 'presto_helix',
 		},
 	},
+
+	waveworn_residue: {
+		1: {
+			name: 'waveworn_residue_210',
+			synthesizable: {
+				to: 2,
+				count: 3,
+			},
+		},
+		2: {
+			name: 'waveworn_residue_226',
+			synthesizable: {
+				to: 3,
+				count: 3,
+			},
+		},
+		3: {
+			name: 'waveworn_residue_235',
+			synthesizable: {
+				to: 4,
+				count: 3,
+			},
+		},
+		4: {
+			name: 'waveworn_residue_239',
+		},
+	},
 };
 
 export const forgery_weapon_skill_material = {
