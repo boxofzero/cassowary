@@ -9,10 +9,10 @@
 		:key="materialType"
 	>
 		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
-			{{ materialType }}
+			{{ materialLabel(materialType) }}
 		</h2>
 		<!-- outer div of each item -->
-		<div class="grid grid-cols-6 gap-6">
+		<div class="grid grid-cols-8 gap-1">
 			<div v-for="(item, index) in materialTypeData" :key="index" class="">
 				<InventoryItemMaterialCard
 					:index="index"
@@ -49,6 +49,10 @@ const allMaterialsResponseData = ref({});
 const updateAllMaterial = () => {
 	allMaterialsResponseData.value =
 		inventoryService.getAllMaterialsResponseData();
+};
+
+const materialLabel = (text) => {
+	return useStartCase(text.replaceAll('_', ' '));
 };
 
 onBeforeMount(() => {
