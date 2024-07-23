@@ -177,15 +177,9 @@ const upsertPlannedCharacter = () => {
 // TODO material needed
 const getMaterialsNeeded = (characterName) => {
 	const neededMaterials =
-		characterService.getCharacterMaterialsNeeded(characterName);
-
+		characterService.getCharacterNeededMaterials(characterName);
 	const ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
-	console.log(
-		'ownedNeededMaterialsResponseData: ' +
-			JSON.stringify(ownedNeededMaterialsResponseData)
-	);
-
 	return ownedNeededMaterialsResponseData;
 };
 

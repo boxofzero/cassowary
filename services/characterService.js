@@ -13,7 +13,7 @@ import * as gameCharacters from '~/data/game/gameCharacters';
  * @param {string} characterName - The name of the character.
  * @return {Object} An object containing the materials needed for the character, with the material type as the key and the quantity as the value.
  */
-export const getCharacterMaterialsNeeded = (characterName) => {
+export const getCharacterNeededMaterials = (characterName) => {
 	// init plannedCharacters, inventoryItems
 	usePlannedCharacterStore().init();
 	useInventoryItemStore().init();
@@ -77,55 +77,24 @@ const getActiveSkillsToFarm = (plannedCharacter) => {
 	return activeSkills;
 };
 
-export const getAllCharactersMaterialsNeeded = () => {
+export const getAllCharactersNeededMaterials = () => {
 	usePlannedCharacterStore().init();
 	let characters = usePlannedCharacterStore().plannedCharacters;
+	if (!characters) return {};
 
-	const combinedMaterialsNeeded = {};
+	const combinedNeededMaterials = {};
 	for (let characterName in characters) {
-		const characterMaterials = getMaterialsNeeded(characterName);
-
+		const characterMaterials = getCharacterNeededMaterials(characterName);
 		for (let materialType in characterMaterials) {
-			// exp and credit: no material, just add
-			if (['char_exp', 'credit'].includes(materialType)) {
-				combinedMaterialsNeeded[materialType] =
-					combinedMaterialsNeeded[materialType] || 0;
-				combinedMaterialsNeeded[materialType] +=
+			if (combinedNeededMaterials[materialType] === undefined) {
+				combinedNeededMaterials[materialType] =
 					characterMaterials[materialType];
-				continue;
-			}
-
-			// assign {} if undefined
-			if (combinedMaterialsNeeded[materialType] === undefined) {
-				combinedMaterialsNeeded[materialType] = {};
-			}
-			// inventory tiered materialTypes
-			if (isTieredMaterialType(materialType)) {
-				for (let tieredMaterial in characterMaterials[materialType]) {
-					if (
-						combinedMaterialsNeeded[materialType][tieredMaterial] === undefined
-					) {
-						combinedMaterialsNeeded[materialType][tieredMaterial] = {};
-					}
-					for (let tier in characterMaterials[materialType][tieredMaterial]) {
-						combinedMaterialsNeeded[materialType][tieredMaterial][tier] =
-							combinedMaterialsNeeded[materialType][tieredMaterial][tier] || 0;
-						combinedMaterialsNeeded[materialType][tieredMaterial][tier] +=
-							characterMaterials[materialType][tieredMaterial][tier];
-					}
-				}
-				continue;
-			}
-
-			// inventory non-tiered materialTypes
-			for (let material in characterMaterials[materialType]) {
-				combinedMaterialsNeeded[materialType][material] =
-					combinedMaterialsNeeded[materialType][material] || 0;
-				combinedMaterialsNeeded[materialType][material] +=
-					characterMaterials[materialType][material];
+			} else {
+				combinedNeededMaterials[materialType] +=
+					characterMaterials[materialType];
 			}
 		}
 	}
 
-	return combinedMaterialsNeeded;
+	return combinedNeededMaterials;
 };

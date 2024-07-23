@@ -14,6 +14,7 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 
 	const debouncedStoreToStorage = useDebounceFn(
 		() => {
+			console.log('storing inventoryItems to localStorage');
 			inventoryRepo.value = inventoryItems.value;
 		},
 		500,
@@ -32,7 +33,7 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 	function updateInventory(stuffKey, value) {
 		inventoryItems.value[stuffKey]['count'] = parseInt(value);
 
-		debouncedStoreToStorage();
+		return debouncedStoreToStorage();
 	}
 
 	function updateAll() {

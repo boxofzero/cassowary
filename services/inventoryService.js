@@ -1,6 +1,6 @@
 import { useInventoryItemStore } from '@/stores/inventoryItems';
 import * as gameInventoryItems from '~/data/game/gameInventoryItems';
-import * as plannerService from '@/services/plannerService';
+import * as characterService from '@/services/characterService';
 
 const generateExpData = (
 	expNeeded,
@@ -56,45 +56,8 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 	return responseData;
 };
 
-export const getAllMaterialsDisplayData = () => {
-	let displayData = {};
-	useInventoryItemStore().init();
-	const allMaterials = plannerService.getAllCharactersMaterialsNeeded();
-	const ownedNeededMaterialsResponseData =
-		getOwnedNeededMaterialsResponseData(allMaterials);
-	const inventoryItems = useInventoryItemStore().inventoryItems;
-
-	for (let materialType in inventoryItems) {
-		if (materialType === 'credit') {
-			displayData[materialType] = {
-				owned: ownedNeededMaterialsResponseData[materialType].owned,
-				needed: ownedNeededMaterialsResponseData[materialType].needed,
-				icon: gameInventoryItems.inventoryItems.inventoryItems[materialType]
-					.credit.icon,
-			};
-			continue;
-		}
-		for (let material in inventoryItems[materialType]) {
-			if (ownedNeededMaterialsResponseData[material] === undefined) {
-				displayData[material] = {
-					owned: 0,
-					needed: 0,
-					icon: gameInventoryItems.inventoryItems.inventoryItems[materialType][
-						material
-					].icon,
-				};
-				continue;
-			}
-
-			displayData[material] = {
-				owned: ownedNeededMaterialsResponseData[material].owned,
-				needed: ownedNeededMaterialsResponseData[material].needed,
-				icon: gameInventoryItems.inventoryItems.inventoryItems[materialType][
-					material
-				].icon,
-			};
-		}
-	}
-
-	return displayData;
+export const getAllMaterialsResponseData = () => {
+	const allMaterials = characterService.getAllCharactersNeededMaterials();
+	const data = getOwnedNeededMaterialsResponseData(allMaterials);
+	return data;
 };
