@@ -1,6 +1,7 @@
 import { useInventoryItemStore } from '@/stores/inventoryItems';
 import * as gameInventoryItems from '~/data/game/gameInventoryItems';
 import * as characterService from '@/services/characterService';
+import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
 const generateExpData = (
 	expNeeded,
@@ -46,18 +47,58 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			responseData = useAssign(responseData, charExp);
 			continue;
 		}
+
 		responseData[materialType] = {
-			owned: ownedMaterials[materialType] || 0,
+			owned:
+				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
+				0,
 			needed: neededMaterials[materialType] || 0,
 			icon: gameInventoryItems.allInventoryItems[materialType].icon,
 		};
 	}
 
-	return responseData;
+	// 'sorting' the materials
+	let allInventoryItems = dbInventoryItem.dbInventoryItems;
+	let responseDataSorted = {};
+	for (let materialType in allInventoryItems) {
+		if (responseData[materialType] === undefined) {
+			continue;
+		}
+		responseDataSorted[materialType] = responseData[materialType];
+	}
+
+	return responseDataSorted;
 };
 
 export const getAllMaterialsResponseData = () => {
+	// this doesnt include unneeded material
 	const allMaterials = characterService.getAllCharactersNeededMaterials();
 	const data = getOwnedNeededMaterialsResponseData(allMaterials);
-	return data;
+
+	useInventoryItemStore().init();
+	const ownedMaterials = useInventoryItemStore().inventoryItems;
+	if (ownedMaterials.length == 0) {
+		return {};
+	}
+
+	// include the not needed materials
+	let allInventoryItems = dbInventoryItem.dbInventoryItems;
+	let responseData = {};
+	for (let materialType in allInventoryItems) {
+		// needed materials, data already structured
+		if (data[materialType]) {
+			responseData[materialType] = data[materialType];
+			continue;
+		}
+
+		// the rest not needed materials
+		responseData[materialType] = {
+			owned:
+				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
+				0,
+			needed: 0,
+			icon: gameInventoryItems.allInventoryItems[materialType].icon,
+		};
+	}
+	return responseData;
 };

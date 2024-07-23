@@ -17,7 +17,6 @@
 				<InventoryItemMaterialCard
 					:index="index"
 					:item="allMaterialsResponseData[index]"
-					@updateMaterialCount="updateAllMaterial()"
 				></InventoryItemMaterialCard>
 				<!-- div for per stuff -->
 				<!-- <div class="">

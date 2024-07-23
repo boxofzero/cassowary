@@ -5,7 +5,8 @@ import {
 	getMaterialsFromLevelListStatList,
 	isTieredMaterialType,
 } from '@/services/planner/utilities';
-import * as gameCharacters from '~/data/game/gameCharacters';
+import * as gameCharacters from '@/data/game/gameCharacters';
+import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
 /**
  * Retrieves the materials needed for a character based on their current level and target level.

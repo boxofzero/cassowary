@@ -41,6 +41,9 @@ export const weekly_boss_skill_upgrade_material = {
 	unending_destruction: {
 		count: 0,
 	},
+	sentinels_dagger: {
+		count: 0,
+	},
 };
 
 export const resonator_exp_material = {
@@ -276,12 +279,12 @@ export const categorizedInventoryItems = {
 
 export const dbInventoryItems = {
 	...credit,
-	...boss_ascension_material,
-	...weekly_boss_skill_upgrade_material,
 	...resonator_exp_material,
 	...weapon_exp_material,
-	...enemy_drop_weapon_skill_material,
 	...echo_development_material,
+	...boss_ascension_material,
+	...weekly_boss_skill_upgrade_material,
+	...enemy_drop_weapon_skill_material,
 	...forgery_weapon_skill_material,
 	...overworld_resource_ascension_material,
 };

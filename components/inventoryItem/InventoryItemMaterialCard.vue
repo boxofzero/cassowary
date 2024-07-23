@@ -39,7 +39,10 @@
 		<v-text-field
 			class="text-center"
 			type="number"
-			:model-value="(item && item.owned) || 0"
+			:min="0"
+			:max="99999"
+			v-model="itemRef"
+			:model-value="itemRef"
 			@update:modelValue="updateMaterialCount(index, $event)"
 		></v-text-field>
 	</v-card>
@@ -54,17 +57,23 @@ const props = defineProps({
 	index: String,
 	item: Object,
 });
-const isImageLoaded = ref(false);
 
+const isImageLoaded = ref(false);
 function imageLoaded() {
 	isImageLoaded.value = true;
 }
 
+const itemRef = ref(0);
 const updateMaterialCount = (index, count) => {
 	useInventoryItemStore()
 		.updateInventory(index, count)
 		.then(() => {
+			itemRef.value = count;
 			$emit('updateMaterialCount', true);
 		});
 };
+
+onBeforeMount(() => {
+	itemRef.value = (props.item && props.item.owned) || 0;
+});
 </script>
