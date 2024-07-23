@@ -31,7 +31,7 @@
 						density="compact"
 						class=""
 						color="yellow"
-						prepend-icon="mdi mdi-check"
+						prepend-icon="mdi mdi-flask"
 					>
 						0
 						<!-- TODO
