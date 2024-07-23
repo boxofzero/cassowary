@@ -1,7 +1,7 @@
 export const charLevellingMaterialsCount = [
 	// TODO fix exp and credit levelling number counts
 	{ level: '1', materials: {} },
-	{ level: '20', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '20', materials: { char_exp: 33300, credit: 11655 } },
 	{
 		level: '20A',
 		materials: {
@@ -11,7 +11,7 @@ export const charLevellingMaterialsCount = [
 			credit: 5000,
 		},
 	},
-	{ level: '40', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '40', materials: { char_exp: 175500, credit: 61425 } },
 	{
 		level: '40A',
 		materials: {
@@ -23,7 +23,7 @@ export const charLevellingMaterialsCount = [
 			credit: 10000,
 		},
 	},
-	{ level: '50', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '50', materials: { char_exp: 188300, credit: 65905 } },
 	{
 		level: '50A',
 		materials: {
@@ -35,7 +35,7 @@ export const charLevellingMaterialsCount = [
 			credit: 10000,
 		},
 	},
-	{ level: '60', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '60', materials: { char_exp: 286600, credit: 100310 } },
 	{
 		level: '60A',
 		materials: {
@@ -47,7 +47,7 @@ export const charLevellingMaterialsCount = [
 			credit: 20000,
 		},
 	},
-	{ level: '70', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '70', materials: { char_exp: 413000, credit: 144550 } },
 	{
 		level: '70A',
 		materials: {
@@ -59,7 +59,7 @@ export const charLevellingMaterialsCount = [
 			credit: 40000,
 		},
 	},
-	{ level: '80', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '80', materials: { char_exp: 572400, credit: 200340 } },
 	{
 		level: '80A',
 		materials: {
@@ -71,7 +71,7 @@ export const charLevellingMaterialsCount = [
 			credit: 80000,
 		},
 	},
-	{ level: '90', materials: { char_exp: 1000, credit: 1000 } },
+	{ level: '90', materials: { char_exp: 768900, credit: 269115 } },
 ];
 
 export const activeSkillLevellingMaterialsCount = [
