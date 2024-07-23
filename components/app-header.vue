@@ -14,6 +14,9 @@
 				<li>
 					<NuxtLink to="/characters">Characters</NuxtLink>
 				</li>
+				<li>
+					<NuxtLink to="/about">About</NuxtLink>
+				</li>
 				<!-- <li>
 					<NuxtLink to="/characters/new">Characters</NuxtLink>
 				</li> -->
