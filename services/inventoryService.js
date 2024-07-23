@@ -47,7 +47,7 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			continue;
 		}
 		responseData[materialType] = {
-			owned: ownedMaterials[materialType].count || 0,
+			owned: ownedMaterials[materialType] || 0,
 			needed: neededMaterials[materialType] || 0,
 			icon: gameInventoryItems.allInventoryItems[materialType].icon,
 		};

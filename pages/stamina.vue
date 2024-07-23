@@ -96,6 +96,7 @@ const updateStaminaInterval = () => {
 
 let intervalId;
 onMounted(() => {
+	staminaStore.syncStaminaData();
 	// update stamina every interval time
 	intervalId = updateStaminaInterval();
 });

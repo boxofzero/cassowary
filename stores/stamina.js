@@ -21,7 +21,7 @@ export const useStaminaStore = defineStore('stamina', () => {
 		// calc additional stamina since staminaUpdatedAt
 		const diffTime = Date.now() - this.staminaUpdatedAt;
 		const additionalStamina = Math.floor(
-			diffTime / 1000 / this.secondsPerStamina
+			diffTime / this.secondsPerStamina / 1000
 		);
 		if (additionalStamina <= 0) {
 			return;
@@ -33,7 +33,7 @@ export const useStaminaStore = defineStore('stamina', () => {
 
 		this.stamina += additionalStamina;
 		this.staminaUpdatedAt =
-			this.staminaUpdatedAt + additionalStamina * 1000 * this.secondsPerStamina;
+			this.staminaUpdatedAt + additionalStamina * this.secondsPerStamina * 1000;
 
 		// update into staminaRepo
 		// this is a bit direct usage of API
