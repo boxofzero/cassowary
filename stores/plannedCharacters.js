@@ -1,5 +1,5 @@
 import { useStorage, useDebounceFn } from '@vueuse/core';
-import { characterFormScheme } from '~/dbSchemeData/plannedCharacter';
+import * as dbPlannedCharacter from '~/data/database/dbPlannedCharacter';
 
 const plannedCharactersRepo = () => {
 	return useStorage('plannedCharacters', {});
@@ -30,7 +30,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		) {
 			return plannedCharacters.value[characterName];
 		}
-		return { ...characterFormScheme };
+		return { ...dbPlannedCharacter.character };
 	}
 
 	function upsert(characterName, character) {
@@ -53,7 +53,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			useOmit(character, 'name')
 		);
 
-		debouncedStoreToStorage();
+		return debouncedStoreToStorage();
 	}
 
 	return {

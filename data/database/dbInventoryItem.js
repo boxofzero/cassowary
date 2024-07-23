@@ -251,13 +251,19 @@ export const overworld_resource_ascension_material = {
 	},
 };
 
-// inventory contains inventory items (materials)
+export const credit = {
+	credit: {
+		count: 0,
+	},
+};
+
+// inventory contains inventoryItems (materials)
 // exp, credit: material type -> count
 // materials type -> material -> count, meta
 // tiered materials type -> material -> tierMaterial -> count, meta
 
-export const inventoryItems = {
-	credit: 0,
+export const categorizedInventoryItems = {
+	credit: credit,
 	boss_ascension_material: boss_ascension_material,
 	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
 	resonator_exp_material: resonator_exp_material,
@@ -268,13 +274,14 @@ export const inventoryItems = {
 	overworld_resource_ascension_material: overworld_resource_ascension_material,
 };
 
-export const materialNeeded = {
-	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
-	boss_ascension_material: boss_ascension_material,
-	overworld_resource_ascension_material: overworld_resource_ascension_material,
-	forgery_weapon_skill_material: forgery_weapon_skill_material,
-	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
-	resonator_exp_material: resonator_exp_material,
-	weapon_exp_material: weapon_exp_material,
-	credit: 0,
+export const dbInventoryItems = {
+	...credit,
+	...boss_ascension_material,
+	...weekly_boss_skill_upgrade_material,
+	...resonator_exp_material,
+	...weapon_exp_material,
+	...enemy_drop_weapon_skill_material,
+	...echo_development_material,
+	...forgery_weapon_skill_material,
+	...overworld_resource_ascension_material,
 };

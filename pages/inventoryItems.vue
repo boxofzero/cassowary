@@ -5,7 +5,7 @@
 	<div
 		v-for="(
 			materialTypeData, materialType
-		) in inventoryItemMetadata.inventoryItems"
+		) in gameInventoryItems.categorizedInventoryItems"
 		:key="materialType"
 	>
 		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
@@ -16,7 +16,8 @@
 			<div v-for="(item, index) in materialTypeData" :key="index" class="">
 				<InventoryItemMaterialCard
 					:index="index"
-					:item="inventoryItemFormScheme[index]"
+					:item="allMaterialsResponseData[index]"
+					@updateMaterialCount="updateAllMaterial()"
 				></InventoryItemMaterialCard>
 				<!-- div for per stuff -->
 				<!-- <div class="">
@@ -42,26 +43,17 @@
 <script setup>
 import { useInventoryItemStore } from '@/stores/inventoryItems';
 import * as inventoryService from '@/services/inventoryService';
-import * as inventoryItemMetadata from '@/gameData/inventoryItemMetadata';
+import * as gameInventoryItems from '~/data/game/gameInventoryItems';
 
-// STORE inventoryItemStore
-const inventoryItemStore = useInventoryItemStore();
+const allMaterialsResponseData = ref({});
 
-const inventoryItemFormScheme = ref({});
-
-// TODO
-// TODO USE THIS
-// const allMaterials = plannerService.getAllCharactersMaterialsNeeded();
-// console.log('allMaterials: ' + JSON.stringify(allMaterials));
+const updateAllMaterial = () => {
+	allMaterialsResponseData.value =
+		inventoryService.getAllMaterialsResponseData();
+};
 
 onBeforeMount(() => {
-	inventoryItemStore.init();
-	// console.log('init: ' + JSON.stringify(inventoryItemFormScheme.value));
-	// console.log('allMaterials: ' + JSON.stringify(allMaterials));
-	inventoryItemFormScheme.value = inventoryService.getAllMaterialsDisplayData();
-	console.log(
-		'ownedNeededMaterialsResponseData: ' +
-			JSON.stringify(inventoryItemFormScheme.value)
-	);
+	useInventoryItemStore().init();
+	updateAllMaterial();
 });
 </script>

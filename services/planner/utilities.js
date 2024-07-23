@@ -1,4 +1,5 @@
-import { charactersStatMaterial } from '@/gameData/charactersStatMaterial';
+import * as gameInventoryItems from '~/data/game/gameInventoryItems';
+import * as gameCharacters from '~/data/game/gameCharacters';
 
 export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 	// index of currentLevel
@@ -23,10 +24,7 @@ export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 };
 
 export const isTieredMaterialType = (material) => {
-	return [
-		'tiered_enemy_drop_weapon_skill_material',
-		'tiered_forgery_weapon_skill_material',
-	].includes(material);
+	return Object.keys(gameInventoryItems.tiered_materials).includes(material);
 };
 
 export const getMaterialsFromLevelListStatList = (
@@ -42,7 +40,7 @@ export const getMaterialsFromLevelListStatList = (
 		for (let level of statsToFarm[stat]) {
 			for (let materialType in level.materials) {
 				// inventory exp and credit (not named materials)
-				if (['exp', 'credit'].includes(materialType)) {
+				if (['char_exp', 'credit'].includes(materialType)) {
 					useSet(
 						materials,
 						materialType,
@@ -53,18 +51,16 @@ export const getMaterialsFromLevelListStatList = (
 
 				// get the materialType's material name
 				const materialName =
-					charactersStatMaterial[characterName][materialType];
+					gameCharacters.characters[characterName][materialType];
 				// inventory tiered materials
 				if (isTieredMaterialType(materialType)) {
-					if (materials[materialType] === undefined) {
-						materials[materialType] = {};
-						materials[materialType][materialName] = {};
-					}
 					for (let tier in level.materials[materialType]) {
+						const tieredMaterialName =
+							gameInventoryItems[materialType][materialName][tier].name;
 						useSet(
-							materials[materialType][materialName],
-							tier,
-							useGet(materials[materialType][materialName], tier, 0) +
+							materials,
+							tieredMaterialName,
+							useGet(materials, tieredMaterialName, 0) +
 								level.materials[materialType][tier]
 						);
 					}
@@ -72,15 +68,10 @@ export const getMaterialsFromLevelListStatList = (
 				}
 
 				// inventory other materials
-				if (materials[materialType] === undefined) {
-					materials[materialType] = {};
-					materials[materialType][materialName] = 0;
-				}
 				useSet(
-					materials[materialType],
+					materials,
 					materialName,
-					useGet(materials[materialType], materialName, 0) +
-						level.materials[materialType]
+					useGet(materials, materialName, 0) + level.materials[materialType]
 				);
 			}
 		}

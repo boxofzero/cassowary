@@ -1,7 +1,7 @@
 export const charLevellingMaterialsCount = [
 	// TODO fix exp and credit levelling number counts
 	{ level: '1', materials: {} },
-	{ level: '20', materials: { exp: 1000, credit: 1000 } },
+	{ level: '20', materials: { char_exp: 1000, credit: 1000 } },
 	{
 		level: '20A',
 		materials: {
@@ -11,7 +11,7 @@ export const charLevellingMaterialsCount = [
 			credit: 5000,
 		},
 	},
-	{ level: '40', materials: { exp: 1000, credit: 1000 } },
+	{ level: '40', materials: { char_exp: 1000, credit: 1000 } },
 	{
 		level: '40A',
 		materials: {
@@ -23,7 +23,7 @@ export const charLevellingMaterialsCount = [
 			credit: 10000,
 		},
 	},
-	{ level: '50', materials: { exp: 1000, credit: 1000 } },
+	{ level: '50', materials: { char_exp: 1000, credit: 1000 } },
 	{
 		level: '50A',
 		materials: {
@@ -35,7 +35,7 @@ export const charLevellingMaterialsCount = [
 			credit: 10000,
 		},
 	},
-	{ level: '60', materials: { exp: 1000, credit: 1000 } },
+	{ level: '60', materials: { char_exp: 1000, credit: 1000 } },
 	{
 		level: '60A',
 		materials: {
@@ -47,7 +47,7 @@ export const charLevellingMaterialsCount = [
 			credit: 20000,
 		},
 	},
-	{ level: '70', materials: { exp: 1000, credit: 1000 } },
+	{ level: '70', materials: { char_exp: 1000, credit: 1000 } },
 	{
 		level: '70A',
 		materials: {
@@ -59,7 +59,7 @@ export const charLevellingMaterialsCount = [
 			credit: 40000,
 		},
 	},
-	{ level: '80', materials: { exp: 1000, credit: 1000 } },
+	{ level: '80', materials: { char_exp: 1000, credit: 1000 } },
 	{
 		level: '80A',
 		materials: {
@@ -71,7 +71,7 @@ export const charLevellingMaterialsCount = [
 			credit: 80000,
 		},
 	},
-	{ level: '90', materials: { exp: 1000, credit: 1000 } },
+	{ level: '90', materials: { char_exp: 1000, credit: 1000 } },
 ];
 
 export const activeSkillLevellingMaterialsCount = [
@@ -79,7 +79,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 2,
 		materials: {
-			exp: 1000,
 			credit: 1500,
 			tiered_enemy_drop_weapon_skill_material: {
 				1: 2,
@@ -92,7 +91,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 3,
 		materials: {
-			exp: 1000,
 			credit: 2000,
 			tiered_enemy_drop_weapon_skill_material: {
 				1: 3,
@@ -105,7 +103,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 4,
 		materials: {
-			exp: 1000,
 			credit: 4500,
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 2,
@@ -118,7 +115,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 5,
 		materials: {
-			exp: 1000,
 			credit: 6000,
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 3,
@@ -131,7 +127,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 6,
 		materials: {
-			exp: 1000,
 			credit: 16000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 2,
@@ -144,7 +139,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 7,
 		materials: {
-			exp: 1000,
 			credit: 30000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
@@ -158,7 +152,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 8,
 		materials: {
-			exp: 1000,
 			credit: 50000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 2,
@@ -172,7 +165,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 9,
 		materials: {
-			exp: 1000,
 			credit: 70000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 3,
@@ -186,7 +178,6 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 10,
 		materials: {
-			exp: 1000,
 			credit: 100000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 4,
@@ -326,7 +317,20 @@ export const activeSkills = [
 	'intro_skill',
 ];
 
-export const passiveSkills = {
+export const passiveSkills = [
+	'passive_skill_1',
+	'bonus_stat_tier_1_stat_1',
+	'bonus_stat_tier_1_stat_2',
+	'bonus_stat_tier_1_stat_3',
+	'bonus_stat_tier_1_stat_4',
+	'passive_skill_2',
+	'bonus_stat_tier_2_stat_1',
+	'bonus_stat_tier_2_stat_2',
+	'bonus_stat_tier_2_stat_3',
+	'bonus_stat_tier_2_stat_4',
+];
+
+export const tieredPassiveSkills = {
 	tier_1: [
 		'passive_skill_1',
 		'bonus_stat_tier_1_stat_1',
@@ -343,15 +347,15 @@ export const passiveSkills = {
 	],
 };
 
-export const charactersStatMaterial = {
+export const characters = {
 	yinlin: {
 		game_id: 1302,
 		weapon: 'rectifier',
 		tiered_enemy_drop_weapon_skill_material: 'whisperin_core',
+		tiered_forgery_weapon_skill_material: 'helix',
 		boss_ascension_material: 'group_abomination_tacet_core',
 		overworld_resource_ascension_material: 'coriolus',
 		weekly_boss_skill_upgrade_material: 'dreamless_feather',
-		tiered_forgery_weapon_skill_material: 'helix',
 		bonus_stats: [
 			[
 				{ stat: 'crit_rate', value: 0.012 },
@@ -371,10 +375,10 @@ export const charactersStatMaterial = {
 		game_id: 1604,
 		weapon: 'sword',
 		tiered_enemy_drop_weapon_skill_material: 'whisperin_core',
+		tiered_forgery_weapon_skill_material: 'metallic_drip',
 		boss_ascension_material: 'mysterious_code',
 		overworld_resource_ascension_material: 'pecok_flower',
 		weekly_boss_skill_upgrade_material: 'dreamless_feather',
-		tiered_forgery_weapon_skill_material: 'metallic_drip',
 		bonus_stats: [
 			[
 				{ stat: 'havoc_dmg_percent', value: 0.018 },

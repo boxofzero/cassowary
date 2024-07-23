@@ -1,12 +1,12 @@
-import * as inventoryItemScheme from '~/dbSchemeData/inventoryItem';
+import * as dbInventoryItem from '~/data/database/dbInventoryItem';
 import { useStorage, useDebounceFn } from '@vueuse/core';
 // not exported
 const inventoryRepo = () => {
-	return useStorage('inventoryItems', inventoryItemScheme.inventoryItems);
+	return useStorage('inventoryItems', dbInventoryItem.dbInventoryItems);
 };
 
 export const useInventoryItemStore = defineStore('inventoryItems', () => {
-	const inventoryItems = ref(inventoryItemScheme.inventoryItems);
+	const inventoryItems = ref(dbInventoryItem.dbInventoryItems);
 
 	function init() {
 		inventoryItems.value = inventoryRepo().value;
@@ -21,29 +21,19 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 		{ maxWait: 5000 }
 	);
 
-	function get(itemType, stuffKey) {
-		if (!Object.prototype.hasOwnProperty.call(inventoryItems.value, itemType)) {
-			inventoryItems.value[itemType] = {};
-		}
-
-		if (
-			!Object.prototype.hasOwnProperty.call(
-				inventoryItems.value[itemType],
-				stuffKey
-			)
-		) {
-			inventoryItems.value[itemType][stuffKey] = {
+	function get(stuffKey) {
+		if (!Object.prototype.hasOwnProperty.call(inventoryItems.value, stuffKey)) {
+			inventoryItems.value[stuffKey] = {
 				count: 0,
 			};
 		}
-		return inventoryItems.value[itemType][stuffKey];
+		return inventoryItems.value[stuffKey];
 	}
 
-	function updateInventory(itemType, stuffKey, value) {
-		console.log('updateInventory: ', itemType, stuffKey, value);
-		inventoryItems.value[itemType][stuffKey]['count'] = parseInt(value);
+	function updateInventory(stuffKey, value) {
+		inventoryItems.value[stuffKey]['count'] = parseInt(value);
 
-		debouncedStoreToStorage();
+		return debouncedStoreToStorage();
 	}
 
 	function updateAll() {
