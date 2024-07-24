@@ -16,14 +16,15 @@ const generateExpData = (
 		useToPairs(expMaterialTypeStructure),
 		(v) => -v[1].exp_value
 	);
+	console.log('expDataSortedDesc: ' + JSON.stringify(expDataSortedDesc));
 	for (let expData of expDataSortedDesc) {
 		const expDataNeeded = Math.floor(expNeededCounting / expData[1].exp_value);
 		expLeftover = expNeededCounting % expData[1].exp_value;
 		data[expData[0]] = {
 			owned: ownedMaterials[expData[0]].count || 0,
 			needed: expDataNeeded || 0,
-			icon: expData[1].icon,
-			label: expData[1].label,
+			icon: gameInventoryItem.allInventoryItems[expData[0]].icon,
+			label: gameInventoryItem.allInventoryItems[expData[0]].label,
 		};
 		expNeededCounting = expLeftover;
 	}
@@ -49,7 +50,7 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			responseData = useAssign(responseData, exp);
 			continue;
 		}
-		console.log('materialType: ' + materialType);
+
 		responseData[materialType] = {
 			owned:
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
@@ -108,5 +109,7 @@ export const getAllMaterialsResponseData = () => {
 			label: gameInventoryItem.allInventoryItems[materialType].label,
 		};
 	}
+
+	console.log('responseData', JSON.stringify(responseData));
 	return responseData;
 };

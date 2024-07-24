@@ -121,7 +121,7 @@ const upsertPlannedWeapon = () => {
 	if (!weaponName.value) {
 		return;
 	}
-	console.log('weapon: ' + JSON.stringify(weapon.value));
+
 	plannedWeaponStore
 		.upsert(weapon.value['name'], useOmit(weapon.value, 'name'))
 		.then(() => {

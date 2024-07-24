@@ -5,7 +5,6 @@ import {
 	getMaterialsFromLevelListStatList,
 } from '@/services/planner/utilities';
 import * as gameWeapons from '~/data/game/gameWeapon';
-import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
 /**
  * Retrieves the materials needed for a weapon based on their current level and target level.
@@ -37,8 +36,6 @@ export const getWeaponNeededMaterials = (weaponName) => {
 		),
 	};
 
-	console.log('levelsToFarm ' + JSON.stringify(levelsToFarm));
-
 	// calculate all materials needed
 	// at this level, the materials already flatten, not tiered
 	const materialsNeeded = getMaterialsFromLevelListStatList(
@@ -48,8 +45,6 @@ export const getWeaponNeededMaterials = (weaponName) => {
 		},
 		gameWeapons.weapons
 	);
-
-	console.log('materialsNeeded ' + JSON.stringify(materialsNeeded));
 
 	return materialsNeeded;
 };

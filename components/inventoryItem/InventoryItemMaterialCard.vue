@@ -2,35 +2,29 @@
 	<v-card class="w-full">
 		<!-- <v-img :src="(item && item.icon) || ''"></v-img> -->
 		<div class="relative">
-			<v-img
-				class=""
-				v-show="isImageLoaded"
-				@load="imageLoaded()"
-				:src="(item && item.icon) || ''"
-			></v-img>
-			<v-skeleton-loader
-				class=""
-				v-show="!isImageLoaded"
-				boilerplate
-				type="image"
-			></v-skeleton-loader>
+			<v-img class="" :src="(item && item.icon) || ''"></v-img>
 			<v-card-text class="pa-0">
 				<div
 					class="absolute inset-x-0 bottom-0 grid grid-cols-1"
 					v-if="item && item.needed > 0"
 				>
 					<v-chip
-						density="compact"
 						class=""
+						size="small"
+						density="compact"
 						:color="ownedItemColor"
+						variant="elevated"
 						prepend-icon="mdi mdi-target"
 					>
 						{{ (item && item.needed) || 0 }}
 					</v-chip>
 					<v-chip
-						density="compact"
+						v-if="item && item.synthesiable > 0"
 						class=""
+						size="small"
+						density="compact"
 						color="yellow"
+						variant="elevated"
 						prepend-icon="mdi mdi-flask"
 					>
 						0
@@ -42,7 +36,7 @@
 			</v-card-text>
 		</div>
 		<v-card-text class="h-16 pa-0 content-center text-center">
-			{{ materialLabel }}
+			{{ (item && item.label) || '' }}
 		</v-card-text>
 		<!-- label="material owned count" -->
 		<v-text-field
@@ -68,15 +62,6 @@ const $emit = defineEmits(['updateMaterialCount']);
 const props = defineProps({
 	index: String,
 	item: Object,
-});
-
-const isImageLoaded = ref(false);
-function imageLoaded() {
-	isImageLoaded.value = true;
-}
-
-const materialLabel = computed(() => {
-	return useStartCase(props.index.replaceAll('_', ' '));
 });
 
 const ownedItemColor = computed(() => {
