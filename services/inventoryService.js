@@ -61,16 +61,59 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		};
 	}
 
+	console.log('responseData before sort: ' + JSON.stringify(responseData));
+
 	// 'sorting' the materials
 	let allInventoryItems = dbInventoryItem.dbInventoryItems;
 	let responseDataSorted = {};
+	let synthesizedList = {};
 	for (let materialType in allInventoryItems) {
 		if (responseData[materialType] === undefined) {
 			continue;
 		}
 		responseDataSorted[materialType] = responseData[materialType];
+
+		// if the material is synthesizable
+		// since this is sorted data,
+		if (
+			useKeys(gameInventoryItem.synthesizable_materials).includes(materialType)
+		) {
+			const synthesizableData =
+				gameInventoryItem.synthesizable_materials[materialType];
+			// if it has from
+			if (synthesizableData.to !== undefined) {
+				// check if there's a synthesizable material
+				const syntesizedMaterial = synthesizedList[materialType] || 0;
+				// count the synthesizable materials
+				synthesizedList[synthesizableData.to] = Math.floor(
+					(syntesizedMaterial +
+						responseData[materialType].owned -
+						responseData[materialType].needed) /
+						synthesizableData.cost
+				);
+				if (synthesizedList[synthesizableData.to] < 0) {
+					synthesizedList[synthesizableData.to] = 0;
+				}
+				console.log('materialType: ' + materialType);
+				console.log('synthesizableData.to: ' + synthesizableData.to);
+				console.log(
+					'synthesizedList[synthesizableData.to]: ' +
+						synthesizedList[synthesizableData.to]
+				);
+			}
+			responseDataSorted[materialType]['synthesized'] =
+				synthesizedList[materialType];
+			if (
+				responseDataSorted[materialType]['synthesized'] >
+				responseDataSorted[materialType]['needed']
+			) {
+				responseDataSorted[materialType]['synthesized'] =
+					responseDataSorted[materialType]['needed'];
+			}
+		}
 	}
 
+	console.log('responseDataSorted: ' + JSON.stringify(responseDataSorted));
 	return responseDataSorted;
 };
 

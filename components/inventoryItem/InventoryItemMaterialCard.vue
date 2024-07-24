@@ -9,6 +9,17 @@
 					v-if="item && item.needed > 0"
 				>
 					<v-chip
+						v-if="item && item.synthesized > 0"
+						class=""
+						size="small"
+						density="compact"
+						color="yellow"
+						variant="elevated"
+						prepend-icon="mdi mdi-flask"
+					>
+						{{ item && item.synthesized }}
+					</v-chip>
+					<v-chip
 						class=""
 						size="small"
 						density="compact"
@@ -17,20 +28,6 @@
 						prepend-icon="mdi mdi-target"
 					>
 						{{ (item && item.needed) || 0 }}
-					</v-chip>
-					<v-chip
-						v-if="item && item.synthesiable > 0"
-						class=""
-						size="small"
-						density="compact"
-						color="yellow"
-						variant="elevated"
-						prepend-icon="mdi mdi-flask"
-					>
-						0
-						<!-- TODO
-					 this is for number of item that can be synthesized from lower tier
-					  -->
 					</v-chip>
 				</div>
 			</v-card-text>
@@ -49,7 +46,7 @@
 			:max="999_999_999"
 			v-model.lazy="itemRef"
 			:model-value="itemRef"
-			@update:modelValue="debouncedUpdateMaterialCount(index, $event)"
+			@blur="debouncedUpdateMaterialCount(index, itemRef)"
 		></v-text-field>
 	</v-card>
 </template>
@@ -65,7 +62,9 @@ const props = defineProps({
 });
 
 const ownedItemColor = computed(() => {
-	return props.item && itemRef.value >= props.item.needed ? 'green' : 'red';
+	const synthesizedOwned =
+		props.item && (props.item.synthesized || 0) + (props.item.owned || 0);
+	return props.item && synthesizedOwned >= props.item.needed ? 'green' : 'red';
 });
 
 const itemRef = ref(0);
@@ -76,8 +75,11 @@ const debouncedUpdateMaterialCount = useDebounceFn((index, count) => {
 			itemRef.value = count;
 			$emit('updateMaterialCount', true);
 		});
-}, 1000);
+}, 100);
 
+const testBlur = (index, count) => {
+	console.log('test blur', index, count);
+};
 onMounted(() => {
 	itemRef.value = (props.item && props.item.owned) || 0;
 });

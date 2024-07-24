@@ -17,7 +17,7 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 			console.log('storing inventoryItems to localStorage');
 			inventoryRepo.value = inventoryItems.value;
 		},
-		500,
+		200,
 		{ maxWait: 5000 }
 	);
 

@@ -128,6 +128,7 @@
 					<InventoryItemMaterialCard
 						:index="index"
 						:item="item"
+						@update-material-count="getOrInitPlannedCharacter(characterName)"
 					></InventoryItemMaterialCard>
 				</div>
 			</div>
