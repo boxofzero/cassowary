@@ -1,5 +1,5 @@
-import * as gameInventoryItems from '~/data/game/gameInventoryItems';
-import * as gameCharacters from '~/data/game/gameCharacters';
+import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
+import * as gameCharacters from '~/data/game/gameCharacter';
 
 export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 	// index of currentLevel
@@ -24,7 +24,7 @@ export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 };
 
 export const isTieredMaterialType = (material) => {
-	return Object.keys(gameInventoryItems.tiered_materials).includes(material);
+	return Object.keys(gameInventoryItem.tiered_materials).includes(material);
 };
 
 export const getMaterialsFromLevelListStatList = (
@@ -56,7 +56,7 @@ export const getMaterialsFromLevelListStatList = (
 				if (isTieredMaterialType(materialType)) {
 					for (let tier in level.materials[materialType]) {
 						const tieredMaterialName =
-							gameInventoryItems[materialType][materialName][tier].name;
+							gameInventoryItem[materialType][materialName][tier].name;
 						useSet(
 							materials,
 							tieredMaterialName,

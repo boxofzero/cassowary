@@ -4,7 +4,7 @@ import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,
 } from '@/services/planner/utilities';
-import * as gameWeapons from '@/data/game/gameWeapons';
+import * as gameWeapons from '~/data/game/gameWeapon';
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
 /**

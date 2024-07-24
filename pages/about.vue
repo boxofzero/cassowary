@@ -1,10 +1,10 @@
 <template>
 	<section class="">
-		<h1 class="">Planner</h1>
+		<h1 class="">Cassowary : Wuthering Waves Planner</h1>
 	</section>
 	<section>
 		<div>
-			<span>thanks to wutheringwaves.gg for the data</span>
+			<span>thanks to wutheringwaves.gg for all the data</span>
 			<br />
 			<span>random trivia</span>
 			<br />
@@ -16,22 +16,6 @@
 			>
 		</div>
 	</section>
-	<!--
-	 this will show
-	 - to do list daily text-based
-	 - planned inventoryItems
-	 - planned character
-	 - planned weapon
-	 -->
 </template>
 
-<script setup>
-import { useInventoryItemStore } from '@/stores/inventoryItemStore';
-
-const loading = false;
-const inventoryItemStore = useInventoryItemStore();
-
-onBeforeMount(() => {
-	// inventoryItemStore.initInventories();
-});
-</script>
+<script setup></script>

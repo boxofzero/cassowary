@@ -5,7 +5,7 @@ import {
 	getMaterialsFromLevelListStatList,
 	isTieredMaterialType,
 } from '@/services/planner/utilities';
-import * as gameCharacters from '@/data/game/gameCharacters';
+import * as gameCharacters from '~/data/game/gameCharacter';
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
 /**

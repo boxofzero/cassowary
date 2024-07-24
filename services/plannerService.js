@@ -3,7 +3,7 @@ import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,
 } from '@/services/planner/utilities';
-import * as gameCharacters from '~/data/game/gameCharacters';
+import * as gameCharacters from '~/data/game/gameCharacter';
 import { isTieredMaterialType } from '@/services/planner/utilities';
 
 export const getAllCharactersMaterialsNeeded = () => {

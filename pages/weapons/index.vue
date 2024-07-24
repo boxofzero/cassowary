@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { weapons } from '@/data/game/gameWeapons';
+import { weapons } from '~/data/game/gameWeapon';
 import * as dbPlannedWeapon from '@/data/database/dbPlannedWeapon';
 import { levelItems } from '@/data/form/weapons/formWeaponsNew';
 import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
@@ -107,7 +107,6 @@ const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
 const weapon = ref({ ...dbPlannedWeapon.weapon });
-console.log('weapon: ' + JSON.stringify(weapon.value));
 const materials = ref({});
 
 // METHODS

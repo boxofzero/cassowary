@@ -5,7 +5,7 @@
 	<div
 		v-for="(
 			materialTypeData, materialType
-		) in gameInventoryItems.categorizedInventoryItems"
+		) in gameInventoryItem.categorizedInventoryItems"
 		:key="materialType"
 	>
 		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
@@ -42,7 +42,7 @@
 <script setup>
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as inventoryService from '@/services/inventoryService';
-import * as gameInventoryItems from '@/data/game/gameInventoryItems';
+import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
 
 const allMaterialsResponseData = ref({});
 

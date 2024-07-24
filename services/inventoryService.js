@@ -1,5 +1,5 @@
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
-import * as gameInventoryItems from '@/data/game/gameInventoryItems';
+import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
 import * as characterService from '@/services/characterService';
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
@@ -32,14 +32,13 @@ const generateExpData = (
 const getExpData = (expType) => {
 	switch (expType) {
 		case 'weap_exp':
-			return gameInventoryItems.categorizedInventoryItems.weapon_exp_material;
+			return gameInventoryItem.categorizedInventoryItems.weapon_exp_material;
 			break;
 		case 'char_exp':
-			return gameInventoryItems.categorizedInventoryItems
-				.resonator_exp_material;
+			return gameInventoryItem.categorizedInventoryItems.resonator_exp_material;
 			break;
 	}
-	return gameInventoryItems.categorizedInventoryItems.resonator_exp_material;
+	return gameInventoryItem.categorizedInventoryItems.resonator_exp_material;
 };
 
 export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
@@ -66,7 +65,7 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
 				0,
 			needed: neededMaterials[materialType] || 0,
-			icon: gameInventoryItems.allInventoryItems[materialType].icon,
+			icon: gameInventoryItem.allInventoryItems[materialType].icon,
 		};
 	}
 
@@ -110,7 +109,7 @@ export const getAllMaterialsResponseData = () => {
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
 				0,
 			needed: 0,
-			icon: gameInventoryItems.allInventoryItems[materialType].icon,
+			icon: gameInventoryItem.allInventoryItems[materialType].icon,
 		};
 	}
 	return responseData;

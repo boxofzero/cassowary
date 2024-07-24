@@ -136,7 +136,7 @@
 </template>
 
 <script setup>
-import { characters } from '~/data/game/gameCharacters';
+import { characters } from '~/data/game/gameCharacter';
 import * as dbPlannedCharacter from '~/data/database/dbPlannedCharacter';
 import {
 	levelItems,
