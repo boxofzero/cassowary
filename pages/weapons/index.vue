@@ -54,6 +54,17 @@
 				></v-select>
 			</div>
 		</div>
+		<UDivider label="MATERIAL NEEDED" />
+		<section>
+			<div class="grid grid-cols-6 gap-6">
+				<div class="" v-for="(item, index) in materials" :key="index">
+					<InventoryItemMaterialCard
+						:index="index"
+						:item="item"
+					></InventoryItemMaterialCard>
+				</div>
+			</div>
+		</section>
 	</section>
 </template>
 
@@ -96,6 +107,7 @@ const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
 const weapon = ref({ ...dbPlannedWeapon.weapon });
+console.log('weapon: ' + JSON.stringify(weapon.value));
 const materials = ref({});
 
 // METHODS
@@ -110,6 +122,7 @@ const upsertPlannedWeapon = () => {
 	if (!weaponName.value) {
 		return;
 	}
+	console.log('weapon: ' + JSON.stringify(weapon.value));
 	plannedWeaponStore
 		.upsert(weapon.value['name'], useOmit(weapon.value, 'name'))
 		.then(() => {

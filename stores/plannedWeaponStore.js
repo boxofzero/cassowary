@@ -21,30 +21,28 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		{ maxWait: 5000 }
 	);
 
-	function getOrInitEntry(characterName) {
+	function getOrInitEntry(weaponName) {
 		if (
-			Object.prototype.hasOwnProperty.call(plannedWeapons.value, characterName)
+			Object.prototype.hasOwnProperty.call(plannedWeapons.value, weaponName)
 		) {
-			return plannedWeapons.value[characterName];
+			return plannedWeapons.value[weaponName];
 		}
-		return { ...dbPlannedWeapon.character };
+		return { ...dbPlannedWeapon.weapon };
 	}
 
-	function upsert(characterName, character) {
+	function upsert(weaponName, weapon) {
 		// if the name does not exist in the plannedWeapons key, init it
 		if (
-			!Object.prototype.hasOwnProperty.call(plannedWeapons.value, characterName)
+			!Object.prototype.hasOwnProperty.call(plannedWeapons.value, weaponName)
 		) {
-			plannedWeapons.value[characterName] = {};
-			plannedWeapons.value[characterName]['created_at'] =
-				new Date().toISOString();
+			plannedWeapons.value[weaponName] = {};
+			plannedWeapons.value[weaponName]['created_at'] = new Date().toISOString();
 		}
-		plannedWeapons.value[characterName]['updated_at'] =
-			new Date().toISOString();
+		plannedWeapons.value[weaponName]['updated_at'] = new Date().toISOString();
 
-		plannedWeapons.value[characterName] = useAssign(
-			plannedWeapons.value[characterName],
-			useOmit(character, 'name')
+		plannedWeapons.value[weaponName] = useAssign(
+			plannedWeapons.value[weaponName],
+			useOmit(weapon, 'name')
 		);
 
 		return debouncedStoreToStorage();

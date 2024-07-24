@@ -46,8 +46,8 @@
 		</v-card-text>
 		<!-- label="material owned count" -->
 		<v-text-field
-			hide-details="true"
-			hide-spin-buttons="true"
+			hide-details
+			hide-spin-buttons
 			density="compact"
 			class="text-center"
 			type="number"

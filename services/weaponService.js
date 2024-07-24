@@ -3,7 +3,6 @@ import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,
-	isTieredMaterialType,
 } from '@/services/planner/utilities';
 import * as gameWeapons from '@/data/game/gameWeapons';
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
@@ -28,53 +27,31 @@ export const getWeaponNeededMaterials = (weaponName) => {
 	const currentLevel = plannedWeapon.weap_current_level;
 	const targetLevel = plannedWeapon.weap_target_level;
 
+	const weaponRarity = gameWeapons.weapons[weaponName].rarity;
+
 	const levelsToFarm = {
 		weapLevel: getLevelRangeDiff(
-			gameWeapons.weaponLevellingMaterialsCount,
+			gameWeapons.weaponLevellingMaterialsCount[weaponRarity],
 			currentLevel,
 			targetLevel
 		),
 	};
 
-	const activeSkillsToFarm = getActiveSkillsToFarm(plannedWeapon);
-
-	const passiveSkillsToFarm = getPassiveSkillsToFarm(plannedWeapon);
+	console.log('levelsToFarm ' + JSON.stringify(levelsToFarm));
 
 	// calculate all materials needed
 	// at this level, the materials already flatten, not tiered
-	const materialsNeeded = getMaterialsFromLevelListStatList(weaponName, {
-		...levelsToFarm,
-		...activeSkillsToFarm,
-		...passiveSkillsToFarm,
-	});
+	const materialsNeeded = getMaterialsFromLevelListStatList(
+		weaponName,
+		{
+			...levelsToFarm,
+		},
+		gameWeapons.weapons
+	);
+
+	console.log('materialsNeeded ' + JSON.stringify(materialsNeeded));
 
 	return materialsNeeded;
-};
-
-const getPassiveSkillsToFarm = (plannedWeapon) => {
-	const passiveSkillsToFarm = {};
-	const passiveSkills = gameWeapons.passiveSkills;
-	for (let skill of passiveSkills) {
-		if (plannedWeapon[skill] == 0) {
-			passiveSkillsToFarm[skill] = [
-				gameWeapons.passiveSkillLevellingMaterialsCount[skill],
-			];
-		}
-	}
-	return passiveSkillsToFarm;
-};
-
-const getActiveSkillsToFarm = (plannedWeapon) => {
-	const activeSkills = {};
-	const skills = gameWeapons.activeSkills;
-	for (let skill of skills) {
-		activeSkills[skill] = getLevelRangeDiff(
-			gameWeapons.activeSkillLevellingMaterialsCount,
-			plannedWeapon[skill + '_current_level'],
-			plannedWeapon[skill + '_target_level']
-		);
-	}
-	return activeSkills;
 };
 
 export const getAllWeaponsNeededMaterials = () => {

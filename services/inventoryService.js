@@ -29,6 +29,19 @@ const generateExpData = (
 	return data;
 };
 
+const getExpData = (expType) => {
+	switch (expType) {
+		case 'weap_exp':
+			return gameInventoryItems.categorizedInventoryItems.weapon_exp_material;
+			break;
+		case 'char_exp':
+			return gameInventoryItems.categorizedInventoryItems
+				.resonator_exp_material;
+			break;
+	}
+	return gameInventoryItems.categorizedInventoryItems.resonator_exp_material;
+};
+
 export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 	let responseData = {};
 	useInventoryItemStore().init();
@@ -38,16 +51,16 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 	}
 
 	for (let materialType in neededMaterials) {
-		if (materialType == 'char_exp') {
-			const charExp = generateExpData(
+		if (['weap_exp', 'char_exp'].includes(materialType)) {
+			const expData = getExpData(materialType);
+			const exp = generateExpData(
 				neededMaterials[materialType],
 				ownedMaterials,
-				gameInventoryItems.categorizedInventoryItems.resonator_exp_material
+				expData
 			);
-			responseData = useAssign(responseData, charExp);
+			responseData = useAssign(responseData, exp);
 			continue;
 		}
-
 		responseData[materialType] = {
 			owned:
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||

@@ -1,242 +1,242 @@
-export const weapon3StarLevellingMaterialsCount = [
-	{ level: '1', materials: {} },
-	{ level: '20', materials: { weapon_exp: 24660, credit: 9864 } },
-	{
-		level: '20A',
-		materials: {
-			tiered_enemy_drop_weapon_skill_material: {
-				1: 4,
+export const weaponLevellingMaterialsCount = {
+	3: [
+		{ level: '1', materials: {} },
+		{ level: '20', materials: { weap_exp: 24660, credit: 9864 } },
+		{
+			level: '20A',
+			materials: {
+				tiered_enemy_drop_weapon_skill_material: {
+					1: 4,
+				},
+				credit: 6_000,
 			},
-			credit: 6_000,
 		},
-	},
-	{ level: '40', materials: { weapon_exp: 95340, credit: 38136 } },
-	{
-		level: '40A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				1: 4,
+		{ level: '40', materials: { weap_exp: 95340, credit: 38136 } },
+		{
+			level: '40A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					1: 4,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					2: 4,
+				},
+				credit: 12_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				2: 4,
-			},
-			credit: 12_000,
 		},
-	},
-	{ level: '50', materials: { weapon_exp: 94440, credit: 37776 } },
-	{
-		level: '50A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				2: 5,
+		{ level: '50', materials: { weap_exp: 94440, credit: 37776 } },
+		{
+			level: '50A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					2: 5,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					3: 3,
+				},
+				credit: 24_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				3: 3,
-			},
-			credit: 24_000,
 		},
-	},
-	{ level: '60', materials: { weapon_exp: 142260, credit: 56904 } },
-	{
-		level: '60A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				3: 4,
+		{ level: '60', materials: { weap_exp: 142260, credit: 56904 } },
+		{
+			level: '60A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					3: 4,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					3: 4,
+				},
+				credit: 36_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				3: 4,
-			},
-			credit: 36_000,
 		},
-	},
-	{ level: '70', materials: { weapon_exp: 207600, credit: 83040 } },
-	{
-		level: '70A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				4: 5,
+		{ level: '70', materials: { weap_exp: 207600, credit: 83040 } },
+		{
+			level: '70A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					4: 5,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					4: 3,
+				},
+				credit: 48_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				4: 3,
-			},
-			credit: 48_000,
 		},
-	},
-	{ level: '80', materials: { weapon_exp: 296880, credit: 118752 } },
-	{
-		level: '80A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				4: 8,
+		{ level: '80', materials: { weap_exp: 296880, credit: 118752 } },
+		{
+			level: '80A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					4: 8,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					4: 5,
+				},
+				credit: 72_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				4: 5,
-			},
-			credit: 72_000,
 		},
-	},
-	{ level: '90', materials: { weapon_exp: 512340, credit: 204936 } },
-];
-
-export const weapon4StarLevellingMaterialsCount = [
-	{ level: '1', materials: {} },
-	{ level: '20', materials: { weapon_exp: 41100, credit: 16440 } },
-	{
-		level: '20A',
-		materials: {
-			tiered_enemy_drop_weapon_skill_material: {
-				1: 5,
+		{ level: '90', materials: { weap_exp: 512340, credit: 204936 } },
+	],
+	4: [
+		{ level: '1', materials: {} },
+		{ level: '20', materials: { weap_exp: 41100, credit: 16440 } },
+		{
+			level: '20A',
+			materials: {
+				tiered_enemy_drop_weapon_skill_material: {
+					1: 5,
+				},
+				credit: 8_000,
 			},
-			credit: 8_000,
 		},
-	},
-	{ level: '40', materials: { weapon_exp: 158900, credit: 63560 } },
-	{
-		level: '40A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				1: 5,
+		{ level: '40', materials: { weap_exp: 158900, credit: 63560 } },
+		{
+			level: '40A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					1: 5,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					2: 5,
+				},
+				credit: 16_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				2: 5,
-			},
-			credit: 16_000,
 		},
-	},
-	{ level: '50', materials: { weapon_exp: 157400, credit: 62960 } },
-	{
-		level: '50A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				2: 7,
+		{ level: '50', materials: { weap_exp: 157400, credit: 62960 } },
+		{
+			level: '50A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					2: 7,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					3: 4,
+				},
+				credit: 32_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				3: 4,
-			},
-			credit: 32_000,
 		},
-	},
-	{ level: '60', materials: { weapon_exp: 237100, credit: 94840 } },
-	{
-		level: '60A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				4: 5,
+		{ level: '60', materials: { weap_exp: 237100, credit: 94840 } },
+		{
+			level: '60A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					4: 5,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					4: 5,
+				},
+				credit: 48_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				4: 5,
-			},
-			credit: 48_000,
 		},
-	},
-	{ level: '70', materials: { weapon_exp: 346000, credit: 138400 } },
-	{
-		level: '70A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				5: 7,
+		{ level: '70', materials: { weap_exp: 346000, credit: 138400 } },
+		{
+			level: '70A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					5: 7,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					5: 4,
+				},
+				credit: 64_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				5: 4,
-			},
-			credit: 64_000,
 		},
-	},
-	{ level: '80', materials: { weapon_exp: 494800, credit: 197920 } },
-	{
-		level: '80A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				4: 10,
+		{ level: '80', materials: { weap_exp: 494800, credit: 197920 } },
+		{
+			level: '80A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					4: 10,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					4: 7,
+				},
+				credit: 96_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				4: 7,
-			},
-			credit: 96_000,
 		},
-	},
-	{ level: '90', materials: { weapon_exp: 853900, credit: 341560 } },
-];
-
-export const weapon5StarLevellingMaterialsCount = [
-	{ level: '1', materials: {} },
-	{ level: '20', materials: { weapon_exp: 43300, credit: 17320 } },
-	{
-		level: '20A',
-		materials: {
-			tiered_enemy_drop_weapon_skill_material: {
-				1: 6,
+		{ level: '90', materials: { weap_exp: 853900, credit: 341560 } },
+	],
+	5: [
+		{ level: '1', materials: {} },
+		{ level: '20', materials: { weap_exp: 43300, credit: 17320 } },
+		{
+			level: '20A',
+			materials: {
+				tiered_enemy_drop_weapon_skill_material: {
+					1: 6,
+				},
+				credit: 10_000,
 			},
-			credit: 10_000,
 		},
-	},
-	{ level: '40', materials: { weapon_exp: 198900, credit: 79560 } },
-	{
-		level: '40A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				1: 6,
+		{ level: '40', materials: { weap_exp: 198900, credit: 79560 } },
+		{
+			level: '40A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					1: 6,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					2: 6,
+				},
+				credit: 20_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				2: 6,
-			},
-			credit: 20_000,
 		},
-	},
-	{ level: '50', materials: { weapon_exp: 209000, credit: 83600 } },
-	{
-		level: '50A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				2: 8,
+		{ level: '50', materials: { weap_exp: 209000, credit: 83600 } },
+		{
+			level: '50A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					2: 8,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					3: 4,
+				},
+				credit: 40_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				3: 4,
-			},
-			credit: 40_000,
 		},
-	},
-	{ level: '60', materials: { weapon_exp: 314100, credit: 125640 } },
-	{
-		level: '60A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				3: 6,
+		{ level: '60', materials: { weap_exp: 314100, credit: 125640 } },
+		{
+			level: '60A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					3: 6,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					3: 6,
+				},
+				credit: 60_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				3: 6,
-			},
-			credit: 60_000,
 		},
-	},
-	{ level: '70', materials: { weapon_exp: 446600, credit: 178640 } },
-	{
-		level: '70A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				4: 8,
+		{ level: '70', materials: { weap_exp: 446600, credit: 178640 } },
+		{
+			level: '70A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					4: 8,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					4: 4,
+				},
+				credit: 80_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				4: 4,
-			},
-			credit: 80_000,
 		},
-	},
-	{ level: '80', materials: { weapon_exp: 610900, credit: 244360 } },
-	{
-		level: '80A',
-		materials: {
-			tiered_forgery_weapon_skill_material: {
-				4: 12,
+		{ level: '80', materials: { weap_exp: 610900, credit: 244360 } },
+		{
+			level: '80A',
+			materials: {
+				tiered_forgery_weapon_skill_material: {
+					4: 12,
+				},
+				tiered_enemy_drop_weapon_skill_material: {
+					4: 8,
+				},
+				credit: 120_000,
 			},
-			tiered_enemy_drop_weapon_skill_material: {
-				4: 8,
-			},
-			credit: 120_000,
 		},
-	},
-	{ level: '90', materials: { weapon_exp: 869600, credit: 347840 } },
-];
+		{ level: '90', materials: { weap_exp: 869600, credit: 347840 } },
+	],
+};
 
 export const weapons = {
 	broadblade_of_night: {
