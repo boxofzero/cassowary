@@ -1,23 +1,36 @@
 <template>
 	<section class="">
-		<h1 class="">Add New Character To Planner</h1>
+		<h1 class="">Add New Weapon To Planner</h1>
 	</section>
 	<!--
-	add character yinlin
-	load character yinlin material requirement
-	if user has planned character where yinlin, load the data
-	if user doesnt have planned character yinlin, prepare new planned character
+	add weapon yinlin
+	load weapon yinlin material requirement
+	if user has planned weapon where yinlin, load the data
+	if user doesnt have planned weapon yinlin, prepare new planned weapon
 	-->
 	<div>
 		<h2>WEAPON NAME</h2>
-		<v-select
+		<v-autocomplete
 			label="Select"
-			:items="characterList"
-			v-model="characterName"
-			@update:modelValue="getOrInitPlannedCharacter($event)"
-		></v-select>
+			:items="weaponList()"
+			item-title="title"
+			item-value="value"
+			:menu-props="{ maxHeight: '200' }"
+			:custom-filter="customFilter"
+			v-model="weaponName"
+			@update:modelValue="getOrInitPlannedWeapon($event)"
+		>
+			<template v-slot:item="{ props, item }">
+				<v-list-item
+					v-bind="props"
+					:subtitle="item.raw.subtitle"
+					:prepend-avatar="item.raw.icon"
+				>
+				</v-list-item>
+			</template>
+		</v-autocomplete>
 	</div>
-	<section v-show="isCharacterNameSet">
+	<section v-show="isWeaponNameSet">
 		<UDivider label="LEVEL" />
 		<div>
 			<div class="grid grid-cols-2 gap-2">
@@ -26,18 +39,18 @@
 					:items="levelItems"
 					item-title="label"
 					item-value="value"
-					v-model="character['char_current_level']"
-					:model-value="character['char_current_level'] || 1"
-					@update:modelValue="upsertPlannedCharacter()"
+					v-model="weapon['weap_current_level']"
+					:model-value="weapon['weap_current_level'] || 1"
+					@update:modelValue="upsertPlannedWeapon()"
 				></v-select>
 				<v-select
 					label="Target Level"
 					:items="levelItems"
 					item-title="label"
 					item-value="value"
-					v-model="character['char_target_level']"
-					:model-value="character['char_target_level'] || 1"
-					@update:modelValue="upsertPlannedCharacter()"
+					v-model="weapon['weap_target_level']"
+					:model-value="weapon['weap_target_level'] || 1"
+					@update:modelValue="upsertPlannedWeapon()"
 				></v-select>
 			</div>
 		</div>
@@ -45,53 +58,68 @@
 </template>
 
 <script setup>
-import { characters } from '@/data/game/gameCharacters';
-import * as dbPlannedCharacter from '@/data/database/dbPlannedCharacter';
-import {
-	levelItems,
-	activeSkills,
-	passiveSkills,
-} from '@/data/form/characters/formCharactersNew';
-import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
-import * as characterService from '@/services/characterService';
+import { weapons } from '@/data/game/gameWeapons';
+import * as dbPlannedWeapon from '@/data/database/dbPlannedWeapon';
+import { levelItems } from '@/data/form/weapons/formWeaponsNew';
+import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
+import * as weaponService from '@/services/weaponService';
 import * as inventoryService from '@/services/inventoryService';
 
 // FORM DATA
-const characterList = useSortBy(Object.keys(characters));
+const weaponList = () => {
+	let list = [];
+	useForEach(weapons, (weapon, weaponName) => {
+		const subtitle = weapon.rarity + '⭐ ' + weapon.weapon_type;
+		list = useConcat(list, {
+			value: weaponName,
+			title: weapon.display_name,
+			subtitle: subtitle,
+			icon: weapon.icon,
+		});
+	});
+	return list;
+};
+
+const customFilter = (itemTitle, queryText, item) => {
+	const textOne = item.raw.title.toLowerCase();
+	const textTwo = item.raw.subtitle.toLowerCase();
+	const searchText = queryText.toLowerCase();
+
+	return textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1;
+};
 
 // STORE
-const plannedCharacterStore = usePlannedCharacterStore();
+const plannedWeaponStore = usePlannedWeaponStore();
 
-const characterName = ref('');
-const isCharacterNameSet = computed(() => {
-	return !!characterName.value;
+const weaponName = ref('');
+const isWeaponNameSet = computed(() => {
+	return !!weaponName.value;
 });
-const character = ref({ ...dbPlannedCharacter.character });
+const weapon = ref({ ...dbPlannedWeapon.weapon });
 const materials = ref({});
 
 // METHODS
-const getOrInitPlannedCharacter = (characterName) => {
-	character.value = plannedCharacterStore.getOrInitEntry(characterName);
-	character.value['name'] = characterName;
+const getOrInitPlannedWeapon = (weaponName) => {
+	weapon.value = plannedWeaponStore.getOrInitEntry(weaponName);
+	weapon.value['name'] = weaponName;
 
-	materials.value = getMaterialsNeeded(characterName);
+	materials.value = getMaterialsNeeded(weaponName);
 };
 
-const upsertPlannedCharacter = () => {
-	if (!characterName.value) {
+const upsertPlannedWeapon = () => {
+	if (!weaponName.value) {
 		return;
 	}
-	plannedCharacterStore
-		.upsert(character.value['name'], useOmit(character.value, 'name'))
+	plannedWeaponStore
+		.upsert(weapon.value['name'], useOmit(weapon.value, 'name'))
 		.then(() => {
-			materials.value = getMaterialsNeeded(characterName.value);
+			materials.value = getMaterialsNeeded(weaponName.value);
 		});
 };
 
 // TODO material needed
-const getMaterialsNeeded = (characterName) => {
-	const neededMaterials =
-		characterService.getCharacterNeededMaterials(characterName);
+const getMaterialsNeeded = (weaponName) => {
+	const neededMaterials = weaponService.getWeaponNeededMaterials(weaponName);
 	const ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
 	return ownedNeededMaterialsResponseData;
@@ -101,6 +129,6 @@ const getMaterialsNeeded = (characterName) => {
 // and increase current and set done passive)
 
 onBeforeMount(() => {
-	plannedCharacterStore.init();
+	plannedWeaponStore.init();
 });
 </script>

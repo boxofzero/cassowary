@@ -241,6 +241,7 @@ export const weapon5StarLevellingMaterialsCount = [
 export const weapons = {
 	broadblade_of_night: {
 		game_id: 21010013,
+		display_name: 'Broadblade of Night',
 		rarity: 3,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/broadblade-of-night-icon.webp',
@@ -249,6 +250,7 @@ export const weapons = {
 	},
 	lustrous_razor: {
 		game_id: 21010015,
+		display_name: 'Lustrous Razor',
 		rarity: 5,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/lustrous-razor-icon.webp',
@@ -257,6 +259,7 @@ export const weapons = {
 	},
 	verdant_summit: {
 		game_id: 21010016,
+		display_name: 'Verdant Summit',
 		rarity: 5,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/verdant-summit-icon.webp',
@@ -265,6 +268,7 @@ export const weapons = {
 	},
 	originite_type_i: {
 		game_id: 21010023,
+		display_name: 'Originite: Type I',
 		rarity: 3,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/originite-type-i-icon.webp',
@@ -273,6 +277,7 @@ export const weapons = {
 	},
 	discord: {
 		game_id: 21010024,
+		display_name: 'Discord',
 		rarity: 4,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/discord-icon.webp',
@@ -281,6 +286,7 @@ export const weapons = {
 	},
 	ages_of_harvest: {
 		game_id: 21010026,
+		display_name: 'Ages of Harvest',
 		rarity: 5,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/ages-of-harvest-icon.webp',
@@ -289,6 +295,7 @@ export const weapons = {
 	},
 	broadblade41: {
 		game_id: 21010034,
+		display_name: 'Broadblade#41',
 		rarity: 4,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/broadblade-41-icon.webp',
@@ -297,6 +304,7 @@ export const weapons = {
 	},
 	broadblade_of_voyager: {
 		game_id: 21010043,
+		display_name: 'Broadblade of Voyager',
 		rarity: 3,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/broadblade-of-voyager-icon.webp',
@@ -305,6 +313,7 @@ export const weapons = {
 	},
 	dauntless_evernight: {
 		game_id: 21010044,
+		display_name: 'Dauntless Evernight',
 		rarity: 4,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/dauntless-evernight-icon.webp',
@@ -313,6 +322,7 @@ export const weapons = {
 	},
 	guardian_broadblade: {
 		game_id: 21010053,
+		display_name: 'Guardian Broadblade',
 		rarity: 3,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/guardian-broadblade-icon.webp',
@@ -321,6 +331,7 @@ export const weapons = {
 	},
 	beguiling_melody: {
 		game_id: 21010063,
+		display_name: 'Beguiling Melody',
 		rarity: 3,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/beguiling-melody-icon.webp',
@@ -329,6 +340,7 @@ export const weapons = {
 	},
 	helios_cleaver: {
 		game_id: 21010064,
+		display_name: 'Helios Cleaver',
 		rarity: 4,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/helios-cleaver-icon.webp',
@@ -337,6 +349,7 @@ export const weapons = {
 	},
 	autumntrace: {
 		game_id: 21010074,
+		display_name: 'Autumntrace',
 		rarity: 4,
 		weapon_type: 'broadblade',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/autumntrace-icon.webp',
@@ -345,6 +358,7 @@ export const weapons = {
 	},
 	sword_of_night: {
 		game_id: 21020013,
+		display_name: 'Sword of Night',
 		rarity: 3,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/sword-of-night-icon.webp',
@@ -353,6 +367,7 @@ export const weapons = {
 	},
 	emerald_of_genesis: {
 		game_id: 21020015,
+		display_name: 'Emerald of Genesis',
 		rarity: 5,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/emerald-of-genesis-icon.webp',
@@ -361,6 +376,7 @@ export const weapons = {
 	},
 	blazing_brilliance: {
 		game_id: 21020016,
+		display_name: 'Blazing Brilliance',
 		rarity: 5,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/blazing-brilliance-icon.webp',
@@ -369,6 +385,7 @@ export const weapons = {
 	},
 	originite_type_ii: {
 		game_id: 21020023,
+		display_name: 'Originite: Type II',
 		rarity: 3,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/originite-type-ii-icon.webp',
@@ -377,6 +394,7 @@ export const weapons = {
 	},
 	overture: {
 		game_id: 21020024,
+		display_name: 'Overture',
 		rarity: 4,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/overture-icon.webp',
@@ -385,6 +403,7 @@ export const weapons = {
 	},
 	sword18: {
 		game_id: 21020034,
+		display_name: 'Sword#18',
 		rarity: 4,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/sword-18-icon.webp',
@@ -393,6 +412,7 @@ export const weapons = {
 	},
 	sword_of_voyager: {
 		game_id: 21020043,
+		display_name: 'Sword of Voyager',
 		rarity: 3,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/sword-of-voyager-icon.webp',
@@ -401,6 +421,7 @@ export const weapons = {
 	},
 	commando_of_conviction: {
 		game_id: 21020044,
+		display_name: 'Commando of Conviction',
 		rarity: 4,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/commando-of-conviction-icon.webp',
@@ -409,6 +430,7 @@ export const weapons = {
 	},
 	guardian_sword: {
 		game_id: 21020053,
+		display_name: 'Guardian Sword',
 		rarity: 3,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/guardian-sword-icon.webp',
@@ -417,6 +439,7 @@ export const weapons = {
 	},
 	lunar_cutter: {
 		game_id: 21020064,
+		display_name: 'Lunar Cutter',
 		rarity: 4,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/lunar-cutter-icon.webp',
@@ -425,6 +448,7 @@ export const weapons = {
 	},
 	lumingloss: {
 		game_id: 21020074,
+		display_name: 'Lumingloss',
 		rarity: 4,
 		weapon_type: 'sword',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/lumingloss-icon.webp',
@@ -433,6 +457,7 @@ export const weapons = {
 	},
 	pistols_of_night: {
 		game_id: 21030013,
+		display_name: 'Pistols of Night',
 		rarity: 3,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/pistols-of-night-icon.webp',
@@ -441,6 +466,7 @@ export const weapons = {
 	},
 	static_mist: {
 		game_id: 21030015,
+		display_name: 'Static Mist',
 		rarity: 5,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/static-mist-icon.webp',
@@ -449,6 +475,7 @@ export const weapons = {
 	},
 	originite_type_iii: {
 		game_id: 21030023,
+		display_name: 'Originite: Type III',
 		rarity: 3,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/originite-type-iii-icon.webp',
@@ -457,6 +484,7 @@ export const weapons = {
 	},
 	cadenza: {
 		game_id: 21030024,
+		display_name: 'Cadenza',
 		rarity: 4,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/cadenza-icon.webp',
@@ -465,6 +493,7 @@ export const weapons = {
 	},
 	pistols26: {
 		game_id: 21030034,
+		display_name: 'Pistols#26',
 		rarity: 4,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/pistols-26-icon.webp',
@@ -473,6 +502,7 @@ export const weapons = {
 	},
 	pistols_of_voyager: {
 		game_id: 21030043,
+		display_name: 'Pistols of Voyager',
 		rarity: 3,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/pistols-of-voyager-icon.webp',
@@ -481,6 +511,7 @@ export const weapons = {
 	},
 	undying_flame: {
 		game_id: 21030044,
+		display_name: 'Undying Flame',
 		rarity: 4,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/undying-flame-icon.webp',
@@ -489,6 +520,7 @@ export const weapons = {
 	},
 	guardian_pistols: {
 		game_id: 21030053,
+		display_name: 'Guardian Pistols',
 		rarity: 3,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/guardian-pistols-icon.webp',
@@ -497,6 +529,7 @@ export const weapons = {
 	},
 	novaburst: {
 		game_id: 21030064,
+		display_name: 'Novaburst',
 		rarity: 4,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/novaburst-icon.webp',
@@ -505,6 +538,7 @@ export const weapons = {
 	},
 	thunderbolt: {
 		game_id: 21030074,
+		display_name: 'Thunderbolt',
 		rarity: 4,
 		weapon_type: 'pistols',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/thunderbolt-icon.webp',
@@ -513,6 +547,7 @@ export const weapons = {
 	},
 	gauntlets_of_night: {
 		game_id: 21040013,
+		display_name: 'Gauntlets of Night',
 		rarity: 3,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/gauntlets-of-night-icon.webp',
@@ -521,6 +556,7 @@ export const weapons = {
 	},
 	abyss_surges: {
 		game_id: 21040015,
+		display_name: 'Abyss Surges',
 		rarity: 5,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/abyss-surges-icon.webp',
@@ -529,6 +565,7 @@ export const weapons = {
 	},
 	originite_type_iv: {
 		game_id: 21040023,
+		display_name: 'Originite: Type IV',
 		rarity: 3,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/originite-type-iv-icon.webp',
@@ -537,6 +574,7 @@ export const weapons = {
 	},
 	marcato: {
 		game_id: 21040024,
+		display_name: 'Marcato',
 		rarity: 4,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/marcato-icon.webp',
@@ -545,6 +583,7 @@ export const weapons = {
 	},
 	gauntlets21d: {
 		game_id: 21040034,
+		display_name: 'Gauntlets#21D',
 		rarity: 4,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/gauntlets-21d-icon.webp',
@@ -553,6 +592,7 @@ export const weapons = {
 	},
 	gauntlets_of_voyager: {
 		game_id: 21040043,
+		display_name: 'Gauntlets of Voyager',
 		rarity: 3,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/gauntlets-of-voyager-icon.webp',
@@ -561,6 +601,7 @@ export const weapons = {
 	},
 	amity_accord: {
 		game_id: 21040044,
+		display_name: 'Amity Accord',
 		rarity: 4,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/amity-accord-icon.webp',
@@ -569,6 +610,7 @@ export const weapons = {
 	},
 	guardian_gauntlets: {
 		game_id: 21040053,
+		display_name: 'Guardian Gauntlets',
 		rarity: 3,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/guardian-gauntlets-icon.webp',
@@ -577,6 +619,7 @@ export const weapons = {
 	},
 	hollow_mirage: {
 		game_id: 21040064,
+		display_name: 'Hollow Mirage',
 		rarity: 4,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/hollow-mirage-icon.webp',
@@ -585,6 +628,7 @@ export const weapons = {
 	},
 	stonard: {
 		game_id: 21040074,
+		display_name: 'Stonard',
 		rarity: 4,
 		weapon_type: 'gauntlets',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/stonard-icon.webp',
@@ -593,6 +637,7 @@ export const weapons = {
 	},
 	rectifier_of_night: {
 		game_id: 21050013,
+		display_name: 'Rectifier of Night',
 		rarity: 3,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/rectifier-of-night-icon.webp',
@@ -601,6 +646,7 @@ export const weapons = {
 	},
 	cosmic_ripples: {
 		game_id: 21050015,
+		display_name: 'Cosmic Ripples',
 		rarity: 5,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/cosmic-ripples-icon.webp',
@@ -609,6 +655,7 @@ export const weapons = {
 	},
 	stringmaster: {
 		game_id: 21050016,
+		display_name: 'Stringmaster',
 		rarity: 5,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/stringmaster-icon.webp',
@@ -617,6 +664,7 @@ export const weapons = {
 	},
 	originite_type_v: {
 		game_id: 21050023,
+		display_name: 'Originite: Type V',
 		rarity: 3,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/originite-type-v-icon.webp',
@@ -625,6 +673,7 @@ export const weapons = {
 	},
 	variation: {
 		game_id: 21050024,
+		display_name: 'Variation',
 		rarity: 4,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/variation-icon.webp',
@@ -633,6 +682,7 @@ export const weapons = {
 	},
 	rectifier25: {
 		game_id: 21050034,
+		display_name: 'Rectifier#25',
 		rarity: 4,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/rectifier-25-icon.webp',
@@ -641,6 +691,7 @@ export const weapons = {
 	},
 	rectifier_of_voyager: {
 		game_id: 21050043,
+		display_name: 'Rectifier of Voyager',
 		rarity: 3,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/rectifier-of-voyager-icon.webp',
@@ -649,6 +700,7 @@ export const weapons = {
 	},
 	jinzhou_keeper: {
 		game_id: 21050044,
+		display_name: 'Jinzhou Keeper',
 		rarity: 4,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/jinzhou-keeper-icon.webp',
@@ -657,6 +709,7 @@ export const weapons = {
 	},
 	guardian_rectifier: {
 		game_id: 21050053,
+		display_name: 'Guardian Rectifier',
 		rarity: 3,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/guardian-rectifier-icon.webp',
@@ -665,6 +718,7 @@ export const weapons = {
 	},
 	comet_flare: {
 		game_id: 21050064,
+		display_name: 'Comet Flare',
 		rarity: 4,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/comet-flare-icon.webp',
@@ -673,6 +727,7 @@ export const weapons = {
 	},
 	augment: {
 		game_id: 21050074,
+		display_name: 'Augment',
 		rarity: 4,
 		weapon_type: 'rectifier',
 		icon: 'https://static.dotgg.gg/wuthering-waves/weapons/augment-icon.webp',
