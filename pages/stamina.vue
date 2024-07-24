@@ -27,9 +27,7 @@
 		<div class="flex items-center justify-between">
 			<div class="font-bold">Your Stamina will be full at</div>
 			<div class="text-2xl font-extrabold text-white mb-2">
-				<USkeleton class="h-8 w-full" v-if="loading" />
-				<!-- <div v-else @stamina-updated="getFullStaminaAt()"> -->
-				<div v-else>
+				<div>
 					{{ moment(staminaStore.fullStaminaAt).format('YYYY-MM-DD HH:mm:ss') }}
 				</div>
 			</div>
@@ -83,22 +81,21 @@ const staminaRate = computed(() => {
 	return staminaStore.secondsPerStamina / 60;
 });
 
-onBeforeMount(() => {
-	// init stamina state values
-	staminaStore.initStaminaData();
-});
-
-const updateStaminaInterval = () => {
+let updateStaminaInterval = () => {
 	return setInterval(() => {
+		console.log('stamina interval');
 		staminaStore.syncStaminaData();
-	}, 30 * 1000);
+	}, 10 * 1000);
 };
 
 let intervalId;
 onMounted(() => {
+	// init stamina state values
+	staminaStore.initStaminaData();
 	staminaStore.syncStaminaData();
 	// update stamina every interval time
 	intervalId = updateStaminaInterval();
+	console.log('interval set');
 });
 
 onUnmounted(() => {
