@@ -61,8 +61,7 @@
 </template>
 
 <script setup>
-import { useInventoryItemStore } from '@/stores/inventoryItems';
-import { useTitle } from '@vueuse/core';
+import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 
 const $emit = defineEmits(['updateMaterialCount']);
 

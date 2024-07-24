@@ -1,5 +1,5 @@
-import { useInventoryItemStore } from '@/stores/inventoryItems';
-import * as gameInventoryItems from '~/data/game/gameInventoryItems';
+import { useInventoryItemStore } from '@/stores/inventoryItemStore';
+import * as gameInventoryItems from '@/data/game/gameInventoryItems';
 import * as characterService from '@/services/characterService';
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
