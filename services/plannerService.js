@@ -1,4 +1,4 @@
-import { usePlannedCharacterStore } from '@/stores/plannedCharacters';
+import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,

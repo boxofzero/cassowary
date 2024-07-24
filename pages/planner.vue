@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { useInventoryItemStore } from '@/stores/inventoryItems';
+import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 
 const loading = false;
 const inventoryItemStore = useInventoryItemStore();

@@ -143,7 +143,7 @@ import {
 	activeSkills,
 	passiveSkills,
 } from '~/data/form/characters/formCharactersNew';
-import { usePlannedCharacterStore } from '@/stores/plannedCharacters';
+import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import * as characterService from '@/services/characterService';
 import * as inventoryService from '@/services/inventoryService';
 

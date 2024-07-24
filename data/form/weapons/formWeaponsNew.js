@@ -1,0 +1,16 @@
+export const levelItems = [
+	{ value: '1', label: '1' },
+	{ value: '20', label: '20' },
+	{ value: '20A', label: '20 Ascended' },
+	{ value: '40', label: '40' },
+	{ value: '40A', label: '40 Ascended' },
+	{ value: '50', label: '50' },
+	{ value: '50A', label: '50 Ascended' },
+	{ value: '60', label: '60' },
+	{ value: '60A', label: '60 Ascended' },
+	{ value: '70', label: '70' },
+	{ value: '70A', label: '70 Ascended' },
+	{ value: '80', label: '80' },
+	{ value: '80A', label: '80 Ascended' },
+	{ value: '90', label: '90' },
+];

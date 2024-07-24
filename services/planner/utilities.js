@@ -28,8 +28,9 @@ export const isTieredMaterialType = (material) => {
 };
 
 export const getMaterialsFromLevelListStatList = (
-	characterName,
-	statsToFarm
+	name,
+	statsToFarm,
+	gameDataList = gameCharacters.characters
 ) => {
 	const materials = {};
 
@@ -40,7 +41,7 @@ export const getMaterialsFromLevelListStatList = (
 		for (let level of statsToFarm[stat]) {
 			for (let materialType in level.materials) {
 				// inventory exp and credit (not named materials)
-				if (['char_exp', 'credit'].includes(materialType)) {
+				if (['weap_exp', 'char_exp', 'credit'].includes(materialType)) {
 					useSet(
 						materials,
 						materialType,
@@ -50,8 +51,7 @@ export const getMaterialsFromLevelListStatList = (
 				}
 
 				// get the materialType's material name
-				const materialName =
-					gameCharacters.characters[characterName][materialType];
+				const materialName = gameDataList[name][materialType];
 				// inventory tiered materials
 				if (isTieredMaterialType(materialType)) {
 					for (let tier in level.materials[materialType]) {

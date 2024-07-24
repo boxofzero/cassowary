@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { useStaminaStore } from '@/stores/stamina';
+import { useStaminaStore } from '~/stores/staminaStore';
 import moment from 'moment';
 
 const loading = false;

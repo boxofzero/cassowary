@@ -40,9 +40,9 @@
 </template>
 
 <script setup>
-import { useInventoryItemStore } from '@/stores/inventoryItems';
+import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as inventoryService from '@/services/inventoryService';
-import * as gameInventoryItems from '~/data/game/gameInventoryItems';
+import * as gameInventoryItems from '@/data/game/gameInventoryItems';
 
 const allMaterialsResponseData = ref({});
 

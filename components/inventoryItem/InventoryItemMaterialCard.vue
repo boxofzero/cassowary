@@ -46,8 +46,8 @@
 		</v-card-text>
 		<!-- label="material owned count" -->
 		<v-text-field
-			hide-details="true"
-			hide-spin-buttons="true"
+			hide-details
+			hide-spin-buttons
 			density="compact"
 			class="text-center"
 			type="number"
@@ -61,8 +61,7 @@
 </template>
 
 <script setup>
-import { useInventoryItemStore } from '@/stores/inventoryItems';
-import { useTitle } from '@vueuse/core';
+import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 
 const $emit = defineEmits(['updateMaterialCount']);
 

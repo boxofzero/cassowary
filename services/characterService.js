@@ -1,5 +1,5 @@
-import { usePlannedCharacterStore } from '@/stores/plannedCharacters';
-import { useInventoryItemStore } from '@/stores/inventoryItems';
+import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
+import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import {
 	getLevelRangeDiff,
 	getMaterialsFromLevelListStatList,

@@ -1,5 +1,5 @@
 import { useStorage, useDebounceFn } from '@vueuse/core';
-import * as dbPlannedCharacter from '~/data/database/dbPlannedCharacter';
+import * as dbPlannedCharacter from '@/data/database/dbPlannedCharacter';
 
 const plannedCharactersRepo = () => {
 	return useStorage('plannedCharacters', {});

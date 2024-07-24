@@ -1,4 +1,4 @@
-import * as dbInventoryItem from '~/data/database/dbInventoryItem';
+import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 import { useStorage, useDebounceFn } from '@vueuse/core';
 // not exported
 const inventoryRepo = () => {
