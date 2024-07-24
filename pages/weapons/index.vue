@@ -56,6 +56,13 @@
 		</div>
 		<UDivider label="MATERIAL NEEDED" />
 		<section>
+			<v-btn>Done</v-btn>
+			<span
+				>Press "DONE" will decrease set the planned to done and decrease the
+				inventory item</span
+			>
+		</section>
+		<section>
 			<div class="grid grid-cols-6 gap-6">
 				<div class="" v-for="(item, index) in materials" :key="index">
 					<InventoryItemMaterialCard
