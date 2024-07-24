@@ -1,6 +1,7 @@
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
 import * as characterService from '@/services/characterService';
+import * as weaponService from '@/services/weaponService';
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 
 const generateExpData = (
@@ -22,23 +23,12 @@ const generateExpData = (
 			owned: ownedMaterials[expData[0]].count || 0,
 			needed: expDataNeeded || 0,
 			icon: expData[1].icon,
+			label: expData[1].label,
 		};
 		expNeededCounting = expLeftover;
 	}
 
 	return data;
-};
-
-const getExpData = (expType) => {
-	switch (expType) {
-		case 'weap_exp':
-			return gameInventoryItem.categorizedInventoryItems.weapon_exp_material;
-			break;
-		case 'char_exp':
-			return gameInventoryItem.categorizedInventoryItems.resonator_exp_material;
-			break;
-	}
-	return gameInventoryItem.categorizedInventoryItems.resonator_exp_material;
 };
 
 export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
@@ -51,21 +41,22 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 
 	for (let materialType in neededMaterials) {
 		if (['weap_exp', 'char_exp'].includes(materialType)) {
-			const expData = getExpData(materialType);
 			const exp = generateExpData(
 				neededMaterials[materialType],
 				ownedMaterials,
-				expData
+				gameInventoryItem.exp_data[materialType]
 			);
 			responseData = useAssign(responseData, exp);
 			continue;
 		}
+		console.log('materialType: ' + materialType);
 		responseData[materialType] = {
 			owned:
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
 				0,
 			needed: neededMaterials[materialType] || 0,
 			icon: gameInventoryItem.allInventoryItems[materialType].icon,
+			label: gameInventoryItem.allInventoryItems[materialType].label,
 		};
 	}
 
@@ -84,8 +75,12 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 
 export const getAllMaterialsResponseData = () => {
 	// this doesnt include unneeded material
-	const allMaterials = characterService.getAllCharactersNeededMaterials();
-	const data = getOwnedNeededMaterialsResponseData(allMaterials);
+	const characterMaterials = characterService.getAllCharactersNeededMaterials();
+	const weaponMaterials = weaponService.getAllWeaponsNeededMaterials();
+	const ownedNeededMaterialsData = getOwnedNeededMaterialsResponseData({
+		...weaponMaterials,
+		...characterMaterials,
+	});
 
 	useInventoryItemStore().init();
 	const ownedMaterials = useInventoryItemStore().inventoryItems;
@@ -98,8 +93,8 @@ export const getAllMaterialsResponseData = () => {
 	let responseData = {};
 	for (let materialType in allInventoryItems) {
 		// needed materials, data already structured
-		if (data[materialType]) {
-			responseData[materialType] = data[materialType];
+		if (ownedNeededMaterialsData[materialType]) {
+			responseData[materialType] = ownedNeededMaterialsData[materialType];
 			continue;
 		}
 
@@ -110,6 +105,7 @@ export const getAllMaterialsResponseData = () => {
 				0,
 			needed: 0,
 			icon: gameInventoryItem.allInventoryItems[materialType].icon,
+			label: gameInventoryItem.allInventoryItems[materialType].label,
 		};
 	}
 	return responseData;

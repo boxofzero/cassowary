@@ -179,7 +179,6 @@ const upsertPlannedCharacter = () => {
 		});
 };
 
-// TODO material needed
 const getMaterialsNeeded = (characterName) => {
 	const neededMaterials =
 		characterService.getCharacterNeededMaterials(characterName);

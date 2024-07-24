@@ -129,7 +129,6 @@ const upsertPlannedWeapon = () => {
 		});
 };
 
-// TODO material needed
 const getMaterialsNeeded = (weaponName) => {
 	const neededMaterials = weaponService.getWeaponNeededMaterials(weaponName);
 	const ownedNeededMaterialsResponseData =

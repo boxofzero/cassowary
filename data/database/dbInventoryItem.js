@@ -255,7 +255,7 @@ export const overworld_resource_ascension_material = {
 };
 
 export const credit = {
-	credit: {
+	shell_credit: {
 		count: 0,
 	},
 };

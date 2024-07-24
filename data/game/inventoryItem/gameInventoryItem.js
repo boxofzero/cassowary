@@ -1,21 +1,25 @@
-import * as gameInventoryItemRawData from '~/data/game/inventoryItem/gameInventoryItemRawData';
+import * as gameInventoryItemRawData from '@/data/game/inventoryItem/gameInventoryItemRawData';
 
 export const boss_ascension_material =
-	gameInventoryItemRawData.boss_ascension_material;
+	gameInventoryItemRawData.inventoryItemRawData.boss_ascension_material;
 export const weekly_boss_skill_upgrade_material =
-	gameInventoryItemRawData.weekly_boss_skill_upgrade_material;
+	gameInventoryItemRawData.inventoryItemRawData
+		.weekly_boss_skill_upgrade_material;
 export const resonator_exp_material =
-	gameInventoryItemRawData.resonator_exp_material;
-export const weapon_exp_material = gameInventoryItemRawData.weapon_exp_material;
+	gameInventoryItemRawData.inventoryItemRawData.resonator_exp_material;
+export const weapon_exp_material =
+	gameInventoryItemRawData.inventoryItemRawData.weapon_exp_material;
 export const enemy_drop_weapon_skill_material =
-	gameInventoryItemRawData.enemy_drop_weapon_skill_material;
+	gameInventoryItemRawData.inventoryItemRawData
+		.enemy_drop_weapon_skill_material;
 export const echo_development_material =
-	gameInventoryItemRawData.echo_development_material;
+	gameInventoryItemRawData.inventoryItemRawData.echo_development_material;
 export const forgery_weapon_skill_material =
-	gameInventoryItemRawData.forgery_weapon_skill_material;
+	gameInventoryItemRawData.inventoryItemRawData.forgery_weapon_skill_material;
 export const overworld_resource_ascension_material =
-	gameInventoryItemRawData.overworld_resource_ascension_material;
-export const credit = gameInventoryItemRawData.credit;
+	gameInventoryItemRawData.inventoryItemRawData
+		.overworld_resource_ascension_material;
+export const credit = gameInventoryItemRawData.inventoryItemRawData.credit;
 
 export const categorizedInventoryItems = {
 	credit: credit,
@@ -44,4 +48,8 @@ export const allInventoryItems = {
 import * as gameInventoryItemsConfig from '~/data/game/inventoryItem/gameInventoryItemConfig';
 export const tiered_materials = {
 	...gameInventoryItemsConfig.tiered_materials,
+};
+
+export const exp_data = {
+	...gameInventoryItemsConfig.exp_data,
 };

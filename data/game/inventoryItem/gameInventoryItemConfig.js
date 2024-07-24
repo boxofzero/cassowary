@@ -248,8 +248,45 @@ export const tiered_forgery_weapon_skill_material = {
 	},
 };
 
+export const resonator_exp_material = {
+	// resonance_potion
+	basic_resonance_potion: {
+		exp_value: 1000,
+	},
+	medium_resonance_potion: {
+		exp_value: 3000,
+	},
+	advanced_resonance_potion: {
+		exp_value: 8000,
+	},
+	premium_resonance_potion: {
+		exp_value: 20000,
+	},
+};
+
+export const weapon_exp_material = {
+	// energy_core
+	basic_energy_core: {
+		exp_value: 1000,
+	},
+	medium_energy_core: {
+		exp_value: 3000,
+	},
+	advanced_energy_core: {
+		exp_value: 8000,
+	},
+	premium_energy_core: {
+		exp_value: 20000,
+	},
+};
+
 export const tiered_materials = {
 	tiered_enemy_drop_weapon_skill_material:
 		tiered_enemy_drop_weapon_skill_material,
 	tiered_forgery_weapon_skill_material: tiered_forgery_weapon_skill_material,
+};
+
+export const exp_data = {
+	weap_exp: weapon_exp_material,
+	char_exp: resonator_exp_material,
 };

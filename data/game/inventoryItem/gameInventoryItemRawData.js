@@ -336,15 +336,15 @@ export const inventoryItemRawData = {
 			icon: 'https://static.dotgg.gg/wuthering-waves/items/heterized-metallic-drip-43020014.webp',
 			label: 'Heterized Metallic Drip',
 		},
-		impure_phlogiston: {
+		impure_phlohiston: {
 			game_id: 43020021,
 			icon: 'https://static.dotgg.gg/wuthering-waves/items/impure-phlogiston-43020021.webp',
-			label: 'Impure Phlogiston',
+			label: 'Impure Phlohiston',
 		},
-		extracted_phlogiston: {
+		extracted_phlohiston: {
 			game_id: 43020022,
 			icon: 'https://static.dotgg.gg/wuthering-waves/items/extracted-phlogiston-43020022.webp',
-			label: 'Extracted Phlogiston',
+			label: 'Extracted Phlohiston',
 		},
 		refined_phlohiston: {
 			game_id: 43020023,

@@ -1,17 +1,17 @@
 export const weaponLevellingMaterialsCount = {
 	3: [
 		{ level: '1', materials: {} },
-		{ level: '20', materials: { weap_exp: 24660, credit: 9864 } },
+		{ level: '20', materials: { weap_exp: 24660, shell_credit: 9864 } },
 		{
 			level: '20A',
 			materials: {
 				tiered_enemy_drop_weapon_skill_material: {
 					1: 4,
 				},
-				credit: 6_000,
+				shell_credit: 6_000,
 			},
 		},
-		{ level: '40', materials: { weap_exp: 95340, credit: 38136 } },
+		{ level: '40', materials: { weap_exp: 95340, shell_credit: 38136 } },
 		{
 			level: '40A',
 			materials: {
@@ -21,10 +21,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					2: 4,
 				},
-				credit: 12_000,
+				shell_credit: 12_000,
 			},
 		},
-		{ level: '50', materials: { weap_exp: 94440, credit: 37776 } },
+		{ level: '50', materials: { weap_exp: 94440, shell_credit: 37776 } },
 		{
 			level: '50A',
 			materials: {
@@ -34,10 +34,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					3: 3,
 				},
-				credit: 24_000,
+				shell_credit: 24_000,
 			},
 		},
-		{ level: '60', materials: { weap_exp: 142260, credit: 56904 } },
+		{ level: '60', materials: { weap_exp: 142260, shell_credit: 56904 } },
 		{
 			level: '60A',
 			materials: {
@@ -47,10 +47,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					3: 4,
 				},
-				credit: 36_000,
+				shell_credit: 36_000,
 			},
 		},
-		{ level: '70', materials: { weap_exp: 207600, credit: 83040 } },
+		{ level: '70', materials: { weap_exp: 207600, shell_credit: 83040 } },
 		{
 			level: '70A',
 			materials: {
@@ -60,10 +60,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					4: 3,
 				},
-				credit: 48_000,
+				shell_credit: 48_000,
 			},
 		},
-		{ level: '80', materials: { weap_exp: 296880, credit: 118752 } },
+		{ level: '80', materials: { weap_exp: 296880, shell_credit: 118752 } },
 		{
 			level: '80A',
 			materials: {
@@ -73,24 +73,24 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					4: 5,
 				},
-				credit: 72_000,
+				shell_credit: 72_000,
 			},
 		},
-		{ level: '90', materials: { weap_exp: 512340, credit: 204936 } },
+		{ level: '90', materials: { weap_exp: 512340, shell_credit: 204936 } },
 	],
 	4: [
 		{ level: '1', materials: {} },
-		{ level: '20', materials: { weap_exp: 41100, credit: 16440 } },
+		{ level: '20', materials: { weap_exp: 41100, shell_credit: 16440 } },
 		{
 			level: '20A',
 			materials: {
 				tiered_enemy_drop_weapon_skill_material: {
 					1: 5,
 				},
-				credit: 8_000,
+				shell_credit: 8_000,
 			},
 		},
-		{ level: '40', materials: { weap_exp: 158900, credit: 63560 } },
+		{ level: '40', materials: { weap_exp: 158900, shell_credit: 63560 } },
 		{
 			level: '40A',
 			materials: {
@@ -100,10 +100,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					2: 5,
 				},
-				credit: 16_000,
+				shell_credit: 16_000,
 			},
 		},
-		{ level: '50', materials: { weap_exp: 157400, credit: 62960 } },
+		{ level: '50', materials: { weap_exp: 157400, shell_credit: 62960 } },
 		{
 			level: '50A',
 			materials: {
@@ -113,10 +113,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					3: 4,
 				},
-				credit: 32_000,
+				shell_credit: 32_000,
 			},
 		},
-		{ level: '60', materials: { weap_exp: 237100, credit: 94840 } },
+		{ level: '60', materials: { weap_exp: 237100, shell_credit: 94840 } },
 		{
 			level: '60A',
 			materials: {
@@ -126,10 +126,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					4: 5,
 				},
-				credit: 48_000,
+				shell_credit: 48_000,
 			},
 		},
-		{ level: '70', materials: { weap_exp: 346000, credit: 138400 } },
+		{ level: '70', materials: { weap_exp: 346000, shell_credit: 138400 } },
 		{
 			level: '70A',
 			materials: {
@@ -139,10 +139,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					5: 4,
 				},
-				credit: 64_000,
+				shell_credit: 64_000,
 			},
 		},
-		{ level: '80', materials: { weap_exp: 494800, credit: 197920 } },
+		{ level: '80', materials: { weap_exp: 494800, shell_credit: 197920 } },
 		{
 			level: '80A',
 			materials: {
@@ -152,24 +152,24 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					4: 7,
 				},
-				credit: 96_000,
+				shell_credit: 96_000,
 			},
 		},
-		{ level: '90', materials: { weap_exp: 853900, credit: 341560 } },
+		{ level: '90', materials: { weap_exp: 853900, shell_credit: 341560 } },
 	],
 	5: [
 		{ level: '1', materials: {} },
-		{ level: '20', materials: { weap_exp: 43300, credit: 17320 } },
+		{ level: '20', materials: { weap_exp: 43300, shell_credit: 17320 } },
 		{
 			level: '20A',
 			materials: {
 				tiered_enemy_drop_weapon_skill_material: {
 					1: 6,
 				},
-				credit: 10_000,
+				shell_credit: 10_000,
 			},
 		},
-		{ level: '40', materials: { weap_exp: 198900, credit: 79560 } },
+		{ level: '40', materials: { weap_exp: 198900, shell_credit: 79560 } },
 		{
 			level: '40A',
 			materials: {
@@ -179,10 +179,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					2: 6,
 				},
-				credit: 20_000,
+				shell_credit: 20_000,
 			},
 		},
-		{ level: '50', materials: { weap_exp: 209000, credit: 83600 } },
+		{ level: '50', materials: { weap_exp: 209000, shell_credit: 83600 } },
 		{
 			level: '50A',
 			materials: {
@@ -192,10 +192,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					3: 4,
 				},
-				credit: 40_000,
+				shell_credit: 40_000,
 			},
 		},
-		{ level: '60', materials: { weap_exp: 314100, credit: 125640 } },
+		{ level: '60', materials: { weap_exp: 314100, shell_credit: 125640 } },
 		{
 			level: '60A',
 			materials: {
@@ -205,10 +205,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					3: 6,
 				},
-				credit: 60_000,
+				shell_credit: 60_000,
 			},
 		},
-		{ level: '70', materials: { weap_exp: 446600, credit: 178640 } },
+		{ level: '70', materials: { weap_exp: 446600, shell_credit: 178640 } },
 		{
 			level: '70A',
 			materials: {
@@ -218,10 +218,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					4: 4,
 				},
-				credit: 80_000,
+				shell_credit: 80_000,
 			},
 		},
-		{ level: '80', materials: { weap_exp: 610900, credit: 244360 } },
+		{ level: '80', materials: { weap_exp: 610900, shell_credit: 244360 } },
 		{
 			level: '80A',
 			materials: {
@@ -231,10 +231,10 @@ export const weaponLevellingMaterialsCount = {
 				tiered_enemy_drop_weapon_skill_material: {
 					4: 8,
 				},
-				credit: 120_000,
+				shell_credit: 120_000,
 			},
 		},
-		{ level: '90', materials: { weap_exp: 869600, credit: 347840 } },
+		{ level: '90', materials: { weap_exp: 869600, shell_credit: 347840 } },
 	],
 };
 

@@ -1,17 +1,16 @@
 export const charLevellingMaterialsCount = [
-	// TODO fix exp and credit levelling number counts
 	{ level: '1', materials: {} },
-	{ level: '20', materials: { char_exp: 33300, credit: 11655 } },
+	{ level: '20', materials: { char_exp: 33300, shell_credit: 11655 } },
 	{
 		level: '20A',
 		materials: {
 			tiered_enemy_drop_weapon_skill_material: {
 				1: 4,
 			},
-			credit: 5000,
+			shell_credit: 5000,
 		},
 	},
-	{ level: '40', materials: { char_exp: 175500, credit: 61425 } },
+	{ level: '40', materials: { char_exp: 175500, shell_credit: 61425 } },
 	{
 		level: '40A',
 		materials: {
@@ -20,10 +19,10 @@ export const charLevellingMaterialsCount = [
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 4,
 			},
-			credit: 10000,
+			shell_credit: 10000,
 		},
 	},
-	{ level: '50', materials: { char_exp: 188300, credit: 65905 } },
+	{ level: '50', materials: { char_exp: 188300, shell_credit: 65905 } },
 	{
 		level: '50A',
 		materials: {
@@ -32,10 +31,10 @@ export const charLevellingMaterialsCount = [
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 8,
 			},
-			credit: 10000,
+			shell_credit: 10000,
 		},
 	},
-	{ level: '60', materials: { char_exp: 286600, credit: 100310 } },
+	{ level: '60', materials: { char_exp: 286600, shell_credit: 100310 } },
 	{
 		level: '60A',
 		materials: {
@@ -44,10 +43,10 @@ export const charLevellingMaterialsCount = [
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 4,
 			},
-			credit: 20000,
+			shell_credit: 20000,
 		},
 	},
-	{ level: '70', materials: { char_exp: 413000, credit: 144550 } },
+	{ level: '70', materials: { char_exp: 413000, shell_credit: 144550 } },
 	{
 		level: '70A',
 		materials: {
@@ -56,10 +55,10 @@ export const charLevellingMaterialsCount = [
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 8,
 			},
-			credit: 40000,
+			shell_credit: 40000,
 		},
 	},
-	{ level: '80', materials: { char_exp: 572400, credit: 200340 } },
+	{ level: '80', materials: { char_exp: 572400, shell_credit: 200340 } },
 	{
 		level: '80A',
 		materials: {
@@ -68,10 +67,10 @@ export const charLevellingMaterialsCount = [
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 4,
 			},
-			credit: 80000,
+			shell_credit: 80000,
 		},
 	},
-	{ level: '90', materials: { char_exp: 768900, credit: 269115 } },
+	{ level: '90', materials: { char_exp: 768900, shell_credit: 269115 } },
 ];
 
 export const activeSkillLevellingMaterialsCount = [
@@ -79,7 +78,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 2,
 		materials: {
-			credit: 1500,
+			shell_credit: 1500,
 			tiered_enemy_drop_weapon_skill_material: {
 				1: 2,
 			},
@@ -91,7 +90,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 3,
 		materials: {
-			credit: 2000,
+			shell_credit: 2000,
 			tiered_enemy_drop_weapon_skill_material: {
 				1: 3,
 			},
@@ -103,7 +102,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 4,
 		materials: {
-			credit: 4500,
+			shell_credit: 4500,
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 2,
 			},
@@ -115,7 +114,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 5,
 		materials: {
-			credit: 6000,
+			shell_credit: 6000,
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 3,
 			},
@@ -127,7 +126,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 6,
 		materials: {
-			credit: 16000,
+			shell_credit: 16000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 2,
 			},
@@ -139,7 +138,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 7,
 		materials: {
-			credit: 30000,
+			shell_credit: 30000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
 			},
@@ -152,7 +151,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 8,
 		materials: {
-			credit: 50000,
+			shell_credit: 50000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 2,
 			},
@@ -165,7 +164,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 9,
 		materials: {
-			credit: 70000,
+			shell_credit: 70000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 3,
 			},
@@ -178,7 +177,7 @@ export const activeSkillLevellingMaterialsCount = [
 	{
 		level: 10,
 		materials: {
-			credit: 100000,
+			shell_credit: 100000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 4,
 			},
@@ -193,7 +192,7 @@ export const activeSkillLevellingMaterialsCount = [
 export const passiveSkillLevellingMaterialsCount = {
 	passive_skill_1: {
 		materials: {
-			credit: 10000,
+			shell_credit: 10000,
 			tiered_enemy_drop_weapon_skill_material: {
 				2: 3,
 			},
@@ -205,7 +204,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	passive_skill_2: {
 		materials: {
-			credit: 20000,
+			shell_credit: 20000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
 			},
@@ -217,7 +216,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_1_stat_1: {
 		materials: {
-			credit: 50000,
+			shell_credit: 50000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
 			},
@@ -228,7 +227,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_1_stat_2: {
 		materials: {
-			credit: 50000,
+			shell_credit: 50000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
 			},
@@ -239,7 +238,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_1_stat_3: {
 		materials: {
-			credit: 50000,
+			shell_credit: 50000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
 			},
@@ -250,7 +249,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_1_stat_4: {
 		materials: {
-			credit: 50000,
+			shell_credit: 50000,
 			tiered_enemy_drop_weapon_skill_material: {
 				3: 3,
 			},
@@ -261,7 +260,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_2_stat_1: {
 		materials: {
-			credit: 100000,
+			shell_credit: 100000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 3,
 			},
@@ -273,7 +272,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_2_stat_2: {
 		materials: {
-			credit: 100000,
+			shell_credit: 100000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 3,
 			},
@@ -285,7 +284,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_2_stat_3: {
 		materials: {
-			credit: 100000,
+			shell_credit: 100000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 3,
 			},
@@ -297,7 +296,7 @@ export const passiveSkillLevellingMaterialsCount = {
 	},
 	bonus_stat_tier_2_stat_4: {
 		materials: {
-			credit: 100000,
+			shell_credit: 100000,
 			tiered_enemy_drop_weapon_skill_material: {
 				4: 3,
 			},
