@@ -28,10 +28,10 @@ export const useStaminaStore = defineStore('stamina', () => {
 		}
 
 		if (this.stamina + additionalStamina > this.maxStamina) {
-			return;
+			this.stamina = this.maxStamina;
+		} else {
+			this.stamina += additionalStamina;
 		}
-
-		this.stamina += additionalStamina;
 		this.staminaUpdatedAt =
 			this.staminaUpdatedAt + additionalStamina * this.secondsPerStamina * 1000;
 
