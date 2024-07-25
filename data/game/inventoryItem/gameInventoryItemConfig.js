@@ -280,6 +280,178 @@ export const weapon_exp_material = {
 	},
 };
 
+export const tiered_forgery_weapon_skill_material_2 = {
+	cadence_seed: {
+		to: 'cadence_bud',
+		cost: 3,
+	},
+	cadence_bud: {
+		from: 'cadence_seed',
+		to: 'cadence_leaf',
+		cost: 3,
+	},
+	cadence_leaf: {
+		from: 'cadence_bud',
+		to: 'cadence_blossom',
+		cost: 3,
+	},
+	cadence_blossom: {
+		from: 'cadence_leaf',
+	},
+
+	impure_phlohiston: {
+		to: 'extracted_phlohiston',
+		cost: 3,
+	},
+	extracted_phlohiston: {
+		from: 'impure_phlohiston',
+		to: 'refined_phlohiston',
+		cost: 3,
+	},
+	refined_phlohiston: {
+		from: 'extracted_phlohiston',
+		to: 'flawless_phlohiston',
+		cost: 3,
+	},
+
+	flawless_phlohiston: {
+		from: 'refined_phlohiston',
+	},
+
+	inert_metallic_drip: {
+		to: 'reactive_metallic_drip',
+		cost: 3,
+	},
+	reactive_metallic_drip: {
+		from: 'inert_metallic_drip',
+		to: 'polarized_metallic_drip',
+		cost: 3,
+	},
+	polarized_metallic_drip: {
+		from: 'reactive_metallic_drip',
+		to: 'heterized_metallic_drip',
+		cost: 3,
+	},
+	heterized_metallic_drip: {
+		from: 'polarized_metallic_drip',
+	},
+
+	lento_helix: {
+		to: 'adagio_helix',
+		cost: 3,
+	},
+	adagio_helix: {
+		from: 'lento_helix',
+		to: 'andante_helix',
+		cost: 3,
+	},
+	andante_helix: {
+		from: 'adagio_helix',
+		to: 'presto_helix',
+		cost: 3,
+	},
+	presto_helix: {
+		from: 'andante_helix',
+	},
+
+	waveworn_residue_210: {
+		to: 'waveworn_residue_226',
+		cost: 3,
+	},
+	waveworn_residue_226: {
+		from: 'waveworn_residue_210',
+		to: 'waveworn_residue_235',
+		cost: 3,
+	},
+	waveworn_residue_235: {
+		from: 'waveworn_residue_226',
+		to: 'waveworn_residue_239',
+		cost: 3,
+	},
+	waveworn_residue_239: {
+		from: 'waveworn_residue_235',
+	},
+};
+
+export const tiered_enemy_drop_weapon_skill_material_2 = {
+	lf_howler_core: {
+		to: 'mf_howler_core',
+		cost: 3,
+	},
+	mf_howler_core: {
+		from: 'lf_howler_core',
+		to: 'hf_howler_core',
+		cost: 3,
+	},
+	hf_howler_core: {
+		from: 'mf_howler_core',
+		to: 'ff_howler_core',
+		cost: 3,
+	},
+	ff_howler_core: {
+		from: 'hf_howler_core',
+	},
+
+	lf_whisperin_core: {
+		to: 'mf_whisperin_core',
+		cost: 3,
+	},
+	mf_whisperin_core: {
+		from: 'lf_whisperin_core',
+		to: 'hf_whisperin_core',
+		cost: 3,
+	},
+	hf_whisperin_core: {
+		from: 'mf_whisperin_core',
+		to: 'ff_whisperin_core',
+		cost: 3,
+	},
+	ff_whisperin_core: {
+		from: 'hf_whisperin_core',
+	},
+
+	mask_of_constraint: {
+		to: 'mask_of_erosion',
+		cost: 3,
+	},
+	mask_of_erosion: {
+		from: 'mask_of_constraint',
+		to: 'mask_of_distortion',
+		cost: 3,
+	},
+	mask_of_distortion: {
+		from: 'mask_of_erosion',
+		to: 'mask_of_insanity',
+		cost: 3,
+	},
+	mask_of_insanity: {
+		from: 'mask_of_distortion',
+	},
+
+	crude_ring: {
+		to: 'basic_ring',
+		cost: 3,
+	},
+	basic_ring: {
+		from: 'crude_ring',
+		to: 'improved_ring',
+		cost: 3,
+	},
+	improved_ring: {
+		from: 'basic_ring',
+		to: 'tailored_ring',
+		cost: 3,
+	},
+	tailored_ring: {
+		from: 'improved_ring',
+	},
+};
+
+export const tiered_materials_2 = {
+	...tiered_enemy_drop_weapon_skill_material_2,
+	...tiered_forgery_weapon_skill_material_2,
+};
+
 export const tiered_materials = {
 	tiered_enemy_drop_weapon_skill_material:
 		tiered_enemy_drop_weapon_skill_material,

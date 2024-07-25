@@ -45,7 +45,8 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 			useOmit(weapon, 'name')
 		);
 
-		return debouncedStoreToStorage();
+		console.log('storing plannedWeapons to localStorage');
+		plannedWeaponsRepo.value = plannedWeapons.value;
 	}
 
 	return {

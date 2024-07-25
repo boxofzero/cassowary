@@ -1,6 +1,7 @@
 import * as dbInventoryItem from '@/data/database/dbInventoryItem';
 import { useStorage, useDebounceFn } from '@vueuse/core';
-// not exported
+import * as gameInventoryItem from '@/data/game/inventoryItem/gameInventoryItem';
+
 const inventoryRepo = () => {
 	return useStorage('inventoryItems', dbInventoryItem.dbInventoryItems);
 };
@@ -17,7 +18,7 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 			console.log('storing inventoryItems to localStorage');
 			inventoryRepo.value = inventoryItems.value;
 		},
-		500,
+		200,
 		{ maxWait: 5000 }
 	);
 
@@ -31,13 +32,54 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 	}
 
 	function updateInventory(stuffKey, value) {
-		inventoryItems.value[stuffKey]['count'] = parseInt(value);
+		const getInventoryItemMaterial = get(stuffKey);
+		getInventoryItemMaterial['count'] = parseInt(value);
 
-		return debouncedStoreToStorage();
+		console.log('updateInventory ' + stuffKey + ' -> ' + value);
+		console.log(
+			'before update: ' +
+				JSON.stringify(inventoryItems.value[stuffKey].count || 0)
+		);
+
+		console.log('storing inventoryItems to localStorage');
+		inventoryRepo.value = inventoryItems.value;
+		console.log(
+			'after update: ' +
+				JSON.stringify(inventoryItems.value[stuffKey].count || 0)
+		);
 	}
 
 	function updateAll() {
-		debouncedStoreToStorage();
+		console.log('storing inventoryItems to localStorage');
+		inventoryRepo.value = inventoryItems.value;
+	}
+
+	function decreaseTieredMaterial(material, value) {
+		if (
+			!useKeys(gameInventoryItem.synthesizable_materials).includes(material)
+		) {
+			return;
+		}
+		let updatedValue = get(material).count - value;
+		if (updatedValue < 0) {
+			// set to 0
+			updateInventory(material, 0);
+			// rest of material
+			if (
+				gameInventoryItem.synthesizable_materials[material].from !== undefined
+			) {
+				let lowerTierMaterial =
+					gameInventoryItem.synthesizable_materials[material].from;
+				let synthesizedCost =
+					gameInventoryItem.synthesizable_materials[lowerTierMaterial].cost;
+				return decreaseTieredMaterial(
+					lowerTierMaterial,
+					synthesizedCost * updatedValue * -1
+				);
+			}
+		} else {
+			updateInventory(material, updatedValue);
+		}
 	}
 
 	return {
@@ -46,5 +88,6 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 		get,
 		updateInventory,
 		updateAll,
+		decreaseTieredMaterial,
 	};
 });

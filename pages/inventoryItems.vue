@@ -17,6 +17,8 @@
 				<InventoryItemMaterialCard
 					:index="index"
 					:item="allMaterialsResponseData[index]"
+					:key="index"
+					@update-material-count="doEmit"
 				></InventoryItemMaterialCard>
 				<!-- div for per stuff -->
 				<!-- <div class="">
@@ -44,7 +46,21 @@ import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as inventoryService from '@/services/inventoryService';
 import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
 
+const childKey = ref(0);
+const forceRerender = () => {
+	childKey.value += 1;
+};
 const allMaterialsResponseData = ref({});
+
+const getMaterialItem = (index) => {
+	return computed(() => allMaterialsResponseData.value[index]);
+};
+
+const doEmit = (a) => {
+	console.log('emit received: ' + a);
+	// forceRerender();
+	updateAllMaterial();
+};
 
 const updateAllMaterial = () => {
 	allMaterialsResponseData.value =

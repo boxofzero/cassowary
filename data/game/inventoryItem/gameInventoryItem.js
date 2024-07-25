@@ -46,6 +46,10 @@ export const tiered_materials = {
 	...gameInventoryItemsConfig.tiered_materials,
 };
 
+export const synthesizable_materials = {
+	...gameInventoryItemsConfig.tiered_materials_2,
+};
+
 export const exp_data = {
 	...gameInventoryItemsConfig.exp_data,
 };
