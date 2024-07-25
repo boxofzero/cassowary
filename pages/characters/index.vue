@@ -174,7 +174,7 @@ const materials = ref({});
 
 const doEmit = (a) => {
 	console.log('emit received: ' + a);
-	getOrInitPlannedCharacter(characterName);
+	getOrInitPlannedCharacter(characterName.value);
 };
 const getOrInitPlannedCharacter = (characterName) => {
 	console.log('getOrInitPlannedCharacter called with: ' + characterName);

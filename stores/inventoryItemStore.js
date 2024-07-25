@@ -77,6 +77,8 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 					synthesizedCost * updatedValue * -1
 				);
 			}
+		} else {
+			updateInventory(material, updatedValue);
 		}
 	}
 

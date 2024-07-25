@@ -73,7 +73,6 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			}
 		}
 		for (let skill of structure.passive_skills) {
-			console.log('character[skill] : ' + JSON.stringify(character[skill]));
 			if (character[skill] === 0) {
 				character[skill] = 1;
 			}
