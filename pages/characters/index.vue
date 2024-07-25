@@ -123,12 +123,20 @@
 
 		<UDivider label="MATERIAL NEEDED" />
 		<section>
+			<v-btn @click="setDone">Done</v-btn>
+			<span
+				>Press "DONE" to set the current level/skill to the target value and
+				adjust the inventory item count</span
+			>
+		</section>
+		<section>
 			<div class="grid grid-cols-6 gap-6">
 				<div class="" v-for="(item, index) in materials" :key="index">
 					<InventoryItemMaterialCard
 						:index="index"
 						:item="item"
-						@update-material-count="getOrInitPlannedCharacter(characterName)"
+						:key="index"
+						@update-material-count="doEmit"
 					></InventoryItemMaterialCard>
 				</div>
 			</div>
@@ -147,6 +155,7 @@ import {
 import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import * as characterService from '@/services/characterService';
 import * as inventoryService from '@/services/inventoryService';
+import * as plannerService from '@/services/plannerService';
 
 // FORM DATA
 const characterList = useSortBy(Object.keys(characters));
@@ -162,31 +171,62 @@ const character = ref({ ...dbPlannedCharacter.character });
 const materials = ref({});
 
 // METHODS
+
+const doEmit = (a) => {
+	console.log('emit received: ' + a);
+	getOrInitPlannedCharacter(characterName);
+};
 const getOrInitPlannedCharacter = (characterName) => {
+	console.log('getOrInitPlannedCharacter called with: ' + characterName);
 	character.value = plannedCharacterStore.getOrInitEntry(characterName);
 	character.value['name'] = characterName;
 
 	materials.value = getMaterialsNeeded(characterName);
+	console.log('materials: ' + JSON.stringify(materials.value));
+	console.log('characters: ' + JSON.stringify(character.value));
 };
 
-const upsertPlannedCharacter = () => {
+const upsertPlannedCharacter = useDebounceFn(() => {
 	if (!characterName.value) {
 		return;
 	}
-	plannedCharacterStore
-		.upsert(character.value['name'], useOmit(character.value, 'name'))
-		.then(() => {
-			materials.value = getMaterialsNeeded(characterName.value);
-		});
-};
+	plannedCharacterStore.upsert(
+		character.value['name'],
+		useOmit(character.value, 'name')
+	);
+	materials.value = getMaterialsNeeded(characterName.value);
+}, 100);
 
 const getMaterialsNeeded = (characterName) => {
-	const neededMaterials =
+	console.log('getMaterialsNeeded called');
+	let neededMaterials =
 		characterService.getCharacterNeededMaterials(characterName);
-	const ownedNeededMaterialsResponseData =
+	console.log('neededMaterials: ' + JSON.stringify(neededMaterials));
+	let ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
+	console.log(
+		'ownedNeededMaterialsResponseData: ' +
+			JSON.stringify(ownedNeededMaterialsResponseData)
+	);
 	return ownedNeededMaterialsResponseData;
 };
+
+const setDone = () => {
+	debounceSetDone().then(() => {
+		console.log('materials: ' + JSON.stringify(materials.value));
+		materials.value = getMaterialsNeeded(characterName.value);
+		console.log(
+			'material.value inside after getMaterialsNeeded: ' +
+				JSON.stringify(materials.value)
+		);
+		getOrInitPlannedCharacter(characterName.value);
+	});
+};
+
+const debounceSetDone = useDebounceFn(() => {
+	plannerService.setCharacterDone(character.value, materials.value);
+	console.log('plannerService.setCharacterDone done');
+}, 100);
 
 // TODO set DONE (consume material
 // and increase current and set done passive)

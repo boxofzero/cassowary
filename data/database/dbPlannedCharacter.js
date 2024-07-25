@@ -23,3 +23,26 @@ export const character = {
 	bonus_stat_tier_2_stat_3: undefined,
 	bonus_stat_tier_2_stat_4: undefined,
 };
+
+export const characterStructure = {
+	active_skills: [
+		'char',
+		'basic_attack',
+		'resonance_skill',
+		'forte_circuit',
+		'resonance_liberation',
+		'intro_skill',
+	],
+	passive_skills: [
+		'passive_skill_1',
+		'passive_skill_2',
+		'bonus_stat_tier_1_stat_1',
+		'bonus_stat_tier_1_stat_2',
+		'bonus_stat_tier_1_stat_3',
+		'bonus_stat_tier_1_stat_4',
+		'bonus_stat_tier_2_stat_1',
+		'bonus_stat_tier_2_stat_2',
+		'bonus_stat_tier_2_stat_3',
+		'bonus_stat_tier_2_stat_4',
+	],
+};

@@ -83,7 +83,6 @@ const staminaRate = computed(() => {
 
 let updateStaminaInterval = () => {
 	return setInterval(() => {
-		console.log('stamina interval');
 		staminaStore.syncStaminaData();
 	}, 10 * 1000);
 };
@@ -95,7 +94,6 @@ onMounted(() => {
 	staminaStore.syncStaminaData();
 	// update stamina every interval time
 	intervalId = updateStaminaInterval();
-	console.log('interval set');
 });
 
 onUnmounted(() => {

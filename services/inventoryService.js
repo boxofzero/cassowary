@@ -16,7 +16,7 @@ const generateExpData = (
 		useToPairs(expMaterialTypeStructure),
 		(v) => -v[1].exp_value
 	);
-	console.log('expDataSortedDesc: ' + JSON.stringify(expDataSortedDesc));
+
 	for (let expData of expDataSortedDesc) {
 		const expDataNeeded = Math.floor(expNeededCounting / expData[1].exp_value);
 		expLeftover = expNeededCounting % expData[1].exp_value;
@@ -61,8 +61,6 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		};
 	}
 
-	console.log('responseData before sort: ' + JSON.stringify(responseData));
-
 	// 'sorting' the materials
 	let allInventoryItems = dbInventoryItem.dbInventoryItems;
 	let responseDataSorted = {};
@@ -94,12 +92,6 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 				if (synthesizedList[synthesizableData.to] < 0) {
 					synthesizedList[synthesizableData.to] = 0;
 				}
-				console.log('materialType: ' + materialType);
-				console.log('synthesizableData.to: ' + synthesizableData.to);
-				console.log(
-					'synthesizedList[synthesizableData.to]: ' +
-						synthesizedList[synthesizableData.to]
-				);
 			}
 			responseDataSorted[materialType]['synthesized'] =
 				synthesizedList[materialType];
@@ -113,7 +105,6 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		}
 	}
 
-	console.log('responseDataSorted: ' + JSON.stringify(responseDataSorted));
 	return responseDataSorted;
 };
 
@@ -153,6 +144,5 @@ export const getAllMaterialsResponseData = () => {
 		};
 	}
 
-	console.log('responseData', JSON.stringify(responseData));
 	return responseData;
 };

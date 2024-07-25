@@ -44,9 +44,9 @@
 			type="number"
 			:min="0"
 			:max="999_999_999"
-			v-model.lazy="itemRef"
+			v-model="itemRef"
 			:model-value="itemRef"
-			@blur="debouncedUpdateMaterialCount(index, itemRef)"
+			@update:modelValue="updateMaterialCount(index, itemRef)"
 		></v-text-field>
 	</v-card>
 </template>
@@ -68,18 +68,17 @@ const ownedItemColor = computed(() => {
 });
 
 const itemRef = ref(0);
+const updateMaterialCount = (index, count) => {
+	debouncedUpdateMaterialCount(index, count).then(() => {
+		$emit('updateMaterialCount', true);
+	});
+};
+
 const debouncedUpdateMaterialCount = useDebounceFn((index, count) => {
-	useInventoryItemStore()
-		.updateInventory(index, count)
-		.then(() => {
-			itemRef.value = count;
-			$emit('updateMaterialCount', true);
-		});
+	useInventoryItemStore().updateInventory(index, count);
+	itemRef.value = count;
 }, 100);
 
-const testBlur = (index, count) => {
-	console.log('test blur', index, count);
-};
 onMounted(() => {
 	itemRef.value = (props.item && props.item.owned) || 0;
 });
