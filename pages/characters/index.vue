@@ -190,7 +190,16 @@ const getOrInitPlannedCharacter = (characterName) => {
 	console.log('characters: ' + JSON.stringify(character.value));
 };
 
-const upsertPlannedCharacter = useDebounceFn(() => {
+const upsertPlannedCharacter = () => {
+	debounceUpsertPlannedCharacter().then(() => {
+		if (!characterName.value) {
+			return;
+		}
+		materials.value = getMaterialsNeeded(characterName.value);
+	});
+};
+
+const debounceUpsertPlannedCharacter = useDebounceFn(() => {
 	if (!characterName.value) {
 		return;
 	}
@@ -198,7 +207,6 @@ const upsertPlannedCharacter = useDebounceFn(() => {
 		character.value['name'],
 		useOmit(character.value, 'name')
 	);
-	materials.value = getMaterialsNeeded(characterName.value);
 }, 100);
 
 const getMaterialsNeeded = (characterName) => {
@@ -231,9 +239,6 @@ const debounceSetDone = useDebounceFn(() => {
 	plannerService.setCharacterDone(character.value, materials.value);
 	console.log('plannerService.setCharacterDone done');
 }, 100);
-
-// TODO set DONE (consume material
-// and increase current and set done passive)
 
 onBeforeMount(() => {
 	plannedCharacterStore.init();
