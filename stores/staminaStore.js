@@ -35,6 +35,9 @@ export const useStaminaStore = defineStore('stamina', () => {
 		this.staminaUpdatedAt =
 			this.staminaUpdatedAt + additionalStamina * this.secondsPerStamina * 1000;
 
+		// update fullStaminaAt
+		this.updateFullStaminaAt();
+
 		// update into staminaRepo
 		// this is a bit direct usage of API
 		// but i don't want to over engineer

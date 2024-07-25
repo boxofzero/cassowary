@@ -88,10 +88,13 @@ let updateStaminaInterval = () => {
 };
 
 let intervalId;
-onMounted(() => {
+
+onBeforeMount(() => {
 	// init stamina state values
 	staminaStore.initStaminaData();
 	staminaStore.syncStaminaData();
+});
+onMounted(() => {
 	// update stamina every interval time
 	intervalId = updateStaminaInterval();
 });

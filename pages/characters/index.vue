@@ -2,144 +2,148 @@
 	<section class="">
 		<h1 class="">Add New Character To Planner</h1>
 	</section>
-	<!--
-	add character yinlin
-	load character yinlin material requirement
-	if user has planned character where yinlin, load the data
-	if user doesnt have planned character yinlin, prepare new planned character
-	-->
-	<div>
-		<h2>CHARACTER NAME</h2>
-		<v-select
-			label="Select"
-			:items="characterList"
-			v-model="characterName"
-			@update:modelValue="getOrInitPlannedCharacter($event)"
-		></v-select>
-	</div>
-	<section v-show="isCharacterNameSet">
-		<UDivider label="LEVEL" />
+	<section>
 		<div>
-			<div class="grid grid-cols-2 gap-2">
-				<v-select
-					label="Current Level"
-					:items="levelItems"
-					item-title="label"
-					item-value="value"
-					v-model="character['char_current_level']"
-					:model-value="character['char_current_level'] || 1"
-					@update:modelValue="upsertPlannedCharacter()"
-				></v-select>
-				<v-select
-					label="Target Level"
-					:items="levelItems"
-					item-title="label"
-					item-value="value"
-					v-model="character['char_target_level']"
-					:model-value="character['char_target_level'] || 1"
-					@update:modelValue="upsertPlannedCharacter()"
-				></v-select>
-			</div>
+			<h2>CHARACTER NAME</h2>
+			<v-select
+				label="Select"
+				:items="characterList"
+				v-model="characterName"
+				@update:modelValue="getOrInitPlannedCharacter($event)"
+			></v-select>
 		</div>
-
-		<UDivider label="SKILLS" />
-		<div class="flex">
-			<div class="w-1/2 p-2">
-				<h2>ACTIVE SKILLS</h2>
-				<div v-for="(item, index) in activeSkills" :key="index">
-					<p>{{ item.label }}</p>
-					<div class="columns-2 -">
-						<v-number-input
-							control-variant="stacked"
-							inset
-							density="compact"
-							label="Current Level"
-							:min="1"
-							:max="10"
-							:model-value="character[item.model_value + '_current_level'] || 1"
-							v-model="character[item.model_value + '_current_level']"
-							@update:modelValue="upsertPlannedCharacter()"
-						></v-number-input>
-
-						<v-number-input
-							control-variant="stacked"
-							inset
-							density="compact"
-							label="Target Level"
-							:min="1"
-							:max="10"
-							:model-value="character[item.model_value + '_target_level'] || 1"
-							v-model="character[item.model_value + '_target_level']"
-							@update:modelValue="upsertPlannedCharacter()"
-						></v-number-input>
-					</div>
+		<section v-show="isCharacterNameSet">
+			<UDivider label="LEVEL" />
+			<div class="">
+				<div class="grid grid-cols-2 gap-2">
+					<v-select
+						label="Current Level"
+						:items="levelItems"
+						item-title="label"
+						item-value="value"
+						v-model="character['char_current_level']"
+						:model-value="character['char_current_level'] || 1"
+						@update:modelValue="upsertPlannedCharacter()"
+					></v-select>
+					<v-select
+						label="Target Level"
+						:items="levelItems"
+						item-title="label"
+						item-value="value"
+						v-model="character['char_target_level']"
+						:model-value="character['char_target_level'] || 1"
+						@update:modelValue="upsertPlannedCharacter()"
+					></v-select>
 				</div>
 			</div>
-			<div class="w-1/4 p-2">
-				<h2>TIER 1</h2>
-				<div>
-					<div
-						v-for="(item, index) in passiveSkills.tier_1"
-						:key="index"
-						class=""
-					>
-						<p>{{ item.label }}</p>
-						<v-btn-toggle
-							color="primary"
-							class="size-full"
-							:model-value="character[item.model_value]"
-							v-model="character[item.model_value]"
-							@update:modelValue="upsertPlannedCharacter()"
+
+			<UDivider label="SKILLS" />
+			<div class="flex">
+				<div class="w-1/2 p-2">
+					<h2>ACTIVE SKILLS</h2>
+					<div v-for="(item, index) in activeSkills" :key="index">
+						<div class="">
+							<div>
+								<p>{{ item.label }}</p>
+							</div>
+							<div class="columns-2">
+								<v-number-input
+									control-variant="stacked"
+									inset
+									density="compact"
+									label="Current Level"
+									:min="1"
+									:max="10"
+									:model-value="
+										character[item.model_value + '_current_level'] || 1
+									"
+									v-model="character[item.model_value + '_current_level']"
+									@update:modelValue="upsertPlannedCharacter()"
+								></v-number-input>
+
+								<v-number-input
+									control-variant="stacked"
+									inset
+									density="compact"
+									label="Target Level"
+									:min="1"
+									:max="10"
+									:model-value="
+										character[item.model_value + '_target_level'] || 1
+									"
+									v-model="character[item.model_value + '_target_level']"
+									@update:modelValue="upsertPlannedCharacter()"
+								></v-number-input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="w-1/4 p-2">
+					<h2>TIER 1</h2>
+					<div>
+						<div
+							v-for="(item, index) in passiveSkills.tier_1"
+							:key="index"
+							class=""
 						>
-							<v-btn class="size-1/2">🔔</v-btn>
-							<v-btn class="size-1/2">✅</v-btn>
-						</v-btn-toggle>
+							<p>{{ item.label }}</p>
+							<v-btn-toggle
+								color="primary"
+								class="size-full"
+								:model-value="character[item.model_value]"
+								v-model="character[item.model_value]"
+								@update:modelValue="upsertPlannedCharacter()"
+							>
+								<v-btn class="size-1/2">🔔</v-btn>
+								<v-btn class="size-1/2">✅</v-btn>
+							</v-btn-toggle>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="w-1/4 p-2">
-				<h2>TIER 2</h2>
-				<div>
-					<div
-						v-for="(item, index) in passiveSkills.tier_2"
-						:key="index"
-						class=""
-					>
-						<p>{{ item.label }}</p>
-						<v-btn-toggle
-							color="primary"
-							class="size-full"
-							:model-value="character[item.model_value]"
-							v-model="character[item.model_value]"
-							@update:modelValue="upsertPlannedCharacter()"
+				<div class="w-1/4 p-2">
+					<h2>TIER 2</h2>
+					<div>
+						<div
+							v-for="(item, index) in passiveSkills.tier_2"
+							:key="index"
+							class=""
 						>
-							<v-btn class="size-1/2">🔔</v-btn>
-							<v-btn class="size-1/2">✅</v-btn>
-						</v-btn-toggle>
+							<p>{{ item.label }}</p>
+							<v-btn-toggle
+								color="primary"
+								class="size-full"
+								:model-value="character[item.model_value]"
+								v-model="character[item.model_value]"
+								@update:modelValue="upsertPlannedCharacter()"
+							>
+								<v-btn class="size-1/2">🔔</v-btn>
+								<v-btn class="size-1/2">✅</v-btn>
+							</v-btn-toggle>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<UDivider label="MATERIAL NEEDED" />
-		<section>
-			<v-btn @click="setDone">Done</v-btn>
-			<span
-				>Press "DONE" to set the current level/skill to the target value and
-				adjust the inventory item count</span
-			>
-		</section>
-		<section>
-			<div class="grid grid-cols-6 gap-6">
-				<div class="" v-for="(item, index) in materials" :key="index">
-					<InventoryItemMaterialCard
-						:index="index"
-						:item="item"
-						:key="index"
-						@update-material-count="doEmit"
-					></InventoryItemMaterialCard>
+			<UDivider label="MATERIAL NEEDED" />
+			<section>
+				<v-btn class="mr-5" @click="setDone">Done</v-btn>
+				<span class="inline-block align-middle">
+					Press "DONE" to set the current level/skill to the target value and
+					adjust the inventory item count
+				</span>
+			</section>
+			<section>
+				<div class="grid grid-cols-6 gap-6">
+					<div class="" v-for="(item, index) in materials" :key="index">
+						<InventoryItemMaterialCard
+							:index="index"
+							:item="item"
+							:key="index"
+							@update-material-count="doEmit"
+						></InventoryItemMaterialCard>
+					</div>
 				</div>
-			</div>
+			</section>
 		</section>
 	</section>
 </template>
