@@ -1,19 +1,15 @@
 <template>
-	<section class="">
-		<h1 class="">Inventories</h1>
+	<section class="flex items-center justify-between mb-10">
+		<h1 class="text-4xl font-extrabold">Needed Materials</h1>
 	</section>
-	<div
-		v-for="(
-			materialTypeData, materialType
-		) in gameInventoryItem.categorizedInventoryItems"
-		:key="materialType"
-	>
-		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
-			{{ materialLabel(materialType) }}
-		</h2>
-		<!-- outer div of each item -->
+
+	<section>
 		<div class="grid grid-cols-8 gap-1">
-			<div v-for="(item, index) in materialTypeData" :key="index" class="">
+			<div
+				v-for="(item, index) in allMaterialsResponseData"
+				:key="index"
+				class=""
+			>
 				<InventoryItemMaterialCard
 					:index="index"
 					:item="allMaterialsResponseData[index]"
@@ -22,7 +18,7 @@
 				></InventoryItemMaterialCard>
 			</div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script setup>
@@ -38,8 +34,12 @@ const doEmit = (a) => {
 };
 
 const updateAllMaterial = () => {
-	allMaterialsResponseData.value =
-		inventoryService.getAllMaterialsResponseData();
+	allMaterialsResponseData.value = useFilter(
+		inventoryService.getAllMaterialsResponseData(),
+		(material) => {
+			return material.needed > 0;
+		}
+	);
 };
 
 const materialLabel = (text) => {

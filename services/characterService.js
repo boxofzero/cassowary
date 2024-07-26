@@ -81,6 +81,13 @@ export const getAllCharactersNeededMaterials = () => {
 	usePlannedCharacterStore().init();
 	let characters = usePlannedCharacterStore().plannedCharacters;
 	if (!characters) return {};
+	return getCharactersNeededMaterials(useKeys(characters));
+};
+
+export const getCharactersNeededMaterials = (characterNames) => {
+	usePlannedCharacterStore().init();
+	let characters = usePlannedCharacterStore().getCharacters(characterNames);
+	if (!characters) return {};
 
 	const combinedNeededMaterials = {};
 	for (let characterName in characters) {

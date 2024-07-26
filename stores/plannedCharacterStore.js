@@ -36,6 +36,14 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		return { ...dbPlannedCharacter.character };
 	}
 
+	function getCharacters(characterNames) {
+		const characters = {};
+		for (let characterName of characterNames) {
+			characters[characterName] = getOrInitEntry(characterName);
+		}
+		return characters;
+	}
+
 	function upsert(characterName, character) {
 		// if the name does not exist in the plannedCharacters key, init it
 		if (
@@ -85,6 +93,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		plannedCharacters,
 		init,
 		getOrInitEntry,
+		getCharacters,
 		upsert,
 		setDone,
 	};
