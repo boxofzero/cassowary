@@ -5,12 +5,25 @@
 	<section>
 		<div>
 			<h2>CHARACTER NAME</h2>
-			<v-select
+			<v-autocomplete
 				label="Select"
-				:items="characterList"
+				:items="characterList()"
+				item-title="title"
+				item-value="value"
+				:menu-props="{ maxHeight: '200' }"
+				:custom-filter="customFilter"
 				v-model="characterName"
 				@update:modelValue="getOrInitPlannedCharacter($event)"
-			></v-select>
+			>
+				<template v-slot:item="{ props, item }">
+					<v-list-item
+						v-bind="props"
+						:subtitle="item.raw.subtitle"
+						:prepend-avatar="item.raw.icon"
+					>
+					</v-list-item>
+				</template>
+			</v-autocomplete>
 		</div>
 		<section v-show="isCharacterNameSet">
 			<UDivider label="LEVEL" />
@@ -125,7 +138,7 @@
 			</div>
 
 			<UDivider label="MATERIAL NEEDED" />
-			<section>
+			<section class="p-3">
 				<v-btn class="mr-5" @click="setDone">Done</v-btn>
 				<span class="inline-block align-middle">
 					Press "DONE" to set the current level/skill to the target value and
@@ -162,7 +175,19 @@ import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
 
 // FORM DATA
-const characterList = useSortBy(Object.keys(characters));
+const characterList = () => {
+	let list = [];
+	useForEach(characters, (character, characterName) => {
+		const subtitle = character.rarity + '⭐';
+		list = useConcat(list, {
+			value: characterName,
+			title: character.display_name,
+			subtitle: subtitle,
+			icon: character.icon,
+		});
+	});
+	return list;
+};
 
 // STORE
 const plannedCharacterStore = usePlannedCharacterStore();
