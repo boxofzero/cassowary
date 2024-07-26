@@ -9,9 +9,7 @@ export const setWeaponDone = (character, loadedMaterials) => {
 	usePlannedWeaponStore().init();
 	useInventoryItemStore().init();
 	usePlannedWeaponStore().setDone(character.name);
-	console.log('weapon setDone done');
 	setInventoryItemDone(loadedMaterials);
-	console.log('setInventoryItemDone done');
 };
 
 export const setCharacterDone = (character, loadedMaterials) => {
@@ -20,9 +18,7 @@ export const setCharacterDone = (character, loadedMaterials) => {
 	usePlannedCharacterStore().init();
 	useInventoryItemStore().init();
 	usePlannedCharacterStore().setDone(character.name);
-	console.log('character setDone done');
 	setInventoryItemDone(loadedMaterials);
-	console.log('setInventoryItemDone done');
 };
 
 const setInventoryItemDone = (loadedMaterials) => {

@@ -206,13 +206,10 @@ const doEmit = (a) => {
 	getOrInitPlannedCharacter(characterName.value);
 };
 const getOrInitPlannedCharacter = (characterName) => {
-	console.log('getOrInitPlannedCharacter called with: ' + characterName);
 	character.value = plannedCharacterStore.getOrInitEntry(characterName);
 	character.value['name'] = characterName;
 
 	materials.value = getMaterialsNeeded(characterName);
-	console.log('materials: ' + JSON.stringify(materials.value));
-	console.log('characters: ' + JSON.stringify(character.value));
 };
 
 const upsertPlannedCharacter = () => {
@@ -235,34 +232,22 @@ const debounceUpsertPlannedCharacter = useDebounceFn(() => {
 }, 100);
 
 const getMaterialsNeeded = (characterName) => {
-	console.log('getMaterialsNeeded called');
 	let neededMaterials =
 		characterService.getCharacterNeededMaterials(characterName);
-	console.log('neededMaterials: ' + JSON.stringify(neededMaterials));
 	let ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
-	console.log(
-		'ownedNeededMaterialsResponseData: ' +
-			JSON.stringify(ownedNeededMaterialsResponseData)
-	);
 	return ownedNeededMaterialsResponseData;
 };
 
 const setDone = () => {
 	debounceSetDone().then(() => {
-		console.log('materials: ' + JSON.stringify(materials.value));
 		materials.value = getMaterialsNeeded(characterName.value);
-		console.log(
-			'material.value inside after getMaterialsNeeded: ' +
-				JSON.stringify(materials.value)
-		);
 		getOrInitPlannedCharacter(characterName.value);
 	});
 };
 
 const debounceSetDone = useDebounceFn(() => {
 	plannerService.setCharacterDone(character.value, materials.value);
-	console.log('plannerService.setCharacterDone done');
 }, 100);
 
 onBeforeMount(() => {

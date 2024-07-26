@@ -53,6 +53,13 @@ export const getAllWeaponsNeededMaterials = () => {
 	usePlannedWeaponStore().init();
 	let weapons = usePlannedWeaponStore().plannedWeapons;
 	if (!weapons) return {};
+	return getWeaponsNeededMaterials(useKeys(weapons));
+};
+
+export const getWeaponsNeededMaterials = (weaponNames) => {
+	usePlannedWeaponStore().init();
+	let weapons = usePlannedWeaponStore().getWeapons(weaponNames);
+	if (!weapons) return {};
 
 	const combinedNeededMaterials = {};
 	for (let weaponName in weapons) {

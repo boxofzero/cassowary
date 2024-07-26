@@ -30,6 +30,14 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		return { ...dbPlannedWeapon.weapon };
 	}
 
+	function getWeapons(weaponNames) {
+		const weapons = {};
+		for (let weaponName of weaponNames) {
+			weapons[weaponName] = getOrInitEntry(weaponName);
+		}
+		return weapons;
+	}
+
 	function upsert(weaponName, weapon) {
 		// if the name does not exist in the plannedWeapons key, init it
 		if (
@@ -66,6 +74,7 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		plannedWeapons,
 		init,
 		getOrInitEntry,
+		getWeapons,
 		upsert,
 		setDone,
 	};

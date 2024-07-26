@@ -22,9 +22,6 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 	);
 
 	function getOrInitEntry(characterName) {
-		console.log(
-			'plannedCharacters.value: ' + JSON.stringify(plannedCharacters.value)
-		);
 		if (
 			Object.prototype.hasOwnProperty.call(
 				plannedCharacters.value,
@@ -34,6 +31,14 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			return plannedCharacters.value[characterName];
 		}
 		return { ...dbPlannedCharacter.character };
+	}
+
+	function getCharacters(characterNames) {
+		const characters = {};
+		for (let characterName of characterNames) {
+			characters[characterName] = getOrInitEntry(characterName);
+		}
+		return characters;
 	}
 
 	function upsert(characterName, character) {
@@ -85,6 +90,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		plannedCharacters,
 		init,
 		getOrInitEntry,
+		getCharacters,
 		upsert,
 		setDone,
 	};

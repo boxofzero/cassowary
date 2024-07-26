@@ -160,19 +160,13 @@ const getMaterialsNeeded = (weaponName) => {
 
 const setDone = () => {
 	debounceSetDone().then(() => {
-		console.log('materials: ' + JSON.stringify(materials.value));
 		materials.value = getMaterialsNeeded(weaponName.value);
-		console.log(
-			'material.value inside after getMaterialsNeeded: ' +
-				JSON.stringify(materials.value)
-		);
 		getOrInitPlannedWeapon(weaponName.value);
 	});
 };
 
 const debounceSetDone = useDebounceFn(() => {
 	plannerService.setWeaponDone(weapon.value, materials.value);
-	console.log('plannerService.setWeaponDone done');
 }, 100);
 
 onBeforeMount(() => {
