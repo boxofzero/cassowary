@@ -22,9 +22,6 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 	);
 
 	function getOrInitEntry(characterName) {
-		console.log(
-			'plannedCharacters.value: ' + JSON.stringify(plannedCharacters.value)
-		);
 		if (
 			Object.prototype.hasOwnProperty.call(
 				plannedCharacters.value,

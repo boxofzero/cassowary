@@ -8,70 +8,47 @@
 	>
 		<div>
 			<div class="font-bold">Track Your Stamina</div>
-
 			<div class="text-2xl font-extrabold text-white mb-2">
-				<USkeleton class="h-8 w-full" v-if="loading" />
-				<div v-else>
-					{{ staminaStore.stamina }} / {{ staminaStore.maxStamina }}
+				<div>{{ staminaStore.stamina }} / {{ staminaStore.maxStamina }}</div>
+			</div>
+			<div class="font-bold">Stamina regen rate</div>
+			<div class="text-xl text-white mb-2">
+				<div>{{ staminaRate }} minutes / stamina</div>
+			</div>
+		</div>
+		<div class="">
+			<div class="font-bold">Your Stamina will be</div>
+			<div class="text-sm text-white mb-2 columns-1">
+				<!-- {{ moment(staminaStore.fullStaminaAt).format('YYYY-MM-DD HH:mm:ss') }} -->
+				<div v-for="(item, index) in calculateFutureStaminaAt()" :key="index">
+					{{ index }} at {{ moment(item).format('HH:mm:ss') }}
 				</div>
 			</div>
 		</div>
-		<div class="flex items-center justify-between">
-			<div class="font-bold">The stamina regen rate:</div>
-			<div class="text-2xl font-extrabold text-white mb-2">
-				<USkeleton class="h-8 w-full" v-if="loading" />
-				<!-- <div v-else>{{ staminaStore.secondsPerStamina }} seconds / stamina</div> -->
-				<div v-else>{{ staminaRate }} minutes / stamina</div>
-			</div>
-		</div>
-		<div class="flex items-center justify-between">
-			<div class="font-bold">Your Stamina will be full at</div>
-			<div class="text-2xl font-extrabold text-white mb-2">
-				<div>
-					{{ moment(staminaStore.fullStaminaAt).format('YYYY-MM-DD HH:mm:ss') }}
+		<div>
+			<div class="font-bold">Adjust Stamina</div>
+			<div class="grid grid-cols-3 gap-4 auto-rows-max auto-cols-auto">
+				<div
+					class="mr-1"
+					v-for="(item, index) in ['-1', '-40', '-60', '+1', '+40', '+60']"
+					:key="index"
+				>
+					<v-btn
+						class=""
+						:color="parseInt(item) < 0 ? 'yellow' : 'green'"
+						@click="staminaStore.updateStaminaOverflow(parseInt(item))"
+						>{{ item }}</v-btn
+					>
 				</div>
 			</div>
-		</div>
-		<div class="text-2xl font-extrabold text-white mb-2">
-			<UButton
-				color="white"
-				variant="solid"
-				label="-1"
-				@click="staminaStore.updateStaminaOverflow(-1)"
-			/>
-			<UButton
-				color="white"
-				variant="solid"
-				label="+1"
-				@click="staminaStore.updateStaminaOverflow(+1)"
-			/>
-			<UButton
-				color="white"
-				variant="solid"
-				label="-40"
-				@click="staminaStore.updateStaminaOverflow(-40)"
-			/>
-			<UButton
-				color="white"
-				variant="solid"
-				label="-60"
-				@click="staminaStore.updateStaminaOverflow(-60)"
-			/>
-			<UButton
-				color="white"
-				variant="solid"
-				label="+60"
-				@click="staminaStore.updateStaminaOverflow(60)"
-			/>
 		</div>
 	</section>
 </template>
 
 <script setup>
 import { useStaminaStore } from '~/stores/staminaStore';
+import { MAX_STAMINA } from '~/libraries/constants';
 import moment from 'moment';
-
-const loading = false;
 
 const staminaStore = useStaminaStore();
 const staminaRate = computed(() => {
@@ -80,6 +57,23 @@ const staminaRate = computed(() => {
 	}
 	return staminaStore.secondsPerStamina / 60;
 });
+
+const calculateFutureStaminaAt = () => {
+	let startStamina = 60;
+
+	const data = {};
+	while (startStamina <= MAX_STAMINA) {
+		if (startStamina >= staminaStore.stamina) {
+			let diffStamina = startStamina - staminaStore.stamina;
+			data[startStamina] =
+				staminaStore.staminaUpdatedAt +
+				diffStamina * staminaStore.secondsPerStamina * 1000;
+		}
+		startStamina += 60;
+	}
+
+	return data;
+};
 
 let updateStaminaInterval = () => {
 	return setInterval(() => {
@@ -94,6 +88,7 @@ onBeforeMount(() => {
 	staminaStore.initStaminaData();
 	staminaStore.syncStaminaData();
 });
+
 onMounted(() => {
 	// update stamina every interval time
 	intervalId = updateStaminaInterval();

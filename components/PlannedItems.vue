@@ -35,7 +35,6 @@ const displayList = () => {
 const characterList = () => {
 	let list = [];
 	useForEach(characters.value, (character, characterName) => {
-		console.log('characterName: ' + characterName);
 		const charData = gameCharacter.characters[characterName];
 		const subtitle = charData.rarity + '⭐';
 		list = useConcat(list, {
@@ -52,7 +51,6 @@ const characterList = () => {
 const weaponList = () => {
 	let list = [];
 	useForEach(weapons.value, (weapon, weaponName) => {
-		console.log('weaponName: ' + weaponName);
 		const weapData = gameWeapon.weapons[weaponName];
 		const subtitle = weapData.rarity + '⭐';
 		list = useConcat(list, {
@@ -73,8 +71,6 @@ onBeforeMount(() => {
 
 onMounted(() => {
 	characters.value = usePlannedCharacterStore().plannedCharacters;
-	console.log('characters.value: ' + JSON.stringify(characters.value));
 	weapons.value = usePlannedWeaponStore().plannedWeapons;
-	console.log('weapons.value: ' + JSON.stringify(weapons.value));
 });
 </script>

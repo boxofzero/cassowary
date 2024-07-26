@@ -11,8 +11,8 @@
 				class=""
 			>
 				<InventoryItemMaterialCard
-					:index="index"
-					:item="allMaterialsResponseData[index]"
+					:index="index.toString()"
+					:item="item"
 					:key="index"
 					@update-material-count="doEmit"
 				></InventoryItemMaterialCard>
@@ -34,16 +34,12 @@ const doEmit = (a) => {
 };
 
 const updateAllMaterial = () => {
-	allMaterialsResponseData.value = useFilter(
+	allMaterialsResponseData.value = usePickBy(
 		inventoryService.getAllMaterialsResponseData(),
 		(material) => {
 			return material.needed > 0;
 		}
 	);
-};
-
-const materialLabel = (text) => {
-	return useStartCase(text.replaceAll('_', ' '));
 };
 
 onBeforeMount(() => {
