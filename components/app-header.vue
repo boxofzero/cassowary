@@ -15,6 +15,9 @@
 					<NuxtLink to="/characters">Characters</NuxtLink>
 				</li>
 				<li>
+					<NuxtLink to="/weapons">Weapons</NuxtLink>
+				</li>
+				<li>
 					<NuxtLink to="/about">About</NuxtLink>
 				</li>
 				<!-- <li>

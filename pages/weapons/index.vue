@@ -55,12 +55,12 @@
 			</div>
 		</div>
 		<UDivider label="MATERIAL NEEDED" />
-		<section>
-			<v-btn>Done</v-btn>
-			<span
-				>Press "DONE" will decrease set the planned to done and decrease the
-				inventory item</span
-			>
+		<section class="p-3">
+			<v-btn class="mr-5" @click="setDone">Done</v-btn>
+			<span class="inline-block align-middle">
+				Press "DONE" to set the current level/skill to the target value and
+				adjust the inventory item count
+			</span>
 		</section>
 		<section>
 			<div class="grid grid-cols-6 gap-6">
@@ -68,6 +68,8 @@
 					<InventoryItemMaterialCard
 						:index="index"
 						:item="item"
+						:key="index"
+						@update-material-count="doEmit"
 					></InventoryItemMaterialCard>
 				</div>
 			</div>
@@ -82,6 +84,7 @@ import { levelItems } from '@/data/form/weapons/formWeaponsNew';
 import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
 import * as weaponService from '@/services/weaponService';
 import * as inventoryService from '@/services/inventoryService';
+import * as plannerService from '@/services/plannerService';
 
 // FORM DATA
 const weaponList = () => {
@@ -117,6 +120,11 @@ const weapon = ref({ ...dbPlannedWeapon.weapon });
 const materials = ref({});
 
 // METHODS
+
+const doEmit = (a) => {
+	console.log('emit received: ' + a);
+	getOrInitPlannedWeapon(weaponName.value);
+};
 const getOrInitPlannedWeapon = (weaponName) => {
 	weapon.value = plannedWeaponStore.getOrInitEntry(weaponName);
 	weapon.value['name'] = weaponName;
@@ -125,16 +133,23 @@ const getOrInitPlannedWeapon = (weaponName) => {
 };
 
 const upsertPlannedWeapon = () => {
+	debounceUpsertPlannedWeapon().then(() => {
+		if (!weaponName.value) {
+			return;
+		}
+		materials.value = getMaterialsNeeded(weaponName.value);
+	});
+};
+const debounceUpsertPlannedWeapon = useDebounceFn(() => {
 	if (!weaponName.value) {
 		return;
 	}
 
-	plannedWeaponStore
-		.upsert(weapon.value['name'], useOmit(weapon.value, 'name'))
-		.then(() => {
-			materials.value = getMaterialsNeeded(weaponName.value);
-		});
-};
+	plannedWeaponStore.upsert(
+		weapon.value['name'],
+		useOmit(weapon.value, 'name')
+	);
+}, 100);
 
 const getMaterialsNeeded = (weaponName) => {
 	const neededMaterials = weaponService.getWeaponNeededMaterials(weaponName);
@@ -143,8 +158,22 @@ const getMaterialsNeeded = (weaponName) => {
 	return ownedNeededMaterialsResponseData;
 };
 
-// TODO set DONE (consume material
-// and increase current and set done passive)
+const setDone = () => {
+	debounceSetDone().then(() => {
+		console.log('materials: ' + JSON.stringify(materials.value));
+		materials.value = getMaterialsNeeded(weaponName.value);
+		console.log(
+			'material.value inside after getMaterialsNeeded: ' +
+				JSON.stringify(materials.value)
+		);
+		getOrInitPlannedWeapon(weaponName.value);
+	});
+};
+
+const debounceSetDone = useDebounceFn(() => {
+	plannerService.setWeaponDone(weapon.value, materials.value);
+	console.log('plannerService.setWeaponDone done');
+}, 100);
 
 onBeforeMount(() => {
 	plannedWeaponStore.init();

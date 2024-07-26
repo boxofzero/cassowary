@@ -49,10 +49,24 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		plannedWeaponsRepo.value = plannedWeapons.value;
 	}
 
+	function setDone(weaponName) {
+		const weapon = plannedWeapons.value[weaponName];
+		if (weapon === undefined) {
+			return;
+		}
+
+		if (weapon['weap_target_level'] !== undefined) {
+			weapon['weap_current_level'] = weapon['weap_target_level'];
+		}
+
+		upsert(weaponName, weapon);
+	}
+
 	return {
 		plannedWeapons,
 		init,
 		getOrInitEntry,
 		upsert,
+		setDone,
 	};
 });

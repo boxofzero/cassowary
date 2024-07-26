@@ -1,6 +1,18 @@
 import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
+import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as gameInventoryItem from '@/data/game/inventoryItem/gameInventoryItem';
+
+export const setWeaponDone = (character, loadedMaterials) => {
+	// character must have name
+	// set character done
+	usePlannedWeaponStore().init();
+	useInventoryItemStore().init();
+	usePlannedWeaponStore().setDone(character.name);
+	console.log('weapon setDone done');
+	setInventoryItemDone(loadedMaterials);
+	console.log('setInventoryItemDone done');
+};
 
 export const setCharacterDone = (character, loadedMaterials) => {
 	// character must have name
