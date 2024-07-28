@@ -12,14 +12,10 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		plannedWeapons.value = plannedWeaponsRepo().value;
 	}
 
-	const debouncedStoreToStorage = useDebounceFn(
-		() => {
-			console.log('storing plannedWeapons to localStorage');
-			plannedWeaponsRepo.value = plannedWeapons.value;
-		},
-		500,
-		{ maxWait: 5000 }
-	);
+	const storeToStorage = () => {
+		console.log('storing plannedWeapons to localStorage');
+		plannedWeaponsRepo.value = plannedWeapons.value;
+	};
 
 	function getOrInitEntry(weaponName) {
 		if (
@@ -53,8 +49,7 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 			useOmit(weapon, 'name')
 		);
 
-		console.log('storing plannedWeapons to localStorage');
-		plannedWeaponsRepo.value = plannedWeapons.value;
+		storeToStorage();
 	}
 
 	function setDone(weaponName) {
@@ -63,11 +58,9 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 			return;
 		}
 
-		if (weapon['weap_target_level'] !== undefined) {
-			weapon['weap_current_level'] = weapon['weap_target_level'];
-		}
-
-		upsert(weaponName, weapon);
+		// if set done, then remove from planned characters
+		plannedWeapons.value[weaponName] = undefined;
+		storeToStorage();
 	}
 
 	return {

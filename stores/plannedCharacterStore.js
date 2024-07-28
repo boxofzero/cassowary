@@ -12,14 +12,10 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		plannedCharacters.value = plannedCharactersRepo().value;
 	}
 
-	const debouncedStoreToStorage = useDebounceFn(
-		() => {
-			console.log('storing plannedCharacters to localStorage');
-			plannedCharactersRepo().value = plannedCharacters.value;
-		},
-		500,
-		{ maxWait: 5000 }
-	);
+	const storeToStorage = () => {
+		console.log('storing plannedCharacters to localStorage');
+		plannedCharactersRepo().value = plannedCharacters.value;
+	};
 
 	function getOrInitEntry(characterName) {
 		if (
@@ -61,8 +57,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			useOmit(character, 'name')
 		);
 
-		console.log('storing plannedCharacters to localStorage');
-		plannedCharactersRepo().value = plannedCharacters.value;
+		storeToStorage();
 	}
 
 	function setDone(characterName) {
@@ -70,20 +65,9 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		if (character === undefined) {
 			return;
 		}
-		const structure = dbPlannedCharacter.characterStructure;
-		for (let skill of structure.active_skills) {
-			if (character[skill + '_target_level'] !== undefined) {
-				character[skill + '_current_level'] =
-					character[skill + '_target_level'];
-			}
-		}
-		for (let skill of structure.passive_skills) {
-			if (character[skill] === 0) {
-				character[skill] = 1;
-			}
-		}
 
-		upsert(characterName, character);
+		plannedCharacters.value[characterName] = undefined;
+		storeToStorage();
 	}
 
 	return {
