@@ -2,6 +2,7 @@ import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as gameInventoryItem from '@/data/game/inventoryItem/gameInventoryItem';
+import moment from 'moment';
 
 export const setWeaponDone = (character, loadedMaterials) => {
 	// character must have name
@@ -36,4 +37,34 @@ const setInventoryItemDone = (loadedMaterials) => {
 			useInventoryItemStore().updateInventory(material, updatedValue);
 		}
 	});
+};
+
+export const downloadData = () => {
+	usePlannedCharacterStore().init();
+	useInventoryItemStore().init();
+	usePlannedWeaponStore().init();
+
+	// set data
+	let data = {};
+	data['plannedCharacters'] = usePlannedCharacterStore().plannedCharacters;
+	data['plannedWeapons'] = usePlannedWeaponStore().plannedWeapons;
+	data['inventoryItems'] = useInventoryItemStore().inventoryItems;
+
+	// download data
+	// credit: https://www.bitdegree.org/learn/javascript-download
+	let text = JSON.stringify(data);
+	let timestamp = moment(new Date()).format('YYMMDD_HHmmss');
+	let filename = 'cassowary_planner_data_' + timestamp + '.json';
+	let element = document.createElement('a');
+	element.setAttribute(
+		'href',
+		'data:application/json;charset=utf-8,' + encodeURIComponent(text)
+	);
+	element.setAttribute('download', filename);
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+	document.body.removeChild(element);
 };
