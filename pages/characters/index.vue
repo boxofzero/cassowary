@@ -11,7 +11,6 @@
 				item-title="title"
 				item-value="value"
 				:menu-props="{ maxHeight: '200' }"
-				:custom-filter="customFilter"
 				v-model="characterName"
 				@update:modelValue="getOrInitPlannedCharacter($event)"
 			>
@@ -186,6 +185,7 @@ const characterList = () => {
 			icon: character.icon,
 		});
 	});
+	list = useOrderBy(list, ['title'], ['asc']);
 	return list;
 };
 

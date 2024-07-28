@@ -63,6 +63,9 @@
 	<section>
 		<div>TODO</div>
 		<div>improv:</div>
+		<div>
+			character/weapon page: show current item needed and all material needed
+		</div>
 		<div>delete char/weap from localstorage if done</div>
 		<div>add link from home, click char/weap, then open the detail page</div>
 		<div>improve exp to be calc-ed similar to tiered materials</div>

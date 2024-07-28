@@ -96,8 +96,10 @@ const weaponList = () => {
 			title: weapon.display_name,
 			subtitle: subtitle,
 			icon: weapon.icon,
+			type: weapon.weapon_type,
 		});
 	});
+	list = useOrderBy(list, ['type', 'subtitle', 'title'], ['asc', 'asc', 'asc']);
 	return list;
 };
 
