@@ -139,16 +139,16 @@ export const tiered_forgery_weapon_skill_material = {
 		},
 	},
 
-	phlohiston: {
+	phlogiston: {
 		1: {
-			name: 'impure_phlohiston',
+			name: 'impure_phlogiston',
 			synthesizable: {
 				to: 2,
 				count: 3,
 			},
 		},
 		2: {
-			name: 'extracted_phlohiston',
+			name: 'extracted_phlogiston',
 			synthesizable: {
 				to: 3,
 				count: 3,
