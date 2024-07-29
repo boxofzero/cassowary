@@ -299,17 +299,17 @@ export const tiered_forgery_weapon_skill_material_2 = {
 		from: 'cadence_leaf',
 	},
 
-	impure_phlohiston: {
-		to: 'extracted_phlohiston',
+	impure_phlogiston: {
+		to: 'extracted_phlogiston',
 		cost: 3,
 	},
-	extracted_phlohiston: {
-		from: 'impure_phlohiston',
+	extracted_phlogiston: {
+		from: 'impure_phlogiston',
 		to: 'refined_phlohiston',
 		cost: 3,
 	},
 	refined_phlohiston: {
-		from: 'extracted_phlohiston',
+		from: 'extracted_phlogiston',
 		to: 'flawless_phlohiston',
 		cost: 3,
 	},
