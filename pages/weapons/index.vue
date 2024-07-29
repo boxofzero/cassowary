@@ -56,7 +56,9 @@
 		</div>
 		<UDivider label="MATERIAL NEEDED" />
 		<section class="p-3">
-			<v-btn class="mr-5" @click="setDone">Done</v-btn>
+			<v-btn class="mr-5" @click="setDone" :disabled="!isMaterialsExist"
+				>Done</v-btn
+			>
 			<span class="inline-block align-middle">
 				Press "DONE" to set the current level/skill to the target value and
 				adjust the inventory item count
@@ -64,11 +66,11 @@
 		</section>
 		<section>
 			<div class="grid grid-cols-6 gap-6">
-				<div class="" v-for="(item, index) in materials" :key="index">
+				<div class="" v-for="(item, index) in materials" :key="item.key">
 					<InventoryItemMaterialCard
 						:index="index"
 						:item="item"
-						:key="index"
+						:key="item.key"
 						@update-material-count="doEmit"
 					></InventoryItemMaterialCard>
 				</div>
@@ -86,7 +88,6 @@ import * as weaponService from '@/services/weaponService';
 import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
 
-// FORM DATA
 const weaponList = () => {
 	let list = [];
 	useForEach(weapons, (weapon, weaponName) => {
@@ -111,49 +112,49 @@ const customFilter = (itemTitle, queryText, item) => {
 	return textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1;
 };
 
-// STORE
-const plannedWeaponStore = usePlannedWeaponStore();
-
 const weaponName = ref('');
 const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
 const weapon = ref({ ...dbPlannedWeapon.weapon });
 const materials = ref({});
-
-// METHODS
+const isMaterialsExist = computed(() => {
+	return Object.keys(materials.value).length > 0;
+});
 
 const doEmit = (a) => {
 	console.log('emit received: ' + a);
 	getOrInitPlannedWeapon(weaponName.value);
 };
+
 const getOrInitPlannedWeapon = (weaponName) => {
-	weapon.value = plannedWeaponStore.getOrInitEntry(weaponName);
+	weapon.value = usePlannedWeaponStore().getOrInitEntry(weaponName);
+	// console.log('weaponName: ' + weaponName);
+	// console.log('weapon.value: ' + JSON.stringify(weapon.value));
 	weapon.value['name'] = weaponName;
 
-	materials.value = getMaterialsNeeded(weaponName);
+	materials.value = getNeededMaterials(weaponName);
 };
 
 const upsertPlannedWeapon = () => {
-	debounceUpsertPlannedWeapon().then(() => {
+	useDebounceFn(() => {
 		if (!weaponName.value) {
 			return;
 		}
-		materials.value = getMaterialsNeeded(weaponName.value);
+
+		usePlannedWeaponStore().upsert(
+			weapon.value['name'],
+			useOmit(weapon.value, 'name')
+		);
+	}, 100)().then(() => {
+		if (!weaponName.value) {
+			return;
+		}
+		materials.value = getNeededMaterials(weaponName.value);
 	});
 };
-const debounceUpsertPlannedWeapon = useDebounceFn(() => {
-	if (!weaponName.value) {
-		return;
-	}
 
-	plannedWeaponStore.upsert(
-		weapon.value['name'],
-		useOmit(weapon.value, 'name')
-	);
-}, 100);
-
-const getMaterialsNeeded = (weaponName) => {
+const getNeededMaterials = (weaponName) => {
 	const neededMaterials = weaponService.getWeaponNeededMaterials(weaponName);
 	const ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
@@ -161,17 +162,15 @@ const getMaterialsNeeded = (weaponName) => {
 };
 
 const setDone = () => {
-	debounceSetDone().then(() => {
-		materials.value = getMaterialsNeeded(weaponName.value);
+	useDebounceFn(() => {
+		plannerService.setWeaponDone(weapon.value, materials.value);
+	}, 100)().then(() => {
 		getOrInitPlannedWeapon(weaponName.value);
+		console.log('materials: ' + JSON.stringify(materials.value));
 	});
 };
 
-const debounceSetDone = useDebounceFn(() => {
-	plannerService.setWeaponDone(weapon.value, materials.value);
-}, 100);
-
 onBeforeMount(() => {
-	plannedWeaponStore.init();
+	usePlannedWeaponStore().init();
 });
 </script>

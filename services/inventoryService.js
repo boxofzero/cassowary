@@ -115,11 +115,6 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 					synthesizedList[synthesizableData.to] = 0;
 				}
 			}
-			// if (
-			// 	responseData[materialType].owned >= responseData[materialType].needed
-			// ) {
-			// 	continue;
-			// }
 			responseDataSorted[materialType]['synthesized'] =
 				synthesizedList[materialType];
 			if (
@@ -130,6 +125,14 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 					responseDataSorted[materialType]['needed'];
 			}
 		}
+
+		// key for v-model
+		responseDataSorted[materialType]['key'] =
+			materialType +
+			'_' +
+			(responseDataSorted[materialType]['owned'] || 0) +
+			'_' +
+			(responseDataSorted[materialType]['needed'] || 0);
 	}
 
 	return responseDataSorted;

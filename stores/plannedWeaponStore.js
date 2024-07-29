@@ -14,7 +14,7 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 
 	const storeToStorage = () => {
 		console.log('storing plannedWeapons to localStorage');
-		plannedWeaponsRepo.value = plannedWeapons.value;
+		plannedWeaponsRepo().value = plannedWeapons.value;
 	};
 
 	function getOrInitEntry(weaponName) {
@@ -59,7 +59,7 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		}
 
 		// if set done, then remove from planned characters
-		plannedWeapons.value[weaponName] = undefined;
+		plannedWeapons.value = useOmit(plannedWeapons.value, weaponName);
 		storeToStorage();
 	}
 

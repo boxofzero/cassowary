@@ -4,12 +4,12 @@ import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as gameInventoryItem from '@/data/game/inventoryItem/gameInventoryItem';
 import moment from 'moment';
 
-export const setWeaponDone = (character, loadedMaterials) => {
-	// character must have name
-	// set character done
+export const setWeaponDone = (weapon, loadedMaterials) => {
+	// weapon must have name
+	// set weapon done
 	usePlannedWeaponStore().init();
 	useInventoryItemStore().init();
-	usePlannedWeaponStore().setDone(character.name);
+	usePlannedWeaponStore().setDone(weapon.name);
 	setInventoryItemDone(loadedMaterials);
 };
 
