@@ -129,8 +129,6 @@ const doEmit = (a) => {
 
 const getOrInitPlannedWeapon = (weaponName) => {
 	weapon.value = usePlannedWeaponStore().getOrInitEntry(weaponName);
-	// console.log('weaponName: ' + weaponName);
-	// console.log('weapon.value: ' + JSON.stringify(weapon.value));
 	weapon.value['name'] = weaponName;
 
 	materials.value = getNeededMaterials(weaponName);
@@ -166,7 +164,6 @@ const setDone = () => {
 		plannerService.setWeaponDone(weapon.value, materials.value);
 	}, 100)().then(() => {
 		getOrInitPlannedWeapon(weaponName.value);
-		console.log('materials: ' + JSON.stringify(materials.value));
 	});
 };
 
