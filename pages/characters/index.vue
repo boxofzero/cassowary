@@ -244,7 +244,17 @@ const setDone = () => {
 	});
 };
 
+const route = useRoute();
+
 onBeforeMount(() => {
 	usePlannedCharacterStore().init();
+
+	// get character name from url hash
+	let urlHash = route.hash.slice(1);
+
+	if (urlHash !== undefined && useHas(characters, urlHash)) {
+		characterName.value = urlHash;
+		getOrInitPlannedCharacter(characterName.value);
+	}
 });
 </script>

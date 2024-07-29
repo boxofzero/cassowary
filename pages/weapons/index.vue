@@ -167,7 +167,17 @@ const setDone = () => {
 	});
 };
 
+const route = useRoute();
+
 onBeforeMount(() => {
 	usePlannedWeaponStore().init();
+
+	// get weapon name from url hash
+	let urlHash = route.hash.slice(1);
+
+	if (urlHash !== undefined && useHas(weapons, urlHash)) {
+		weaponName.value = urlHash;
+		getOrInitPlannedWeapon(weaponName.value);
+	}
 });
 </script>

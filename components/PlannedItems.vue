@@ -5,15 +5,17 @@
 
 	<section>
 		<div class="grid grid-cols-8 gap-1">
-			<div v-for="(item, index) in displayList()" :key="index">
-				<v-card class="w-full">
-					<div class="relative">
-						<v-img class="" :src="(item && item.icon) || ''"></v-img>
-					</div>
-					<v-card-text class="h-16 pa-0 content-center text-center">
-						{{ (item && item.title) || '' }}
-					</v-card-text>
-				</v-card>
+			<div v-for="(item, index) in displayList()" :key="item.value">
+				<NuxtLink :to="item.link">
+					<v-card class="w-full">
+						<div class="relative">
+							<v-img class="" :src="(item && item.icon) || ''"></v-img>
+						</div>
+						<v-card-text class="h-16 pa-0 content-center text-center">
+							{{ (item && item.title) || '' }}
+						</v-card-text>
+					</v-card>
+				</NuxtLink>
 			</div>
 		</div>
 	</section>
