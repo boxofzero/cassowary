@@ -66,7 +66,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			return;
 		}
 
-		plannedCharacters.value[characterName] = undefined;
+		plannedCharacters.value = useOmit(plannedCharacters.value, characterName);
 		storeToStorage();
 	}
 

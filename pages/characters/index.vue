@@ -138,7 +138,9 @@
 
 			<UDivider label="MATERIAL NEEDED" />
 			<section class="p-3">
-				<v-btn class="mr-5" @click="setDone">Done</v-btn>
+				<v-btn class="mr-5" @click="setDone" :disabled="!isMaterialsExist"
+					>Done</v-btn
+				>
 				<span class="inline-block align-middle">
 					Press "DONE" to set the current level/skill to the target value and
 					adjust the inventory item count
@@ -146,11 +148,11 @@
 			</section>
 			<section>
 				<div class="grid grid-cols-6 gap-6">
-					<div class="" v-for="(item, index) in materials" :key="index">
+					<div class="" v-for="(item, index) in materials" :key="item.key">
 						<InventoryItemMaterialCard
 							:index="index"
 							:item="item"
-							:key="index"
+							:key="item.key"
 							@update-material-count="doEmit"
 						></InventoryItemMaterialCard>
 					</div>
@@ -173,7 +175,6 @@ import * as characterService from '@/services/characterService';
 import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
 
-// FORM DATA
 const characterList = () => {
 	let list = [];
 	useForEach(characters, (character, characterName) => {
@@ -189,49 +190,45 @@ const characterList = () => {
 	return list;
 };
 
-// STORE
-const plannedCharacterStore = usePlannedCharacterStore();
-
 const characterName = ref('');
 const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
 const character = ref({ ...dbPlannedCharacter.character });
 const materials = ref({});
-
-// METHODS
+const isMaterialsExist = computed(() => {
+	return Object.keys(materials.value).length > 0;
+});
 
 const doEmit = (a) => {
 	console.log('emit received: ' + a);
 	getOrInitPlannedCharacter(characterName.value);
 };
 const getOrInitPlannedCharacter = (characterName) => {
-	character.value = plannedCharacterStore.getOrInitEntry(characterName);
+	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
 	character.value['name'] = characterName;
 
-	materials.value = getMaterialsNeeded(characterName);
+	materials.value = getNeededMaterials(characterName);
 };
 
 const upsertPlannedCharacter = () => {
-	debounceUpsertPlannedCharacter().then(() => {
+	useDebounceFn(() => {
 		if (!characterName.value) {
 			return;
 		}
-		materials.value = getMaterialsNeeded(characterName.value);
+		usePlannedCharacterStore().upsert(
+			character.value['name'],
+			useOmit(character.value, 'name')
+		);
+	}, 100)().then(() => {
+		if (!characterName.value) {
+			return;
+		}
+		materials.value = getNeededMaterials(characterName.value);
 	});
 };
 
-const debounceUpsertPlannedCharacter = useDebounceFn(() => {
-	if (!characterName.value) {
-		return;
-	}
-	plannedCharacterStore.upsert(
-		character.value['name'],
-		useOmit(character.value, 'name')
-	);
-}, 100);
-
-const getMaterialsNeeded = (characterName) => {
+const getNeededMaterials = (characterName) => {
 	let neededMaterials =
 		characterService.getCharacterNeededMaterials(characterName);
 	let ownedNeededMaterialsResponseData =
@@ -240,17 +237,14 @@ const getMaterialsNeeded = (characterName) => {
 };
 
 const setDone = () => {
-	debounceSetDone().then(() => {
-		materials.value = getMaterialsNeeded(characterName.value);
+	useDebounceFn(() => {
+		plannerService.setCharacterDone(character.value, materials.value);
+	}, 100)().then(() => {
 		getOrInitPlannedCharacter(characterName.value);
 	});
 };
 
-const debounceSetDone = useDebounceFn(() => {
-	plannerService.setCharacterDone(character.value, materials.value);
-}, 100);
-
 onBeforeMount(() => {
-	plannedCharacterStore.init();
+	usePlannedCharacterStore().init();
 });
 </script>
