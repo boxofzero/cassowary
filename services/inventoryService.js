@@ -51,6 +51,28 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			continue;
 		}
 
+		if (
+			useKeys(gameInventoryItem.synthesizable_materials).includes(materialType)
+		) {
+			let iterateMaterialType = materialType;
+			while (iterateMaterialType !== undefined) {
+				if (neededMaterials[iterateMaterialType] === undefined) {
+					responseData[iterateMaterialType] = {
+						owned:
+							(ownedMaterials[iterateMaterialType] &&
+								ownedMaterials[iterateMaterialType].count) ||
+							0,
+						needed: neededMaterials[iterateMaterialType] || 0,
+						icon: gameInventoryItem.allInventoryItems[iterateMaterialType].icon,
+						label:
+							gameInventoryItem.allInventoryItems[iterateMaterialType].label,
+					};
+				}
+				iterateMaterialType =
+					gameInventoryItem.synthesizable_materials[iterateMaterialType].from;
+			}
+		}
+
 		responseData[materialType] = {
 			owned:
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
@@ -93,6 +115,11 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 					synthesizedList[synthesizableData.to] = 0;
 				}
 			}
+			// if (
+			// 	responseData[materialType].owned >= responseData[materialType].needed
+			// ) {
+			// 	continue;
+			// }
 			responseDataSorted[materialType]['synthesized'] =
 				synthesizedList[materialType];
 			if (

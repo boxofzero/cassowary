@@ -34,10 +34,31 @@ const doEmit = (a) => {
 };
 
 const updateAllMaterial = () => {
+	let responseData = inventoryService.getAllMaterialsResponseData();
 	allMaterialsResponseData.value = usePickBy(
-		inventoryService.getAllMaterialsResponseData(),
-		(material) => {
-			return material.needed > 0;
+		responseData,
+		(materialData, materialType) => {
+			if (
+				useKeys(gameInventoryItem.synthesizable_materials).includes(
+					materialType
+				)
+			) {
+				let iterableMaterialType = materialType;
+				while (iterableMaterialType !== undefined) {
+					if (
+						responseData[iterableMaterialType] &&
+						responseData[iterableMaterialType].needed > 0
+					) {
+						return true;
+					}
+					iterableMaterialType =
+						gameInventoryItem.synthesizable_materials[iterableMaterialType].to;
+				}
+			}
+			return (
+				materialData.needed > 0 ||
+				(materialData.synthesized && materialData.synthesized > 0)
+			);
 		}
 	);
 };
