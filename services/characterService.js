@@ -55,7 +55,7 @@ const getPassiveSkillsToFarm = (plannedCharacter) => {
 	const passiveSkillsToFarm = {};
 	const passiveSkills = gameCharacters.passiveSkills;
 	for (let skill of passiveSkills) {
-		if (plannedCharacter[skill] == 0) {
+		if (plannedCharacter[skill] === true) {
 			passiveSkillsToFarm[skill] = [
 				gameCharacters.passiveSkillLevellingMaterialsCount[skill],
 			];

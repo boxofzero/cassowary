@@ -5,47 +5,45 @@
 	<section>
 		<div>
 			<h2>CHARACTER NAME</h2>
-			<v-autocomplete
-				label="Select"
-				:items="characterList()"
-				item-title="title"
-				item-value="value"
-				:menu-props="{ maxHeight: '200' }"
-				v-model="characterName"
-				@update:modelValue="getOrInitPlannedCharacter($event)"
+			<UInputMenu
+				searchable
+				searchable-placeholder="Select character"
+				class="w-full lg:w-48"
+				placeholder="Select character"
+				v-model="characterOption"
+				:options="characterList()"
+				option-attribute="title"
+				value-attribue="value"
+				:search-attributes="['title', 'subtitle']"
+				@change="getOrInitNuxtUi($event)"
 			>
-				<template v-slot:item="{ props, item }">
-					<v-list-item
-						v-bind="props"
-						:subtitle="item.raw.subtitle"
-						:prepend-avatar="item.raw.icon"
-					>
-					</v-list-item>
+				<template #leading>
+					<UAvatar :src="characterOption.icon" size="2xs" />
 				</template>
-			</v-autocomplete>
+			</UInputMenu>
 		</div>
 		<section v-show="isCharacterNameSet">
 			<UDivider label="LEVEL" />
 			<div class="">
 				<div class="grid grid-cols-2 gap-2">
-					<v-select
-						label="Current Level"
-						:items="levelItems"
-						item-title="label"
-						item-value="value"
+					<span>Current Level</span>
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
 						v-model="character['char_current_level']"
 						:model-value="character['char_current_level'] || 1"
-						@update:modelValue="upsertPlannedCharacter()"
-					></v-select>
-					<v-select
-						label="Target Level"
-						:items="levelItems"
-						item-title="label"
-						item-value="value"
+						@change="upsertPlannedCharacter()"
+					/>
+					<span>Target Level</span>
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
 						v-model="character['char_target_level']"
 						:model-value="character['char_target_level'] || 1"
-						@update:modelValue="upsertPlannedCharacter()"
-					></v-select>
+						@change="upsertPlannedCharacter()"
+					/>
 				</div>
 			</div>
 
@@ -59,33 +57,30 @@
 								<p>{{ item.label }}</p>
 							</div>
 							<div class="columns-2">
-								<v-number-input
-									control-variant="stacked"
-									inset
-									density="compact"
-									label="Current Level"
-									:min="1"
-									:max="10"
-									:model-value="
-										character[item.model_value + '_current_level'] || 1
-									"
-									v-model="character[item.model_value + '_current_level']"
-									@update:modelValue="upsertPlannedCharacter()"
-								></v-number-input>
-
-								<v-number-input
-									control-variant="stacked"
-									inset
-									density="compact"
-									label="Target Level"
-									:min="1"
-									:max="10"
-									:model-value="
-										character[item.model_value + '_target_level'] || 1
-									"
-									v-model="character[item.model_value + '_target_level']"
-									@update:modelValue="upsertPlannedCharacter()"
-								></v-number-input>
+								<UFormGroup label="Current Level">
+									<UInput
+										type="number"
+										:min="1"
+										:max="10"
+										v-model="character[item.model_value + '_current_level']"
+										:model-value="
+											character[item.model_value + '_current_level'] || 1
+										"
+										@change="upsertPlannedCharacter()"
+									/>
+								</UFormGroup>
+								<UFormGroup label="Target Level">
+									<UInput
+										type="number"
+										:min="1"
+										:max="10"
+										v-model="character[item.model_value + '_target_level']"
+										:model-value="
+											character[item.model_value + '_target_level'] || 1
+										"
+										@change="upsertPlannedCharacter()"
+									/>
+								</UFormGroup>
 							</div>
 						</div>
 					</div>
@@ -99,16 +94,12 @@
 							class=""
 						>
 							<p>{{ item.label }}</p>
-							<v-btn-toggle
+							<UToggle
 								color="primary"
-								class="size-full"
-								:model-value="character[item.model_value]"
 								v-model="character[item.model_value]"
-								@update:modelValue="upsertPlannedCharacter()"
-							>
-								<v-btn class="size-1/2">🔔</v-btn>
-								<v-btn class="size-1/2">✅</v-btn>
-							</v-btn-toggle>
+								:model-value="character[item.model_value]"
+								@change="upsertPlannedCharacter()"
+							/>
 						</div>
 					</div>
 				</div>
@@ -121,16 +112,12 @@
 							class=""
 						>
 							<p>{{ item.label }}</p>
-							<v-btn-toggle
+							<UToggle
 								color="primary"
-								class="size-full"
-								:model-value="character[item.model_value]"
 								v-model="character[item.model_value]"
-								@update:modelValue="upsertPlannedCharacter()"
-							>
-								<v-btn class="size-1/2">🔔</v-btn>
-								<v-btn class="size-1/2">✅</v-btn>
-							</v-btn-toggle>
+								:model-value="character[item.model_value]"
+								@change="upsertPlannedCharacter()"
+							/>
 						</div>
 					</div>
 				</div>
@@ -138,9 +125,14 @@
 
 			<UDivider label="MATERIAL NEEDED" />
 			<section class="p-3">
-				<v-btn class="mr-5" @click="setDone" :disabled="!isMaterialsExist"
-					>Done</v-btn
+				<UButton
+					color="primary"
+					variant="solid"
+					@click="setDone"
+					:disabled="!isMaterialsExist"
 				>
+					Done
+				</UButton>
 				<span class="inline-block align-middle">
 					Press "DONE" to set the current level/skill to the target value and
 					adjust the inventory item count
@@ -194,6 +186,8 @@ const characterName = ref('');
 const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
+const characterOption = ref({});
+
 const character = ref({ ...dbPlannedCharacter.character });
 const materials = ref({});
 const isMaterialsExist = computed(() => {
@@ -204,6 +198,13 @@ const doEmit = (a) => {
 	console.log('emit received: ' + a);
 	getOrInitPlannedCharacter(characterName.value);
 };
+
+const getOrInitNuxtUi = (characterOption) => {
+	console.log('characterOption: ' + JSON.stringify(characterOption));
+	characterName.value = characterOption.value;
+	getOrInitPlannedCharacter(characterOption.value);
+};
+
 const getOrInitPlannedCharacter = (characterName) => {
 	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
 	character.value['name'] = characterName;

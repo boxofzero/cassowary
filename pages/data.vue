@@ -6,20 +6,17 @@
 	<section class="grid grid-cols-1">
 		<div>
 			<div class="font-bold">Backup Data</div>
-			<div class="text-2xl font-extrabold text-white mb-2">
-				<v-btn class="mr-5" @click="downloadData">Download JSON Data</v-btn>
+			<div class="text-2xl font-extrabold mb-2">
+				<UButton color="primary" variant="solid" @click="downloadData">
+					Download JSON Data
+				</UButton>
 			</div>
 		</div>
 		<div>
 			<div class="font-bold">Restore Data</div>
-			<div class="text-2xl font-extrabold text-white mb-2">
+			<div class="text-2xl font-extrabold mb-2">
 				<div>TODO</div>
-				<v-file-input
-					accept=".json"
-					label="JSON data"
-					placeholder="Upload JSON data"
-					prepend-icon="mdi mdi-file-upload"
-				></v-file-input>
+				<UInput type="file" accept=".json" icon="i-heroicons-arrow-up-tray" />
 			</div>
 		</div>
 	</section>

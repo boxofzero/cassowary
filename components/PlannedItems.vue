@@ -7,14 +7,22 @@
 		<div class="grid grid-cols-8 gap-1">
 			<div v-for="(item, index) in displayList()" :key="item.value">
 				<NuxtLink :to="item.link">
-					<v-card class="w-full">
-						<div class="relative">
-							<v-img class="" :src="(item && item.icon) || ''"></v-img>
-						</div>
-						<v-card-text class="h-16 pa-0 content-center text-center">
-							{{ (item && item.title) || '' }}
-						</v-card-text>
-					</v-card>
+					<UCard>
+						<!-- <template #header>
+							<Placeholder class="h-8" />
+							<div class="h-8"></div>
+						</template> -->
+
+						<!-- <Placeholder class="h-32" /> -->
+						<img class="h-32" :src="(item && item.icon) || ''" />
+
+						<template #footer>
+							<!-- <Placeholder class="h-8" /> -->
+							<span class="h-8">
+								{{ (item && item.title) || '' }}
+							</span>
+						</template>
+					</UCard>
 				</NuxtLink>
 			</div>
 		</div>

@@ -10,14 +10,10 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'@vueuse/nuxt',
 		'@pinia/nuxt',
+		'vuetify-nuxt-module',
 		'nuxt-lodash',
-		'@nuxtjs/tailwindcss',
-		(_options, nuxt) => {
-			nuxt.hooks.hook('vite:extendConfig', (config) => {
-				// @ts-expect-error
-				config.plugins.push(vuetify({ autoImport: true }));
-			});
-		},
+		'vite-plugin-vuetify',
+		'@nuxtjs/color-mode',
 	],
 	compatibilityDate: '2024-07-13',
 	ssr: false,
@@ -26,14 +22,7 @@ export default defineNuxtConfig({
 			routes.clear(); // Do not generate any routes (except the defaults)
 		},
 	},
-	build: {
-		transpile: ['vuetify'],
-	},
-	vite: {
-		vue: {
-			template: {
-				transformAssetUrls,
-			},
-		},
-	},
+	// colorMode: {
+	// 	preference: 'dark',
+	// },
 });
