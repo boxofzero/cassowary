@@ -4,23 +4,33 @@
 	</section>
 
 	<section>
-		<div class="grid grid-cols-8 gap-1">
-			<div v-for="(item, index) in displayList()" :key="item.value">
+		<div class="flex flex-wrap gap-1">
+			<div
+				v-for="(item, index) in displayList()"
+				:key="item.value"
+				class="flex-grow"
+			>
 				<NuxtLink :to="item.link">
-					<UCard>
-						<!-- <template #header>
-							<Placeholder class="h-8" />
-							<div class="h-8"></div>
-						</template> -->
-
-						<!-- <Placeholder class="h-32" /> -->
-						<img class="h-32" :src="(item && item.icon) || ''" />
+					<UCard
+						:ui="{
+							body: {
+								base: 'flex justify-center',
+								padding: 'p-0 sm:p-0',
+							},
+							footer: {
+								base: '',
+								padding: 'p-0 sm:p-0',
+							},
+						}"
+					>
+						<img class="h-24" :src="(item && item.icon) || ''" />
 
 						<template #footer>
-							<!-- <Placeholder class="h-8" /> -->
-							<span class="h-8">
-								{{ (item && item.title) || '' }}
-							</span>
+							<div class="flex justify-center h-12">
+								<span class="place-self-center">{{
+									(item && item.title) || ''
+								}}</span>
+							</div>
 						</template>
 					</UCard>
 				</NuxtLink>
