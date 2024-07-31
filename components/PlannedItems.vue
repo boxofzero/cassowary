@@ -87,7 +87,7 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-	characters.value = usePlannedCharacterStore().plannedCharacters;
+	characters.value = usePlannedCharacterStore().getAllActivePlannedCharacters();
 	weapons.value = usePlannedWeaponStore().plannedWeapons;
 });
 </script>
