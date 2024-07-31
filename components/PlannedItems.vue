@@ -4,14 +4,11 @@
 	</section>
 
 	<section>
-		<div class="flex flex-wrap gap-1">
-			<div
-				v-for="(item, index) in displayList()"
-				:key="item.value"
-				class="flex-grow"
-			>
+		<div class="flex flex-wrap gap-2">
+			<div v-for="(item, index) in displayList()" :key="item.value" class="">
 				<NuxtLink :to="item.link">
 					<UCard
+						class="w-28"
 						:ui="{
 							body: {
 								base: 'flex justify-center',
@@ -23,11 +20,11 @@
 							},
 						}"
 					>
-						<img class="h-24" :src="(item && item.icon) || ''" />
+						<img class="size-24" :src="(item && item.icon) || ''" />
 
 						<template #footer>
 							<div class="flex justify-center h-12">
-								<span class="place-self-center">{{
+								<span class="place-self-center text-center text-sm">{{
 									(item && item.title) || ''
 								}}</span>
 							</div>
