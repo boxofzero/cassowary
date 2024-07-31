@@ -4,7 +4,7 @@
 	</section>
 
 	<section>
-		<div class="grid grid-cols-8 gap-1">
+		<div class="flex flex-wrap gap-2">
 			<div
 				v-for="(item, index) in allMaterialsResponseData"
 				:key="index"

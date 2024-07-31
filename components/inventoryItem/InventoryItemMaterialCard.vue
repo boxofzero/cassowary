@@ -1,29 +1,52 @@
 <template>
-	<UCard>
-		<template #header>
-			<!-- <Placeholder class="h-8" /> -->
-			<div class="h-8">
-				<UBadge
-					color="yellow"
-					variant="solid"
-					icon="i-heroicons-beaker"
-					v-if="item && item.synthesized > 0"
-				>
-					<UIcon name="i-heroicons-beaker" />
-					{{ item && item.synthesized }}
-				</UBadge>
-				<UBadge :color="ownedItemColor" variant="solid">
-					<UIcon name="i-heroicons-viewfinder-circle" />
-					{{ (item && item.needed) || 0 }}
-				</UBadge>
-			</div>
-		</template>
-
+	<UCard
+		class="w-28"
+		:ui="{
+			header: {
+				base: 'flex justify-center',
+				padding: 'p-0 sm:p-0',
+			},
+			body: {
+				base: 'flex justify-center',
+				padding: 'p-0 sm:p-0',
+			},
+			footer: {
+				base: '',
+				padding: 'p-0 sm:p-0',
+			},
+		}"
+	>
 		<!-- <Placeholder class="h-32" /> -->
-		<img class="h-32" :src="(item && item.icon) || ''" />
-		<span class="h-8">
-			{{ (item && item.label) || '' }}
-		</span>
+		<div class="flex flex-col items-center">
+			<div class="relative">
+				<img class="size-24" :src="(item && item.icon) || ''" />
+				<div
+					class="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-1"
+					v-if="item && item.needed > 0"
+				>
+					<UBadge size="xs" :color="ownedItemColor" variant="solid">
+						<UIcon name="mdi:target" class="mr-2" />
+						<p class="truncate">
+							{{ (item && item.needed) || 0 }}
+						</p>
+					</UBadge>
+					<UBadge
+						size="xs"
+						color="yellow"
+						variant="solid"
+						v-if="item && item.synthesized > 0"
+					>
+						<UIcon name="i-heroicons-beaker" class="mr-2" />
+						{{ item && item.synthesized }}
+					</UBadge>
+				</div>
+			</div>
+			<div class="flex justify-center h-16">
+				<span class="place-self-center text-center text-sm">
+					{{ (item && item.label) || '' }}
+				</span>
+			</div>
+		</div>
 
 		<template #footer>
 			<!-- <Placeholder class="h-8" /> -->
