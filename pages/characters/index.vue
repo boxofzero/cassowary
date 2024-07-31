@@ -212,6 +212,8 @@ const getOrInitPlannedCharacter = (characterName) => {
 	materials.value = getNeededMaterials(characterName);
 };
 
+const toast = useToast();
+
 const upsertPlannedCharacter = () => {
 	useDebounceFn(() => {
 		if (!characterName.value) {
@@ -225,6 +227,14 @@ const upsertPlannedCharacter = () => {
 		if (!characterName.value) {
 			return;
 		}
+		toast.add({
+			title:
+				'Character ' +
+				characters[characterName.value].display_name +
+				' updated to LocalStorage',
+			icon: 'i-heroicons-check-badge',
+			timeout: 2000,
+		});
 		materials.value = getNeededMaterials(characterName.value);
 	});
 };

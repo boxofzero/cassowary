@@ -157,18 +157,17 @@ const upsertPlannedWeapon = () => {
 			useOmit(weapon.value, 'name')
 		);
 	}, 100)().then(() => {
+		if (!weaponName.value) {
+			return;
+		}
 		toast.add({
 			title:
 				'Weapon ' +
 				weapons[weaponName.value].display_name +
 				' updated to LocalStorage',
 			icon: 'i-heroicons-check-badge',
-			color: 'black',
-			timeout: 999000,
+			timeout: 2000,
 		});
-		if (!weaponName.value) {
-			return;
-		}
 		materials.value = getNeededMaterials(weaponName.value);
 	});
 };
