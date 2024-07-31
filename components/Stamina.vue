@@ -27,18 +27,22 @@
 		</div>
 		<div>
 			<div class="font-bold">Adjust Stamina</div>
-			<div class="grid grid-cols-3 gap-1 auto-rows-max auto-cols-auto">
+			<div class="grid grid-cols-3 gap-1">
 				<div
-					class=""
+					class="h-8 w-10 flex items-center justify-center"
 					v-for="(item, index) in ['-1', '-40', '-60', '+1', '+40', '+60']"
 					:key="index"
 				>
 					<UButton
+						class="h-8 w-10 flex items-center justify-center"
 						:color="parseInt(item) < 0 ? 'yellow' : 'green'"
 						variant="solid"
+						:padded="false"
 						@click="staminaStore.updateStaminaOverflow(parseInt(item))"
 					>
-						{{ item }}
+						<span class="justify-self-center">
+							{{ item }}
+						</span>
 					</UButton>
 				</div>
 			</div>
