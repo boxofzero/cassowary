@@ -1,10 +1,10 @@
 <template>
-	<section class="flex items-center justify-between mb-10">
+	<section class="flex items-center justify-between mb-5">
 		<h1 class="text-4xl font-extrabold">Needed Materials</h1>
 	</section>
 
 	<section>
-		<div class="grid grid-cols-8 gap-1">
+		<div class="flex flex-wrap gap-2">
 			<div
 				v-for="(item, index) in allMaterialsResponseData"
 				:key="index"

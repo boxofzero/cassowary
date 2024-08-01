@@ -1,5 +1,6 @@
-import { useStorage, useDebounceFn } from '@vueuse/core';
+import { useStorage } from '@vueuse/core';
 import * as dbPlannedWeapon from '@/data/database/dbPlannedWeapon';
+import * as gameWeapon from '@/data/game/gameWeapon';
 
 const plannedWeaponsRepo = () => {
 	return useStorage('plannedWeapons', {});
@@ -58,9 +59,47 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 			return;
 		}
 
-		// if set done, then remove from planned characters
+		// if set done, then remove from planned weapons
 		plannedWeapons.value = useOmit(plannedWeapons.value, weaponName);
 		storeToStorage();
+	}
+
+	function isWeaponDone(weaponName) {
+		const weapon = plannedWeapons.value[weaponName];
+		if (weapon === undefined) {
+			return true;
+		}
+
+		if (weapon['weap_target_level'] !== undefined) {
+			let target = useIndexOf(
+				useMap(gameWeapon.weaponLevellingMaterialsCount[5], (value, key) => {
+					return value.level;
+				}),
+				weapon['weap_target_level']
+			);
+			let current = useIndexOf(
+				useMap(gameWeapon.weaponLevellingMaterialsCount[5], (value, key) => {
+					return value.level;
+				}),
+				weapon['weap_current_level']
+			);
+			if (target > current) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	function getAllActivePlannedWeapons() {
+		let activeWeapons = { ...plannedWeapons.value };
+		for (let weapon in activeWeapons) {
+			if (isWeaponDone(weapon)) {
+				delete activeWeapons[weapon];
+			}
+		}
+
+		return activeWeapons;
 	}
 
 	return {
@@ -70,5 +109,7 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		getWeapons,
 		upsert,
 		setDone,
+		isWeaponDone,
+		getAllActivePlannedWeapons,
 	};
 });

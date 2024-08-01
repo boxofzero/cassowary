@@ -1,35 +1,45 @@
 <template>
-	<header class="flex justify-between items-center mt-10">
-		<nav class="font-mono">
-			<ul class="flex space-x-4">
-				<li>
-					<NuxtLink to="/">Main</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/stamina">Stamina</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/inventoryItems">Inventory</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/characters">Characters</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/weapons">Weapons</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/about">About</NuxtLink>
-				</li>
-				<!-- <li>
-					<NuxtLink to="/characters/new">Characters</NuxtLink>
-				</li> -->
-			</ul>
-		</nav>
-		<NuxtLink to="/" class="text-xl font-bold">
-			PRE-ALPHA WUWA TODO APP
-		</NuxtLink>
-		<div>
-			<UAvatar src="https://placehold.co/100/png" alt="Avatar" />
-		</div>
+	<header class="flex justify-between items-center my-5">
+		<UHorizontalNavigation :links="links" class="border-b border-gray-800" />
 	</header>
 </template>
+
+<script setup>
+const links = [
+	[
+		{
+			label: 'Home',
+			icon: 'material-symbols:house-with-shield',
+			to: '/',
+		},
+		{
+			label: 'Inventory',
+			icon: 'material-symbols:checked-bag',
+			to: '/inventoryItems',
+		},
+		{
+			label: 'Characters',
+			icon: 'material-symbols:emoji-people-rounded',
+			to: '/characters',
+		},
+		{
+			label: 'Weapons',
+			icon: 'material-symbols:sword-rose',
+			to: '/weapons',
+		},
+		{
+			label: 'About',
+			icon: 'material-symbols:help',
+			to: '/about',
+		},
+	],
+	[
+		{
+			label: 'Cassowary (Pre-alpha version)',
+			avatar: {
+				src: useRuntimeConfig().app.baseURL + 'favicon.ico',
+			},
+		},
+	],
+];
+</script>

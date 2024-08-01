@@ -1,6 +1,6 @@
 <template>
-	<section class="">
-		<h1 class="">Cassowary : Wuthering Waves Planner</h1>
+	<section class="flex items-center justify-between mb-5">
+		<h1 class="text-4xl font-extrabold">Cassowary : Wuthering Waves Planner</h1>
 	</section>
 	<section>
 		<div>

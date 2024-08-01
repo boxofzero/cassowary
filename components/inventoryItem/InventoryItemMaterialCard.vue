@@ -1,54 +1,67 @@
 <template>
-	<v-card class="w-full">
-		<!-- <v-img :src="(item && item.icon) || ''"></v-img> -->
-		<div class="relative">
-			<v-img class="" :src="(item && item.icon) || ''"></v-img>
-			<v-card-text class="pa-0">
+	<UCard
+		class="w-28"
+		:ui="{
+			header: {
+				base: 'flex justify-center',
+				padding: 'p-0 sm:p-0',
+			},
+			body: {
+				base: 'flex justify-center',
+				padding: 'p-0 sm:p-0',
+			},
+			footer: {
+				base: '',
+				padding: 'p-0 sm:p-0',
+			},
+		}"
+	>
+		<!-- <Placeholder class="h-32" /> -->
+		<div class="flex flex-col items-center">
+			<div class="relative">
+				<img
+					class="size-24 border-b border-gray-800"
+					:src="(item && item.icon) || ''"
+				/>
 				<div
-					class="absolute inset-x-0 bottom-0 grid grid-cols-1"
+					class="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-1 mb-2 opacity-75"
 					v-if="item && item.needed > 0"
 				>
-					<v-chip
-						v-if="item && item.synthesized > 0"
-						class=""
-						size="small"
-						density="compact"
+					<UBadge size="xs" :color="ownedItemColor" variant="solid">
+						<UIcon name="mdi:target" class="mr-2" />
+						<p class="truncate">
+							{{ (item && item.needed) || 0 }}
+						</p>
+					</UBadge>
+					<UBadge
+						size="xs"
 						color="yellow"
-						variant="elevated"
-						prepend-icon="mdi mdi-flask"
+						variant="solid"
+						v-if="item && item.synthesized > 0"
 					>
+						<UIcon name="i-heroicons-beaker" class="mr-2" />
 						{{ item && item.synthesized }}
-					</v-chip>
-					<v-chip
-						class=""
-						size="small"
-						density="compact"
-						:color="ownedItemColor"
-						variant="elevated"
-						prepend-icon="mdi mdi-target"
-					>
-						{{ (item && item.needed) || 0 }}
-					</v-chip>
+					</UBadge>
 				</div>
-			</v-card-text>
+			</div>
+			<div class="flex justify-center align-middle h-16">
+				<span class="place-self-center text-center text-sm">
+					{{ (item && item.label) || '' }}
+				</span>
+			</div>
 		</div>
-		<v-card-text class="h-16 pa-0 content-center text-center">
-			{{ (item && item.label) || '' }}
-		</v-card-text>
-		<!-- label="material owned count" -->
-		<v-text-field
-			hide-details
-			hide-spin-buttons
-			density="compact"
-			class="text-center"
-			type="number"
-			:min="0"
-			:max="999_999_999"
-			v-model="itemRef"
-			:model-value="itemRef"
-			@update:modelValue="updateMaterialCount(index, itemRef)"
-		></v-text-field>
-	</v-card>
+
+		<template #footer>
+			<!-- <Placeholder class="h-8" /> -->
+			<div class="h-8">
+				<UInput
+					type="number"
+					v-model="itemRef"
+					@blur="updateMaterialCount(index, itemRef)"
+				/>
+			</div>
+		</template>
+	</UCard>
 </template>
 
 <script setup>
@@ -67,9 +80,16 @@ const ownedItemColor = computed(() => {
 	return props.item && synthesizedOwned >= props.item.needed ? 'green' : 'red';
 });
 
+const toast = useToast();
 const itemRef = ref(0);
+
 const updateMaterialCount = (index, count) => {
 	debouncedUpdateMaterialCount(index, count).then(() => {
+		toast.add({
+			title: 'Inventory Item ' + props.item.label + ' updated to LocalStorage',
+			icon: 'i-heroicons-check-badge',
+			timeout: 2000,
+		});
 		$emit('updateMaterialCount', true);
 	});
 };

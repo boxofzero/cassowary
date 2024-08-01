@@ -1,80 +1,79 @@
 <template>
-	<section class="">
-		<h1 class="">Add New Weapon To Planner</h1>
+	<section class="flex items-center justify-between mb-5">
+		<h1 class="text-4xl font-extrabold">Weapons</h1>
 	</section>
-	<!--
-	add weapon yinlin
-	load weapon yinlin material requirement
-	if user has planned weapon where yinlin, load the data
-	if user doesnt have planned weapon yinlin, prepare new planned weapon
-	-->
-	<div>
-		<h2>WEAPON NAME</h2>
-		<v-autocomplete
-			label="Select"
-			:items="weaponList()"
-			item-title="title"
-			item-value="value"
-			:menu-props="{ maxHeight: '200' }"
-			:custom-filter="customFilter"
-			v-model="weaponName"
-			@update:modelValue="getOrInitPlannedWeapon($event)"
-		>
-			<template v-slot:item="{ props, item }">
-				<v-list-item
-					v-bind="props"
-					:subtitle="item.raw.subtitle"
-					:prepend-avatar="item.raw.icon"
-				>
-				</v-list-item>
-			</template>
-		</v-autocomplete>
-	</div>
-	<section v-show="isWeaponNameSet">
-		<UDivider label="LEVEL" />
-		<div>
-			<div class="grid grid-cols-2 gap-2">
-				<v-select
-					label="Current Level"
-					:items="levelItems"
-					item-title="label"
-					item-value="value"
-					v-model="weapon['weap_current_level']"
-					:model-value="weapon['weap_current_level'] || 1"
-					@update:modelValue="upsertPlannedWeapon()"
-				></v-select>
-				<v-select
-					label="Target Level"
-					:items="levelItems"
-					item-title="label"
-					item-value="value"
-					v-model="weapon['weap_target_level']"
-					:model-value="weapon['weap_target_level'] || 1"
-					@update:modelValue="upsertPlannedWeapon()"
-				></v-select>
-			</div>
-		</div>
-		<UDivider label="MATERIAL NEEDED" />
-		<section class="p-3">
-			<v-btn class="mr-5" @click="setDone" :disabled="!isMaterialsExist"
-				>Done</v-btn
+	<section>
+		<div class="flex flex-wrap gap-5 items-center">
+			<h2>WEAPON NAME</h2>
+			<UInputMenu
+				searchable
+				searchable-placeholder="Select weapon"
+				class="w-full lg:w-48"
+				placeholder="Select weapon"
+				v-model="weaponOption"
+				:options="weaponList()"
+				option-attribute="title"
+				value-attribue="value"
+				:search-attributes="['title', 'subtitle']"
+				@change="getOrInitNuxtUi($event)"
 			>
-			<span class="inline-block align-middle">
-				Press "DONE" to set the current level/skill to the target value and
-				adjust the inventory item count
-			</span>
-		</section>
-		<section>
-			<div class="grid grid-cols-6 gap-6">
-				<div class="" v-for="(item, index) in materials" :key="item.key">
-					<InventoryItemMaterialCard
-						:index="index"
-						:item="item"
-						:key="item.key"
-						@update-material-count="doEmit"
-					></InventoryItemMaterialCard>
+				<template #leading>
+					<UAvatar :src="weaponOption.icon" size="2xs" />
+				</template>
+			</UInputMenu>
+		</div>
+		<section v-show="isWeaponNameSet">
+			<UDivider label="LEVEL" />
+			<div class="">
+				<div class="grid grid-cols-4 gap-5 items-center">
+					<span>Current Level</span>
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="weapon['weap_current_level']"
+						:model-value="weapon['weap_current_level'] || 1"
+						@change="upsertPlannedWeapon()"
+					/>
+					<span>Target Level</span>
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="weapon['weap_target_level']"
+						:model-value="weapon['weap_target_level'] || 1"
+						@change="upsertPlannedWeapon()"
+					/>
 				</div>
 			</div>
+			<UDivider label="MATERIAL NEEDED" />
+			<section class="p-3">
+				<UButton
+					class="mr-3"
+					color="primary"
+					variant="solid"
+					@click="setDone"
+					:disabled="!isMaterialsExist"
+				>
+					Done
+				</UButton>
+				<span class="inline-block align-middle">
+					Press "DONE" to set the current level/skill to the target value and
+					adjust the inventory item count
+				</span>
+			</section>
+			<section>
+				<div class="grid grid-cols-6 gap-6">
+					<div class="" v-for="(item, index) in materials" :key="item.key">
+						<InventoryItemMaterialCard
+							:index="index"
+							:item="item"
+							:key="item.key"
+							@update-material-count="doEmit"
+						></InventoryItemMaterialCard>
+					</div>
+				</div>
+			</section>
 		</section>
 	</section>
 </template>
@@ -116,6 +115,8 @@ const weaponName = ref('');
 const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
+const weaponOption = ref({});
+
 const weapon = ref({ ...dbPlannedWeapon.weapon });
 const materials = ref({});
 const isMaterialsExist = computed(() => {
@@ -127,12 +128,20 @@ const doEmit = (a) => {
 	getOrInitPlannedWeapon(weaponName.value);
 };
 
+const getOrInitNuxtUi = (weaponOption) => {
+	console.log('weaponOption: ' + JSON.stringify(weaponOption));
+	weaponName.value = weaponOption.value;
+	getOrInitPlannedWeapon(weaponOption.value);
+};
+
 const getOrInitPlannedWeapon = (weaponName) => {
 	weapon.value = usePlannedWeaponStore().getOrInitEntry(weaponName);
 	weapon.value['name'] = weaponName;
 
 	materials.value = getNeededMaterials(weaponName);
 };
+
+const toast = useToast();
 
 const upsertPlannedWeapon = () => {
 	useDebounceFn(() => {
@@ -148,6 +157,14 @@ const upsertPlannedWeapon = () => {
 		if (!weaponName.value) {
 			return;
 		}
+		toast.add({
+			title:
+				'Weapon ' +
+				weapons[weaponName.value].display_name +
+				' updated to LocalStorage',
+			icon: 'i-heroicons-check-badge',
+			timeout: 2000,
+		});
 		materials.value = getNeededMaterials(weaponName.value);
 	});
 };

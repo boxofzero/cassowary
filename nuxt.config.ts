@@ -1,5 +1,3 @@
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: true },
@@ -11,13 +9,7 @@ export default defineNuxtConfig({
 		'@vueuse/nuxt',
 		'@pinia/nuxt',
 		'nuxt-lodash',
-		'@nuxtjs/tailwindcss',
-		(_options, nuxt) => {
-			nuxt.hooks.hook('vite:extendConfig', (config) => {
-				// @ts-expect-error
-				config.plugins.push(vuetify({ autoImport: true }));
-			});
-		},
+		'@nuxtjs/color-mode',
 	],
 	compatibilityDate: '2024-07-13',
 	ssr: false,
@@ -26,14 +18,7 @@ export default defineNuxtConfig({
 			routes.clear(); // Do not generate any routes (except the defaults)
 		},
 	},
-	build: {
-		transpile: ['vuetify'],
-	},
-	vite: {
-		vue: {
-			template: {
-				transformAssetUrls,
-			},
-		},
-	},
+	// colorMode: {
+	// 	preference: 'dark',
+	// },
 });

@@ -1,44 +1,47 @@
 <template>
-	<section class="flex items-center justify-between mb-10">
+	<section class="flex items-center justify-between mb-5">
 		<h1 class="text-4xl font-extrabold">Stamina Tracker</h1>
 	</section>
 
-	<section
-		class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-16 mb-10"
-	>
+	<section class="flex flex-wrap gap-5">
 		<div>
 			<div class="font-bold">Track Your Stamina</div>
-			<div class="text-2xl font-extrabold text-white mb-2">
+			<div class="text-2xl font-extrabold mb-2">
 				<div>{{ staminaStore.stamina }} / {{ staminaStore.maxStamina }}</div>
 			</div>
 			<div class="font-bold">Stamina regen rate</div>
-			<div class="text-xl text-white mb-2">
+			<div class="text-xl mb-2">
 				<div>{{ staminaRate }} minutes / stamina</div>
 			</div>
 		</div>
 		<div class="">
-			<div class="font-bold">Your Stamina will be</div>
-			<div class="text-sm text-white mb-2 columns-1">
+			<div class="font-bold">Your Stamina will be:</div>
+			<div class="text-sm mb-2 columns-1">
 				<!-- {{ moment(staminaStore.fullStaminaAt).format('YYYY-MM-DD HH:mm:ss') }} -->
 				<div v-for="(item, index) in calculateFutureStaminaAt()" :key="index">
 					{{ index }} at {{ moment(item).format('HH:mm:ss') }}
 				</div>
 			</div>
 		</div>
-		<div>
+		<div class="">
 			<div class="font-bold">Adjust Stamina</div>
-			<div class="grid grid-cols-3 gap-4 auto-rows-max auto-cols-auto">
+			<div class="grid grid-cols-3 gap-2">
 				<div
-					class="mr-1"
+					class="h-8 w-10 flex items-center justify-center"
 					v-for="(item, index) in ['-1', '-40', '-60', '+1', '+40', '+60']"
 					:key="index"
 				>
-					<v-btn
-						class=""
+					<UButton
+						class="h-8 w-10 flex items-center justify-center"
 						:color="parseInt(item) < 0 ? 'yellow' : 'green'"
+						variant="solid"
+						:padded="false"
 						@click="staminaStore.updateStaminaOverflow(parseInt(item))"
-						>{{ item }}</v-btn
 					>
+						<span class="justify-self-center">
+							{{ item }}
+						</span>
+					</UButton>
 				</div>
 			</div>
 		</div>
