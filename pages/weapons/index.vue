@@ -1,82 +1,79 @@
 <template>
-	<section class="">
-		<h1 class="">Add New Weapon To Planner</h1>
+	<section class="flex items-center justify-between mb-5">
+		<h1 class="text-4xl font-extrabold">Weapons</h1>
 	</section>
-	<!--
-	add weapon yinlin
-	load weapon yinlin material requirement
-	if user has planned weapon where yinlin, load the data
-	if user doesnt have planned weapon yinlin, prepare new planned weapon
-	-->
-	<div>
-		<h2>WEAPON NAME</h2>
-		<UInputMenu
-			searchable
-			searchable-placeholder="Select weapon"
-			class="w-full lg:w-48"
-			placeholder="Select weapon"
-			v-model="weaponOption"
-			:options="weaponList()"
-			option-attribute="title"
-			value-attribue="value"
-			:search-attributes="['title', 'subtitle']"
-			@change="getOrInitNuxtUi($event)"
-		>
-			<template #leading>
-				<UAvatar :src="weaponOption.icon" size="2xs" />
-			</template>
-		</UInputMenu>
-	</div>
-	<section v-show="isWeaponNameSet">
-		<UDivider label="LEVEL" />
-		<div>
-			<div class="grid grid-cols-2 gap-2">
-				<span>Current Level</span>
-				<USelect
-					:options="levelItems"
-					option-attribute="label"
-					value-attribue="value"
-					v-model="weapon['weap_current_level']"
-					:model-value="weapon['weap_current_level'] || 1"
-					@change="upsertPlannedWeapon()"
-				/>
-				<span>Target Level</span>
-				<USelect
-					:options="levelItems"
-					option-attribute="label"
-					value-attribue="value"
-					v-model="weapon['weap_target_level']"
-					:model-value="weapon['weap_target_level'] || 1"
-					@change="upsertPlannedWeapon()"
-				/>
-			</div>
-		</div>
-		<UDivider label="MATERIAL NEEDED" />
-		<section class="p-3">
-			<UButton
-				color="primary"
-				variant="solid"
-				@click="setDone"
-				:disabled="!isMaterialsExist"
+	<section>
+		<div class="flex flex-wrap gap-5 items-center">
+			<h2>WEAPON NAME</h2>
+			<UInputMenu
+				searchable
+				searchable-placeholder="Select weapon"
+				class="w-full lg:w-48"
+				placeholder="Select weapon"
+				v-model="weaponOption"
+				:options="weaponList()"
+				option-attribute="title"
+				value-attribue="value"
+				:search-attributes="['title', 'subtitle']"
+				@change="getOrInitNuxtUi($event)"
 			>
-				Done
-			</UButton>
-			<span class="inline-block align-middle">
-				Press "DONE" to set the current level/skill to the target value and
-				adjust the inventory item count
-			</span>
-		</section>
-		<section>
-			<div class="grid grid-cols-6 gap-6">
-				<div class="" v-for="(item, index) in materials" :key="item.key">
-					<InventoryItemMaterialCard
-						:index="index"
-						:item="item"
-						:key="item.key"
-						@update-material-count="doEmit"
-					></InventoryItemMaterialCard>
+				<template #leading>
+					<UAvatar :src="weaponOption.icon" size="2xs" />
+				</template>
+			</UInputMenu>
+		</div>
+		<section v-show="isWeaponNameSet">
+			<UDivider label="LEVEL" />
+			<div class="">
+				<div class="grid grid-cols-4 gap-5 items-center">
+					<span>Current Level</span>
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="weapon['weap_current_level']"
+						:model-value="weapon['weap_current_level'] || 1"
+						@change="upsertPlannedWeapon()"
+					/>
+					<span>Target Level</span>
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="weapon['weap_target_level']"
+						:model-value="weapon['weap_target_level'] || 1"
+						@change="upsertPlannedWeapon()"
+					/>
 				</div>
 			</div>
+			<UDivider label="MATERIAL NEEDED" />
+			<section class="p-3">
+				<UButton
+					class="mr-3"
+					color="primary"
+					variant="solid"
+					@click="setDone"
+					:disabled="!isMaterialsExist"
+				>
+					Done
+				</UButton>
+				<span class="inline-block align-middle">
+					Press "DONE" to set the current level/skill to the target value and
+					adjust the inventory item count
+				</span>
+			</section>
+			<section>
+				<div class="grid grid-cols-6 gap-6">
+					<div class="" v-for="(item, index) in materials" :key="item.key">
+						<InventoryItemMaterialCard
+							:index="index"
+							:item="item"
+							:key="item.key"
+							@update-material-count="doEmit"
+						></InventoryItemMaterialCard>
+					</div>
+				</div>
+			</section>
 		</section>
 	</section>
 </template>

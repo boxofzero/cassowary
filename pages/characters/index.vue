@@ -1,9 +1,9 @@
 <template>
-	<section class="">
-		<h1 class="">Add New Character To Planner</h1>
+	<section class="flex items-center justify-between mb-5">
+		<h1 class="text-4xl font-extrabold">Characters</h1>
 	</section>
 	<section>
-		<div>
+		<div class="flex flex-wrap gap-5 items-center">
 			<h2>CHARACTER NAME</h2>
 			<UInputMenu
 				searchable
@@ -25,7 +25,7 @@
 		<section v-show="isCharacterNameSet">
 			<UDivider label="LEVEL" />
 			<div class="">
-				<div class="grid grid-cols-2 gap-2">
+				<div class="grid grid-cols-4 gap-5 items-center">
 					<span>Current Level</span>
 					<USelect
 						:options="levelItems"
@@ -48,76 +48,73 @@
 			</div>
 
 			<UDivider label="SKILLS" />
-			<div class="flex">
-				<div class="w-1/2 p-2">
+			<div class="grid grid-cols-2 gap-5">
+				<div class="flex-auto">
 					<h2>ACTIVE SKILLS</h2>
 					<div v-for="(item, index) in activeSkills" :key="index">
-						<div class="">
-							<div>
-								<p>{{ item.label }}</p>
+						<div class="grid grid-cols-5 items-center">
+							<div class="">
+								<p>{{ item.label }} :</p>
 							</div>
-							<div class="columns-2">
-								<UFormGroup label="Current Level">
-									<UInput
-										type="number"
-										:min="1"
-										:max="10"
-										v-model="character[item.model_value + '_current_level']"
-										:model-value="
-											character[item.model_value + '_current_level'] || 1
-										"
-										@change="upsertPlannedCharacter()"
-									/>
-								</UFormGroup>
-								<UFormGroup label="Target Level">
-									<UInput
-										type="number"
-										:min="1"
-										:max="10"
-										v-model="character[item.model_value + '_target_level']"
-										:model-value="
-											character[item.model_value + '_target_level'] || 1
-										"
-										@change="upsertPlannedCharacter()"
-									/>
-								</UFormGroup>
-							</div>
+							<!-- <div class="grid grid-cols-4 gap-5"> -->
+							<span>Current Level</span>
+							<UInput
+								type="number"
+								:min="1"
+								:max="10"
+								v-model="character[item.model_value + '_current_level']"
+								:model-value="
+									character[item.model_value + '_current_level'] || 1
+								"
+								@change="upsertPlannedCharacter()"
+							/>
+							<span>Target Level</span>
+							<UInput
+								type="number"
+								:min="1"
+								:max="10"
+								v-model="character[item.model_value + '_target_level']"
+								:model-value="
+									character[item.model_value + '_target_level'] || 1
+								"
+								@change="upsertPlannedCharacter()"
+							/>
+							<!-- </div> -->
 						</div>
 					</div>
 				</div>
-				<div class="w-1/4 p-2">
-					<h2>TIER 1</h2>
-					<div>
-						<div
-							v-for="(item, index) in passiveSkills.tier_1"
-							:key="index"
-							class=""
-						>
-							<p>{{ item.label }}</p>
-							<UToggle
-								color="primary"
-								v-model="character[item.model_value]"
-								:model-value="character[item.model_value]"
-								@change="upsertPlannedCharacter()"
-							/>
+				<div class="flex-auto">
+					<h2>PASSIVE SKILLS</h2>
+					<div class="grid grid-cols-2 gap-5">
+						<div class="grid grid-cols-1 gap-1">
+							<div v-for="(item, index) in passiveSkills.tier_1" :key="index">
+								<div class="grid grid-cols-3 items-center">
+									<p class="col-span-2">TIER 1 {{ item.label }}</p>
+									<div>
+										<UToggle
+											color="primary"
+											v-model="character[item.model_value]"
+											:model-value="character[item.model_value]"
+											@change="upsertPlannedCharacter()"
+										/>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="w-1/4 p-2">
-					<h2>TIER 2</h2>
-					<div>
-						<div
-							v-for="(item, index) in passiveSkills.tier_2"
-							:key="index"
-							class=""
-						>
-							<p>{{ item.label }}</p>
-							<UToggle
-								color="primary"
-								v-model="character[item.model_value]"
-								:model-value="character[item.model_value]"
-								@change="upsertPlannedCharacter()"
-							/>
+						<div class="grid grid-cols-1 gap-1">
+							<div v-for="(item, index) in passiveSkills.tier_2" :key="index">
+								<div class="grid grid-cols-3 items-center">
+									<p class="col-span-2">TIER 2 {{ item.label }}</p>
+									<div>
+										<UToggle
+											color="primary"
+											v-model="character[item.model_value]"
+											:model-value="character[item.model_value]"
+											@change="upsertPlannedCharacter()"
+										/>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -126,6 +123,7 @@
 			<UDivider label="MATERIAL NEEDED" />
 			<section class="p-3">
 				<UButton
+					class="mr-3"
 					color="primary"
 					variant="solid"
 					@click="setDone"
