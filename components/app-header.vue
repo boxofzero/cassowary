@@ -1,9 +1,6 @@
 <template>
-	<header class="flex justify-between items-center my-10">
-		<UHorizontalNavigation
-			:links="links"
-			class="border-b dark:border-gray-800"
-		/>
+	<header class="flex justify-between items-center my-5">
+		<UHorizontalNavigation :links="links" class="border-b border-gray-800" />
 	</header>
 </template>
 

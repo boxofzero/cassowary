@@ -1,5 +1,5 @@
 <template>
-	<section class="flex items-center justify-between mb-10">
+	<section class="flex items-center justify-between mb-5">
 		<h1 class="text-4xl font-extrabold">Needed Materials</h1>
 	</section>
 
