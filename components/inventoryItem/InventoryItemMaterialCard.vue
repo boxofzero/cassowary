@@ -19,9 +19,12 @@
 		<!-- <Placeholder class="h-32" /> -->
 		<div class="flex flex-col items-center">
 			<div class="relative">
-				<img class="size-24" :src="(item && item.icon) || ''" />
+				<img
+					class="size-24 border-b border-gray-800"
+					:src="(item && item.icon) || ''"
+				/>
 				<div
-					class="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-1"
+					class="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-1 mb-2 opacity-75"
 					v-if="item && item.needed > 0"
 				>
 					<UBadge size="xs" :color="ownedItemColor" variant="solid">
@@ -41,7 +44,7 @@
 					</UBadge>
 				</div>
 			</div>
-			<div class="flex justify-center h-16">
+			<div class="flex justify-center align-middle h-16">
 				<span class="place-self-center text-center text-sm">
 					{{ (item && item.label) || '' }}
 				</span>

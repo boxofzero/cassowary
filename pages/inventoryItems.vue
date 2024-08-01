@@ -1,6 +1,6 @@
 <template>
-	<section class="">
-		<h1 class="">Inventories</h1>
+	<section class="flex items-center justify-between mb-5">
+		<h1 class="text-4xl font-extrabold">Inventory</h1>
 	</section>
 	<div
 		v-for="(
@@ -8,7 +8,7 @@
 		) in gameInventoryItem.categorizedInventoryItems"
 		:key="materialType"
 	>
-		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white">
+		<h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white my-5">
 			{{ materialLabel(materialType) }}
 		</h2>
 		<!-- outer div of each item -->
