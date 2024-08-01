@@ -9,14 +9,30 @@
 				planner.
 			</div>
 			<div>thanks to wutheringwaves.gg for all the data</div>
-			<div>#####################################</div>
+			<br />
+			<div>about the design (updated at 24/08/01):</div>
+			<p>
+				originally i want to make this as close as seelie.me , but then I wanted
+				to use this as quickly as possible, so I made the design like this: more
+				like 1 dimensional planner. From the dropdown of character/weapon I
+				directly set target. Maybe I will change it, maybe not. Depends on the
+				time I have.
+			</p>
+			<p>
+				the next major feature I consider to add is: free text notes and custom
+				character/weapon. notes should be simpler to add and I think it is
+				important enough. I like the seelie.me task note design, especially the
+				recurring feature.
+			</p>
+			<br />
+
 			<div>random trivia</div>
 			<div>char_exp : credit_to_level = 1 : 0,35</div>
 			<div>
 				weapon_exp : credit_to_level = 1 : 0,4 (allegedly. CMIIW . The
 				calculation kinda funky)
 			</div>
-			<div>#####################################</div>
+			<br />
 			<div>
 				about echo levelling: (CMIIW , i may need to check more in-game)
 			</div>
@@ -43,20 +59,11 @@
 				(obviously this doesn't count tube and tuner you get from dailies, bp,
 				event, etc)
 			</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
-			<div>#####################################</div>
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
 		</div>
 	</section>
 
@@ -64,15 +71,13 @@
 		<div>TODO</div>
 		<div>improv:</div>
 		<div>
-			character/weapon page: show current item needed and all material needed
+			character/weapon page: show current item needed and global item needed
 		</div>
-		<div>delete char/weap from localstorage if done</div>
-		<div>add link from home, click char/weap, then open the detail page</div>
 		<div>improve exp to be calc-ed similar to tiered materials</div>
 		<div>new feature:</div>
+		<div>add custom text notes</div>
 		<div>add backup and restore local storage data</div>
 		<div>sort by in-game: sort by rarity, category? a-z?</div>
-		<div>add custom text notes</div>
 		<div>try google drive client api if it's actually possible</div>
 		<div>idk</div>
 		<div>learn css/tailwind mayb</div>
