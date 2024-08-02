@@ -37,48 +37,54 @@ export const activeSkills = [
 	},
 ];
 export const passiveSkills = {
-	tier_1: [
-		{
-			label: 'Passive Skill 1',
-			model_value: 'passive_skill_1',
-		},
-		{
-			label: 'Stat 1',
-			model_value: 'bonus_stat_tier_1_stat_1',
-		},
-		{
-			label: 'Stat 2',
-			model_value: 'bonus_stat_tier_1_stat_2',
-		},
-		{
-			label: 'Stat 3',
-			model_value: 'bonus_stat_tier_1_stat_3',
-		},
-		{
-			label: 'Stat 4',
-			model_value: 'bonus_stat_tier_1_stat_4',
-		},
-	],
-	tier_2: [
-		{
-			label: 'Passive Skill 2',
-			model_value: 'passive_skill_2',
-		},
-		{
-			label: 'Stat 1',
-			model_value: 'bonus_stat_tier_2_stat_1',
-		},
-		{
-			label: 'Stat 2',
-			model_value: 'bonus_stat_tier_2_stat_2',
-		},
-		{
-			label: 'Stat 3',
-			model_value: 'bonus_stat_tier_2_stat_3',
-		},
-		{
-			label: 'Stat 4',
-			model_value: 'bonus_stat_tier_2_stat_4',
-		},
-	],
+	tier_1: {
+		label: 'TIER 1',
+		data: [
+			{
+				label: 'Passive Skill 1',
+				model_value: 'passive_skill_1',
+			},
+			{
+				label: 'Stat 1',
+				model_value: 'bonus_stat_tier_1_stat_1',
+			},
+			{
+				label: 'Stat 2',
+				model_value: 'bonus_stat_tier_1_stat_2',
+			},
+			{
+				label: 'Stat 3',
+				model_value: 'bonus_stat_tier_1_stat_3',
+			},
+			{
+				label: 'Stat 4',
+				model_value: 'bonus_stat_tier_1_stat_4',
+			},
+		],
+	},
+	tier_2: {
+		label: 'TIER 2',
+		data: [
+			{
+				label: 'Passive Skill 2',
+				model_value: 'passive_skill_2',
+			},
+			{
+				label: 'Stat 1',
+				model_value: 'bonus_stat_tier_2_stat_1',
+			},
+			{
+				label: 'Stat 2',
+				model_value: 'bonus_stat_tier_2_stat_2',
+			},
+			{
+				label: 'Stat 3',
+				model_value: 'bonus_stat_tier_2_stat_3',
+			},
+			{
+				label: 'Stat 4',
+				model_value: 'bonus_stat_tier_2_stat_4',
+			},
+		],
+	},
 };

@@ -1,51 +1,38 @@
 <template>
-	<UCard
-		class="w-28"
-		:ui="{
-			header: {
-				base: 'flex justify-center',
-				padding: 'p-0 sm:p-0',
-			},
-			body: {
-				base: 'flex justify-center',
-				padding: 'p-0 sm:p-0',
-			},
-			footer: {
-				base: '',
-				padding: 'p-0 sm:p-0',
-			},
-		}"
-	>
+	<UCard class="w-28" :ui="{
+		header: {
+			base: 'flex justify-center',
+			padding: 'p-0 sm:p-0',
+		},
+		body: {
+			base: 'flex justify-center',
+			padding: 'p-0 sm:p-0',
+		},
+		footer: {
+			base: '',
+			padding: 'p-0 sm:p-0',
+		},
+	}">
 		<!-- <Placeholder class="h-32" /> -->
 		<div class="flex flex-col items-center">
 			<div class="relative">
-				<img
-					class="size-24 border-b border-gray-800"
-					:src="(item && item.icon) || ''"
-				/>
-				<div
-					class="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-1 mb-2 opacity-75"
-					v-if="item && item.needed > 0"
-				>
+				<img class="border-gray-800 border-b size-24" :src="(item && item.icon) || ''" />
+				<div class="bottom-0 absolute inset-x-0 flex flex-wrap justify-between gap-1 opacity-75 mb-2"
+					v-if="item && item.needed > 0">
 					<UBadge size="xs" :color="ownedItemColor" variant="solid">
 						<UIcon name="mdi:target" class="mr-2" />
 						<p class="truncate">
 							{{ (item && item.needed) || 0 }}
 						</p>
 					</UBadge>
-					<UBadge
-						size="xs"
-						color="yellow"
-						variant="solid"
-						v-if="item && item.synthesized > 0"
-					>
+					<UBadge size="xs" color="yellow" variant="solid" v-if="item && item.synthesized > 0">
 						<UIcon name="i-heroicons-beaker" class="mr-2" />
 						{{ item && item.synthesized }}
 					</UBadge>
 				</div>
 			</div>
-			<div class="flex justify-center align-middle h-16">
-				<span class="place-self-center text-center text-sm">
+			<div class="flex justify-center h-16 align-middle">
+				<span class="text-center text-sm place-self-center">
 					{{ (item && item.label) || '' }}
 				</span>
 			</div>
@@ -54,11 +41,7 @@
 		<template #footer>
 			<!-- <Placeholder class="h-8" /> -->
 			<div class="h-8">
-				<UInput
-					type="number"
-					v-model="itemRef"
-					@blur="updateMaterialCount(index, itemRef)"
-				/>
+				<UInput type="number" v-model="itemRef" @change="updateMaterialCount(index, itemRef)" />
 			</div>
 		</template>
 	</UCard>
