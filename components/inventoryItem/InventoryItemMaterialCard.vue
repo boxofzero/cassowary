@@ -41,7 +41,7 @@
 		<template #footer>
 			<!-- <Placeholder class="h-8" /> -->
 			<div class="h-8">
-				<UInput type="number" v-model="itemRef" @change="updateMaterialCount(index, itemRef)" />
+				<UInput type="number" min="0" v-model="itemRef" @change="updateMaterialCount(index, itemRef)" />
 			</div>
 		</template>
 	</UCard>
@@ -80,7 +80,7 @@ const updateMaterialCount = (index, count) => {
 const debouncedUpdateMaterialCount = useDebounceFn((index, count) => {
 	useInventoryItemStore().updateInventory(index, count);
 	itemRef.value = count;
-}, 100);
+}, 1000);
 
 onMounted(() => {
 	itemRef.value = (props.item && props.item.owned) || 0;

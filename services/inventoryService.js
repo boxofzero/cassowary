@@ -98,6 +98,8 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		if (
 			useKeys(gameInventoryItem.synthesizable_materials).includes(materialType)
 		) {
+			let diff =
+				responseData[materialType].owned - responseData[materialType].needed;
 			const synthesizableData =
 				gameInventoryItem.synthesizable_materials[materialType];
 			// if it has from
@@ -106,23 +108,63 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 				const syntesizedMaterial = synthesizedList[materialType] || 0;
 				// count the synthesizable materials
 				synthesizedList[synthesizableData.to] = Math.floor(
-					(syntesizedMaterial +
-						responseData[materialType].owned -
-						responseData[materialType].needed) /
-						synthesizableData.cost
+					(syntesizedMaterial + diff) / synthesizableData.cost
 				);
 				if (synthesizedList[synthesizableData.to] < 0) {
 					synthesizedList[synthesizableData.to] = 0;
 				}
 			}
-			responseDataSorted[materialType]['synthesized'] =
-				synthesizedList[materialType];
-			if (
-				responseDataSorted[materialType]['synthesized'] >
-				responseDataSorted[materialType]['needed']
-			) {
+
+			// calculation should be fine above. now about displaying syntesized material
+			if (diff >= 0) {
+				// then doesn't need synthezied material
+				responseDataSorted[materialType]['synthesized'] = 0;
+			} else {
 				responseDataSorted[materialType]['synthesized'] =
-					responseDataSorted[materialType]['needed'];
+					synthesizedList[materialType];
+			}
+
+			// recalibrate synthesized value
+			if (synthesizableData.to === undefined) {
+				let recheckedMaterial = materialType;
+				while (recheckedMaterial !== undefined) {
+					// iterator
+					let upperTierRecheckedMaterial =
+						gameInventoryItem.synthesizable_materials[recheckedMaterial].to;
+					let lowerTierRecheckedMaterial =
+						gameInventoryItem.synthesizable_materials[recheckedMaterial].from;
+
+					if (lowerTierRecheckedMaterial === undefined) {
+						break;
+					}
+
+					if (
+						responseDataSorted[recheckedMaterial]['synthesized'] +
+							responseDataSorted[recheckedMaterial].owned <
+						responseDataSorted[recheckedMaterial].needed
+					) {
+						recheckedMaterial = lowerTierRecheckedMaterial;
+						continue;
+					}
+
+					if (upperTierRecheckedMaterial === undefined) {
+						responseDataSorted[recheckedMaterial]['synthesized'] = Math.min(
+							responseDataSorted[recheckedMaterial]['synthesized'],
+							responseDataSorted[recheckedMaterial].needed -
+								responseDataSorted[recheckedMaterial].owned
+						);
+					}
+
+					responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] =
+						gameInventoryItem.synthesizable_materials[
+							lowerTierRecheckedMaterial
+						].cost *
+							responseDataSorted[recheckedMaterial]['synthesized'] +
+						responseDataSorted[lowerTierRecheckedMaterial].needed -
+						responseDataSorted[lowerTierRecheckedMaterial].owned;
+
+					recheckedMaterial = lowerTierRecheckedMaterial;
+				}
 			}
 		}
 
