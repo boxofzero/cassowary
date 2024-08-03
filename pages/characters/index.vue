@@ -5,9 +5,9 @@
 	<section>
 		<div class="flex flex-wrap items-center gap-5">
 			<h2>CHARACTER NAME</h2>
-			<UInputMenu searchable searchable-placeholder="Select character" class="w-full lg:w-48"
-				placeholder="Select character" v-model="characterOption" :options="characterList()" option-attribute="title"
-				value-attribue="value" :search-attributes="['title', 'subtitle']" @change="getOrInitNuxtUi($event)" size="xl">
+			<UInputMenu searchable searchable-placeholder="Select character" class="w-3/4" placeholder="Select character"
+				v-model="characterOption" :options="characterList()" option-attribute="title"
+				:search-attributes="['title', 'subtitle']" @change="getOrInitCharacterName($event)" size="xl">
 				<template #leading>
 					<UAvatar v-bind="characterOption.avatar" size="2xs" />
 				</template>
@@ -119,7 +119,7 @@ const characterName = ref("");
 const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
-const characterOption = ref({});
+let characterOption = ref({});
 
 const character = ref({ ...dbPlannedCharacter.character });
 const materials = ref({});
@@ -132,10 +132,8 @@ const doEmit = (a) => {
 	getOrInitPlannedCharacter(characterName.value);
 };
 
-const getOrInitNuxtUi = (characterOption) => {
-	console.log("characterOption: " + JSON.stringify(characterOption));
-	characterName.value = characterOption.value;
-	getOrInitPlannedCharacter(characterOption.value);
+const getOrInitCharacterName = async (characterOption) => {
+	await navigateTo({ hash: '#' + characterOption.value })
 };
 
 const getOrInitPlannedCharacter = (characterName) => {
@@ -197,8 +195,25 @@ onBeforeMount(() => {
 	let urlHash = route.hash.slice(1);
 
 	if (urlHash !== undefined && useHas(characters, urlHash)) {
+		characterOption = useFind(characterList(), ['value', urlHash]);
 		characterName.value = urlHash;
 		getOrInitPlannedCharacter(characterName.value);
+	} else {
+		characterOption = {};
+		characterName.value = '';
 	}
 });
+
+watch(() => route.hash, () => {
+	let urlHash = route.hash.slice(1);
+
+	if (urlHash !== undefined && useHas(characters, urlHash)) {
+		characterOption = useFind(characterList(), ['value', urlHash]);
+		characterName.value = urlHash;
+		getOrInitPlannedCharacter(characterName.value);
+	} else {
+		characterOption = {};
+		characterName.value = '';
+	}
+})
 </script>

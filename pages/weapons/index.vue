@@ -5,9 +5,9 @@
 	<section>
 		<div class="flex flex-wrap gap-5 items-center">
 			<h2>WEAPON NAME</h2>
-			<UInputMenu searchable searchable-placeholder="Select weapon" class="w-full lg:w-48" placeholder="Select weapon"
-				v-model="weaponOption" :options="weaponList()" option-attribute="title" value-attribue="value"
-				:search-attributes="['title', 'subtitle']" @change="getOrInitNuxtUi($event)" size="xl">
+			<UInputMenu searchable searchable-placeholder="Select weapon" class="w-3/4" placeholder="Select weapon"
+				v-model="weaponOption" :options="weaponList()" option-attribute="title"
+				:search-attributes="['title', 'subtitle']" @change="getOrInitWeaponName($event)" size="xl">
 				<template #leading>
 					<UAvatar v-bind="weaponOption.avatar" size="2xs" />
 				</template>
@@ -88,7 +88,7 @@ const weaponName = ref('');
 const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
-const weaponOption = ref({});
+let weaponOption = ref({});
 
 const weapon = ref({ ...dbPlannedWeapon.weapon });
 const materials = ref({});
@@ -101,10 +101,8 @@ const doEmit = (a) => {
 	getOrInitPlannedWeapon(weaponName.value);
 };
 
-const getOrInitNuxtUi = (weaponOption) => {
-	console.log('weaponOption: ' + JSON.stringify(weaponOption));
-	weaponName.value = weaponOption.value;
-	getOrInitPlannedWeapon(weaponOption.value);
+const getOrInitWeaponName = async (weaponOption) => {
+	await navigateTo({ hash: '#' + weaponOption.value })
 };
 
 const getOrInitPlannedWeapon = (weaponName) => {
@@ -166,8 +164,25 @@ onBeforeMount(() => {
 	let urlHash = route.hash.slice(1);
 
 	if (urlHash !== undefined && useHas(weapons, urlHash)) {
+		weaponOption = useFind(weaponList(), ['value', urlHash]);
 		weaponName.value = urlHash;
 		getOrInitPlannedWeapon(weaponName.value);
+	} else {
+		weaponOption = {};
+		weaponName.value = '';
 	}
 });
+
+watch(() => route.hash, () => {
+	let urlHash = route.hash.slice(1);
+
+	if (urlHash !== undefined && useHas(weapons, urlHash)) {
+		weaponOption = useFind(weaponList(), ['value', urlHash]);
+		weaponName.value = urlHash;
+		getOrInitPlannedWeapon(weaponName.value);
+	} else {
+		weaponOption = {};
+		weaponName.value = '';
+	}
+})
 </script>
