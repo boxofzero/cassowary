@@ -7,9 +7,9 @@
 			<h2>CHARACTER NAME</h2>
 			<UInputMenu searchable searchable-placeholder="Select character" class="w-full lg:w-48"
 				placeholder="Select character" v-model="characterOption" :options="characterList()" option-attribute="title"
-				value-attribue="value" :search-attributes="['title', 'subtitle']" @change="getOrInitNuxtUi($event)">
+				value-attribue="value" :search-attributes="['title', 'subtitle']" @change="getOrInitNuxtUi($event)" size="xl">
 				<template #leading>
-					<UAvatar :src="characterOption.icon" size="2xs" />
+					<UAvatar v-bind="characterOption.avatar" size="2xs" />
 				</template>
 			</UInputMenu>
 		</div>
@@ -103,10 +103,12 @@ const characterList = () => {
 	useForEach(characters, (character, characterName) => {
 		const subtitle = character.rarity + "⭐";
 		list = useConcat(list, {
-			value: characterName,
+			id: characterName,
+			label: character.display_name,
+			avatar: { src: character.icon },
 			title: character.display_name,
+			value: characterName,
 			subtitle: subtitle,
-			icon: character.icon,
 		});
 	});
 	list = useOrderBy(list, ["title"], ["asc"]);
