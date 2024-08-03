@@ -5,11 +5,11 @@
 	<section>
 		<div class="flex flex-wrap items-center gap-5">
 			<h2>CHARACTER NAME</h2>
-			<UInputMenu searchable searchable-placeholder="Select character" class="w-full lg:w-48"
-				placeholder="Select character" v-model="characterOption" :options="characterList()" option-attribute="title"
-				value-attribue="value" :search-attributes="['title', 'subtitle']" @change="getOrInitNuxtUi($event)">
+			<UInputMenu searchable searchable-placeholder="Select character" class="w-3/4" placeholder="Select character"
+				v-model="characterOption" :options="characterList()" option-attribute="title"
+				:search-attributes="['title', 'subtitle']" @change="getOrInitCharacterName($event)" size="xl">
 				<template #leading>
-					<UAvatar :src="characterOption.icon" size="2xs" />
+					<UAvatar v-bind="characterOption.avatar" size="2xs" />
 				</template>
 			</UInputMenu>
 		</div>
@@ -103,10 +103,12 @@ const characterList = () => {
 	useForEach(characters, (character, characterName) => {
 		const subtitle = character.rarity + "⭐";
 		list = useConcat(list, {
-			value: characterName,
+			id: characterName,
+			label: character.display_name,
+			avatar: { src: character.icon },
 			title: character.display_name,
+			value: characterName,
 			subtitle: subtitle,
-			icon: character.icon,
 		});
 	});
 	list = useOrderBy(list, ["title"], ["asc"]);
@@ -117,7 +119,7 @@ const characterName = ref("");
 const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
-const characterOption = ref({});
+let characterOption = ref({});
 
 const character = ref({ ...dbPlannedCharacter.character });
 const materials = ref({});
@@ -130,10 +132,8 @@ const doEmit = (a) => {
 	getOrInitPlannedCharacter(characterName.value);
 };
 
-const getOrInitNuxtUi = (characterOption) => {
-	console.log("characterOption: " + JSON.stringify(characterOption));
-	characterName.value = characterOption.value;
-	getOrInitPlannedCharacter(characterOption.value);
+const getOrInitCharacterName = async (characterOption) => {
+	await navigateTo({ hash: '#' + characterOption.value })
 };
 
 const getOrInitPlannedCharacter = (characterName) => {
@@ -195,8 +195,25 @@ onBeforeMount(() => {
 	let urlHash = route.hash.slice(1);
 
 	if (urlHash !== undefined && useHas(characters, urlHash)) {
+		characterOption = useFind(characterList(), ['value', urlHash]);
 		characterName.value = urlHash;
 		getOrInitPlannedCharacter(characterName.value);
+	} else {
+		characterOption = {};
+		characterName.value = '';
 	}
 });
+
+watch(() => route.hash, () => {
+	let urlHash = route.hash.slice(1);
+
+	if (urlHash !== undefined && useHas(characters, urlHash)) {
+		characterOption = useFind(characterList(), ['value', urlHash]);
+		characterName.value = urlHash;
+		getOrInitPlannedCharacter(characterName.value);
+	} else {
+		characterOption = {};
+		characterName.value = '';
+	}
+})
 </script>

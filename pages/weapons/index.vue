@@ -5,20 +5,11 @@
 	<section>
 		<div class="flex flex-wrap gap-5 items-center">
 			<h2>WEAPON NAME</h2>
-			<UInputMenu
-				searchable
-				searchable-placeholder="Select weapon"
-				class="w-full lg:w-48"
-				placeholder="Select weapon"
-				v-model="weaponOption"
-				:options="weaponList()"
-				option-attribute="title"
-				value-attribue="value"
-				:search-attributes="['title', 'subtitle']"
-				@change="getOrInitNuxtUi($event)"
-			>
+			<UInputMenu searchable searchable-placeholder="Select weapon" class="w-3/4" placeholder="Select weapon"
+				v-model="weaponOption" :options="weaponList()" option-attribute="title"
+				:search-attributes="['title', 'subtitle']" @change="getOrInitWeaponName($event)" size="xl">
 				<template #leading>
-					<UAvatar :src="weaponOption.icon" size="2xs" />
+					<UAvatar v-bind="weaponOption.avatar" size="2xs" />
 				</template>
 			</UInputMenu>
 		</div>
@@ -27,34 +18,18 @@
 			<div class="">
 				<div class="grid grid-cols-4 gap-5 items-center">
 					<span>Current Level</span>
-					<USelect
-						:options="levelItems"
-						option-attribute="label"
-						value-attribue="value"
-						v-model="weapon['weap_current_level']"
-						:model-value="weapon['weap_current_level'] || 1"
-						@change="upsertPlannedWeapon()"
-					/>
+					<USelect :options="levelItems" option-attribute="label" value-attribue="value"
+						v-model="weapon['weap_current_level']" :model-value="weapon['weap_current_level'] || 1"
+						@change="upsertPlannedWeapon()" />
 					<span>Target Level</span>
-					<USelect
-						:options="levelItems"
-						option-attribute="label"
-						value-attribue="value"
-						v-model="weapon['weap_target_level']"
-						:model-value="weapon['weap_target_level'] || 1"
-						@change="upsertPlannedWeapon()"
-					/>
+					<USelect :options="levelItems" option-attribute="label" value-attribue="value"
+						v-model="weapon['weap_target_level']" :model-value="weapon['weap_target_level'] || 1"
+						@change="upsertPlannedWeapon()" />
 				</div>
 			</div>
 			<UDivider label="MATERIAL NEEDED" />
 			<section class="p-3">
-				<UButton
-					class="mr-3"
-					color="primary"
-					variant="solid"
-					@click="setDone"
-					:disabled="!isMaterialsExist"
-				>
+				<UButton class="mr-3" color="primary" variant="solid" @click="setDone" :disabled="!isMaterialsExist">
 					Done
 				</UButton>
 				<span class="inline-block align-middle">
@@ -65,12 +40,8 @@
 			<section>
 				<div class="grid grid-cols-6 gap-6">
 					<div class="" v-for="(item, index) in materials" :key="item.key">
-						<InventoryItemMaterialCard
-							:index="index"
-							:item="item"
-							:key="item.key"
-							@update-material-count="doEmit"
-						></InventoryItemMaterialCard>
+						<InventoryItemMaterialCard :index="index" :item="item" :key="item.key" @update-material-count="doEmit">
+						</InventoryItemMaterialCard>
 					</div>
 				</div>
 			</section>
@@ -92,10 +63,12 @@ const weaponList = () => {
 	useForEach(weapons, (weapon, weaponName) => {
 		const subtitle = weapon.rarity + '⭐ ' + weapon.weapon_type;
 		list = useConcat(list, {
-			value: weaponName,
+			id: weaponName,
+			label: weapon.display_name,
+			avatar: { src: weapon.icon },
 			title: weapon.display_name,
+			value: weaponName,
 			subtitle: subtitle,
-			icon: weapon.icon,
 			type: weapon.weapon_type,
 		});
 	});
@@ -115,7 +88,7 @@ const weaponName = ref('');
 const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
-const weaponOption = ref({});
+let weaponOption = ref({});
 
 const weapon = ref({ ...dbPlannedWeapon.weapon });
 const materials = ref({});
@@ -128,10 +101,8 @@ const doEmit = (a) => {
 	getOrInitPlannedWeapon(weaponName.value);
 };
 
-const getOrInitNuxtUi = (weaponOption) => {
-	console.log('weaponOption: ' + JSON.stringify(weaponOption));
-	weaponName.value = weaponOption.value;
-	getOrInitPlannedWeapon(weaponOption.value);
+const getOrInitWeaponName = async (weaponOption) => {
+	await navigateTo({ hash: '#' + weaponOption.value })
 };
 
 const getOrInitPlannedWeapon = (weaponName) => {
@@ -193,8 +164,25 @@ onBeforeMount(() => {
 	let urlHash = route.hash.slice(1);
 
 	if (urlHash !== undefined && useHas(weapons, urlHash)) {
+		weaponOption = useFind(weaponList(), ['value', urlHash]);
 		weaponName.value = urlHash;
 		getOrInitPlannedWeapon(weaponName.value);
+	} else {
+		weaponOption = {};
+		weaponName.value = '';
 	}
 });
+
+watch(() => route.hash, () => {
+	let urlHash = route.hash.slice(1);
+
+	if (urlHash !== undefined && useHas(weapons, urlHash)) {
+		weaponOption = useFind(weaponList(), ['value', urlHash]);
+		weaponName.value = urlHash;
+		getOrInitPlannedWeapon(weaponName.value);
+	} else {
+		weaponOption = {};
+		weaponName.value = '';
+	}
+})
 </script>
