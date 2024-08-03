@@ -116,13 +116,8 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			}
 
 			// calculation should be fine above. now about displaying syntesized material
-			if (diff >= 0) {
-				// then doesn't need synthezied material
-				responseDataSorted[materialType]['synthesized'] = 0;
-			} else {
-				responseDataSorted[materialType]['synthesized'] =
-					synthesizedList[materialType];
-			}
+			responseDataSorted[materialType]['synthesized'] =
+				synthesizedList[materialType];
 
 			// recalibrate synthesized value
 			if (synthesizableData.to === undefined) {
@@ -136,6 +131,14 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 
 					if (lowerTierRecheckedMaterial === undefined) {
 						break;
+					}
+
+					if (
+						responseDataSorted[recheckedMaterial].owned >=
+						responseDataSorted[recheckedMaterial].needed
+					) {
+						recheckedMaterial = lowerTierRecheckedMaterial;
+						continue;
 					}
 
 					if (

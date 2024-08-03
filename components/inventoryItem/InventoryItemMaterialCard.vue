@@ -17,8 +17,7 @@
 		<div class="flex flex-col items-center">
 			<div class="relative">
 				<img class="border-gray-800 border-b size-24" :src="(item && item.icon) || ''" />
-				<div class="bottom-0 absolute inset-x-0 flex flex-wrap justify-between gap-1 opacity-75 mb-2"
-					v-if="item && item.needed > 0">
+				<div class="bottom-0 absolute inset-x-0 flex flex-wrap justify-between gap-1 opacity-75 mb-2">
 					<UBadge size="xs" :color="ownedItemColor" variant="solid">
 						<UIcon name="mdi:target" class="mr-2" />
 						<p class="truncate">
@@ -60,6 +59,7 @@ const props = defineProps({
 const ownedItemColor = computed(() => {
 	const synthesizedOwned =
 		props.item && (props.item.synthesized || 0) + (props.item.owned || 0);
+	if (props.item && props.item.needed === 0) return 'white';
 	return props.item && synthesizedOwned >= props.item.needed ? 'green' : 'red';
 });
 
