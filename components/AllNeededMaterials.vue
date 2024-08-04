@@ -1,21 +1,9 @@
 <template>
-	<section class="flex items-center justify-between mb-5">
-		<h1 class="text-4xl font-extrabold">Needed Materials</h1>
-	</section>
-
 	<section>
 		<div class="flex flex-wrap gap-2">
-			<div
-				v-for="(item, index) in allMaterialsResponseData"
-				:key="index"
-				class=""
-			>
-				<InventoryItemMaterialCard
-					:index="index.toString()"
-					:item="item"
-					:key="index"
-					@update-material-count="doEmit"
-				></InventoryItemMaterialCard>
+			<div v-for="(item, index) in allMaterialsResponseData" :key="index" class="">
+				<InventoryItemMaterialCard :index="index.toString()" :item="item" :key="index" @update-material-count="doEmit">
+				</InventoryItemMaterialCard>
 			</div>
 		</div>
 	</section>
