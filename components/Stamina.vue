@@ -1,8 +1,4 @@
 <template>
-	<section class="flex items-center justify-between mb-5">
-		<h1 class="text-4xl font-extrabold">Stamina Tracker</h1>
-	</section>
-
 	<section class="flex flex-wrap gap-5">
 		<div>
 			<div class="font-bold">Track Your Stamina</div>
@@ -26,18 +22,10 @@
 		<div class="">
 			<div class="font-bold">Adjust Stamina</div>
 			<div class="grid grid-cols-3 gap-2">
-				<div
-					class="h-8 w-10 flex items-center justify-center"
-					v-for="(item, index) in ['-1', '-40', '-60', '+1', '+40', '+60']"
-					:key="index"
-				>
-					<UButton
-						class="h-8 w-10 flex items-center justify-center"
-						:color="parseInt(item) < 0 ? 'yellow' : 'green'"
-						variant="solid"
-						:padded="false"
-						@click="staminaStore.updateStaminaOverflow(parseInt(item))"
-					>
+				<div class="h-8 w-10 flex items-center justify-center"
+					v-for="(item, index) in ['-1', '-40', '-60', '+1', '+40', '+60']" :key="index">
+					<UButton class="h-8 w-10 flex items-center justify-center" :color="parseInt(item) < 0 ? 'yellow' : 'green'"
+						variant="solid" :padded="false" @click="staminaStore.updateStaminaOverflow(parseInt(item))">
 						<span class="justify-self-center">
 							{{ item }}
 						</span>
