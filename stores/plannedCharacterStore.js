@@ -117,6 +117,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		let activeCharacters = { ...plannedCharacters.value };
 		for (let character in activeCharacters) {
 			if (isCharacterDone(character)) {
+				// delete jumpscare. it's deleteing from newly created object
 				delete activeCharacters[character];
 			}
 		}

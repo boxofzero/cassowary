@@ -95,6 +95,7 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		let activeWeapons = { ...plannedWeapons.value };
 		for (let weapon in activeWeapons) {
 			if (isWeaponDone(weapon)) {
+				// delete jumpscare. it's deleteing from newly created object
 				delete activeWeapons[weapon];
 			}
 		}
