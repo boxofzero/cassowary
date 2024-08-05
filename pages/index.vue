@@ -1,7 +1,7 @@
 <template>
 	<UAccordion multiple :items="accordionItems" :ui="{ item: { color: '' } }">
 		<template #default="{ item, index, open }">
-			<UButton color="gray" variant="ghost" class="border-gray-200 dark:border-gray-700 border-b"
+			<UButton color="gray" variant="ghost" class="border-gray-700 mb-1 border-b"
 				:ui="{ rounded: 'rounded-none', padding: { sm: 'p-3 pl-0' } }">
 				<template #leading>
 					<!-- <div class="flex justify-center items-center bg-primary-500 dark:bg-primary-400 -my-1 rounded-full w-6 h-6">
@@ -59,12 +59,12 @@ const accordionItems = [
 		defaultOpen: true,
 		slot: 'stamina'
 	},
-	// {
-	// 	label: 'Notes',
-	// 	icon: 'i-heroicons-arrow-down-tray',
-	// 	defaultOpen: false,
-	// 	slot: 'notes'
-	// },
+	{
+		label: 'Notes',
+		icon: 'i-heroicons-arrow-down-tray',
+		defaultOpen: false,
+		slot: 'notes'
+	},
 	{
 		label: 'Planned Characters & Weapons',
 		icon: 'i-heroicons-arrow-down-tray',
