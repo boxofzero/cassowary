@@ -21,25 +21,22 @@ export const useStaminaStore = defineStore('stamina', () => {
 		// calc additional stamina since staminaUpdatedAt
 		const diffTime = Date.now() - this.staminaUpdatedAt;
 		const additionalStamina = Math.floor(
-			diffTime / this.secondsPerStamina / 1000
+			diffTime / (this.secondsPerStamina * 1000)
 		);
+		const alreadyPassedTime = diffTime % (this.secondsPerStamina * 1000);
 		if (additionalStamina <= 0) {
 			return;
 		}
 
 		if (this.stamina + additionalStamina > this.maxStamina) {
-			console.log(
-				'this.stamina = this.maxStamina; ' +
-					this.stamina +
-					', ' +
-					this.maxStamina
-			);
 			this.stamina = this.maxStamina;
 		} else {
 			this.stamina += additionalStamina;
 		}
 		this.staminaUpdatedAt =
-			this.staminaUpdatedAt + additionalStamina * this.secondsPerStamina * 1000;
+			this.staminaUpdatedAt +
+			alreadyPassedTime +
+			additionalStamina * this.secondsPerStamina * 1000;
 
 		// update fullStaminaAt
 		this.updateFullStaminaAt();
@@ -58,9 +55,11 @@ export const useStaminaStore = defineStore('stamina', () => {
 		this.fullStaminaAt =
 			Date.now() + diffStamina * this.secondsPerStamina * 1000;
 	}
+
 	function updateStaminaOverflow(additionalStamina) {
 		this.updateStamina(additionalStamina, true);
 	}
+
 	function updateStamina(additionalStamina, allowOverflow = false) {
 		// validation
 		if (!allowOverflow) {
@@ -69,7 +68,10 @@ export const useStaminaStore = defineStore('stamina', () => {
 
 		// update stamina and staminaUpdatedAt
 		this.stamina += additionalStamina;
-		this.staminaUpdatedAt = Date.now();
+		const updatedAt = Date.now();
+		const alreadyRecoveringTime =
+			(updatedAt - this.staminaUpdatedAt) % (this.secondsPerStamina * 1000);
+		this.staminaUpdatedAt = updatedAt - alreadyRecoveringTime;
 
 		// update fullStaminaAt
 		this.updateFullStaminaAt();
