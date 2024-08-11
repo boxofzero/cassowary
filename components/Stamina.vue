@@ -14,7 +14,7 @@
 			<div class="font-bold">Your Stamina will be:</div>
 			<div class="text-sm mb-2 columns-1">
 				<div v-for="(item, index) in calculateFutureStaminaAt()" :key="index">
-					{{ index }} at {{ new Intl.DateTimeFormat('en-US', { timeStyle: 'medium', hourCycle: 'h23' }).format(item) }}
+					{{ index }} at {{ datetimeFormat(item) }}
 				</div>
 			</div>
 		</div>
@@ -46,6 +46,15 @@ const staminaRate = computed(() => {
 	}
 	return (staminaStore.secondsPerStamina / 60) + ' minutes';
 });
+
+const datetimeFormat = (datetime) => {
+	return new Intl.DateTimeFormat('en-US',
+		{
+			timeStyle: 'medium',
+			hourCycle: 'h23'
+		}
+	).format(datetime)
+}
 
 const staminaButtonList = () => {
 	let list = []
