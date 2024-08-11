@@ -2,7 +2,7 @@ import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as gameInventoryItem from '@/data/game/inventoryItem/gameInventoryItem';
-import moment from 'moment';
+import * as datetimeHelper from '@/libraries/datetimeHelper';
 
 export const setWeaponDone = (weapon, loadedMaterials) => {
 	// weapon must have name
@@ -53,7 +53,7 @@ export const downloadData = () => {
 	// download data
 	// credit: https://www.bitdegree.org/learn/javascript-download
 	let text = JSON.stringify(data);
-	let timestamp = moment(new Date()).format('YYMMDD_HHmmss');
+	let timestamp = datetimeHelper.generateTimestamp(new Date());
 	let filename = 'cassowary_planner_data_' + timestamp + '.json';
 	let element = document.createElement('a');
 	element.setAttribute(
