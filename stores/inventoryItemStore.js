@@ -13,15 +13,6 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 		inventoryItems.value = inventoryRepo().value;
 	}
 
-	const debouncedStoreToStorage = useDebounceFn(
-		() => {
-			console.log('storing inventoryItems to localStorage');
-			inventoryRepo.value = inventoryItems.value;
-		},
-		200,
-		{ maxWait: 5000 }
-	);
-
 	function get(stuffKey) {
 		if (!Object.prototype.hasOwnProperty.call(inventoryItems.value, stuffKey)) {
 			inventoryItems.value[stuffKey] = {
@@ -41,17 +32,16 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 				JSON.stringify(inventoryItems.value[stuffKey].count || 0)
 		);
 
-		console.log('storing inventoryItems to localStorage');
-		inventoryRepo.value = inventoryItems.value;
+		storeToStorage();
 		console.log(
 			'after update: ' +
 				JSON.stringify(inventoryItems.value[stuffKey].count || 0)
 		);
 	}
 
-	function updateAll() {
+	function storeToStorage() {
 		console.log('storing inventoryItems to localStorage');
-		inventoryRepo.value = inventoryItems.value;
+		inventoryRepo().value = inventoryItems.value;
 	}
 
 	function decreaseTieredMaterial(material, value) {
@@ -82,12 +72,17 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 		}
 	}
 
+	function restoreData(data) {
+		inventoryItems.value = data;
+		storeToStorage();
+	}
+
 	return {
 		inventoryItems,
 		init,
 		get,
 		updateInventory,
-		updateAll,
 		decreaseTieredMaterial,
+		restoreData,
 	};
 });

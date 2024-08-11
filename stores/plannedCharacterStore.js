@@ -125,6 +125,11 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		return activeCharacters;
 	}
 
+	function restoreData(data) {
+		plannedCharacters.value = data;
+		storeToStorage();
+	}
+
 	return {
 		plannedCharacters,
 		init,
@@ -134,5 +139,6 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 		setDone,
 		isCharacterDone,
 		getAllActivePlannedCharacters,
+		restoreData,
 	};
 });

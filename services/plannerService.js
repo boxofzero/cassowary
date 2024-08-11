@@ -68,3 +68,30 @@ export const downloadData = () => {
 	element.click();
 	document.body.removeChild(element);
 };
+
+export const uploadData = (uploadedData) => {
+	usePlannedCharacterStore().init();
+	useInventoryItemStore().init();
+	usePlannedWeaponStore().init();
+
+	// TODO validation in the future. maybe.
+
+	// set data
+	let success = [];
+	if (uploadedData['plannedCharacters'] !== undefined) {
+		usePlannedCharacterStore().restoreData(uploadedData['plannedCharacters']);
+		success.push('characters');
+	}
+
+	if (uploadedData['plannedWeapons'] !== undefined) {
+		usePlannedWeaponStore().restoreData(uploadedData['plannedWeapons']);
+		success.push('weapons');
+	}
+
+	if (uploadedData['inventoryItems'] !== undefined) {
+		useInventoryItemStore().restoreData(uploadedData['inventoryItems']);
+		success.push('inventoryItems');
+	}
+
+	return success;
+};
