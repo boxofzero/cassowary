@@ -1,6 +1,6 @@
 <template>
 	<header class="flex justify-between items-center my-5">
-		<UHorizontalNavigation :links="links" class="border-b border-gray-800" />
+		<UHorizontalNavigation :links="links" class="border-gray-800 border-b" />
 	</header>
 </template>
 
@@ -26,6 +26,11 @@ const links = [
 			label: 'Weapons',
 			icon: 'material-symbols:sword-rose',
 			to: '/weapons',
+		},
+		{
+			label: 'Settings',
+			icon: 'material-symbols:settings',
+			to: '/settings',
 		},
 		{
 			label: 'About',

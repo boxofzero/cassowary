@@ -103,6 +103,11 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		return activeWeapons;
 	}
 
+	function restoreData(data) {
+		plannedWeapons.value = data;
+		storeToStorage();
+	}
+
 	return {
 		plannedWeapons,
 		init,
@@ -112,5 +117,6 @@ export const usePlannedWeaponStore = defineStore('plannedWeapons', () => {
 		setDone,
 		isWeaponDone,
 		getAllActivePlannedWeapons,
+		restoreData,
 	};
 });
