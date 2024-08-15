@@ -187,10 +187,16 @@ export const getAllMaterialsResponseData = () => {
 	// this doesnt include unneeded material
 	const characterMaterials = characterService.getAllCharactersNeededMaterials();
 	const weaponMaterials = weaponService.getAllWeaponsNeededMaterials();
-	const ownedNeededMaterialsData = getOwnedNeededMaterialsResponseData({
-		...weaponMaterials,
-		...characterMaterials,
-	});
+	const combinedMaterials = useMergeWith(
+		weaponMaterials,
+		characterMaterials,
+		(objValue, srcValue) => {
+			return (objValue || 0) + (srcValue || 0);
+		}
+	);
+
+	const ownedNeededMaterialsData =
+		getOwnedNeededMaterialsResponseData(combinedMaterials);
 
 	useInventoryItemStore().init();
 	const ownedMaterials = useInventoryItemStore().inventoryItems;
