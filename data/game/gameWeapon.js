@@ -121,10 +121,10 @@ export const weaponLevellingMaterialsCount = {
 			level: '60A',
 			materials: {
 				tiered_forgery_weapon_skill_material: {
-					4: 5,
+					3: 5,
 				},
 				tiered_enemy_drop_weapon_skill_material: {
-					4: 5,
+					3: 5,
 				},
 				shell_credit: 48_000,
 			},
