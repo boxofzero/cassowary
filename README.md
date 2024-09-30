@@ -1,91 +1,72 @@
 # Cassowary
 
-## File structure
+![Cassowary screenshot](./cassowary-screenshot.png 'Cassowary')
 
-### gameData
+## Main Features
 
-This folder contains data from game.
+- Stamina tracker
+- Character and Weapon levelling material trackers
+- Notes for to-do or etc
+- Backup and Restore data to/from JSON file
+- etc
 
-### dbSchemeData
+## What this does not/is not
 
-This folder contains each object data structure.
+- This doesn't sync directly to the game. You need to 'sync' manually (put the inventory item counts by yourself).
+- etc
 
-### forms
+## Found bugs? Have ideas?
 
-This folder contains structure of form for the front-end.
+Please create [issues](/issues).
 
-# Nuxt 3 Minimal Starter
+## Disclaimer
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is just an unofficial project. This has no relation whatsoever to the official Wuthering Waves and KURO GAMES. Game data are from Wuthering Waves game.
 
-## Setup
+## Under The Hood
+
+### Folder Structure
+
+#### data
+
+This folder contains data: database scheme, form scheme, and game data.
+
+#### components
+
+Contains page components.
+
+#### composables
+
+Contains reusable function/logic.
+
+#### pages
+
+Contains vue pages and important for app routing.
+
+#### services
+
+Contains business logic.
+
+#### stores
+
+Contains [Pinia](https://pinia.vuejs.org/introduction.html) store. Main logic for data storage.
+
+### Development Setup
+
+This app is powered by [Nuxt Framework](https://nuxt.com/docs/getting-started/introduction).
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
-npm install
-
 # pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+### Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on `http://localhost:8104`:
 
 ```bash
-# npm
-npm run dev
-
 # pnpm
 pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
