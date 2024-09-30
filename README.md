@@ -17,7 +17,7 @@
 
 ## Found bugs? Have ideas?
 
-Please create [issues](/issues).
+Please create [issues](https://github.com/boxofzero/cassowary/issues).
 
 ## Disclaimer
 
