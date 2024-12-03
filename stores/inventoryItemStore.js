@@ -23,14 +23,14 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 	}
 
 	function updateInventory(stuffKey, value) {
-		const getInventoryItemMaterial = get(stuffKey);
-		getInventoryItemMaterial['count'] = parseInt(value);
-
 		console.log('updateInventory ' + stuffKey + ' -> ' + value);
 		console.log(
 			'before update: ' +
 				JSON.stringify(inventoryItems.value[stuffKey].count || 0)
 		);
+
+		const getInventoryItemMaterial = get(stuffKey);
+		getInventoryItemMaterial['count'] = parseInt(value);
 
 		storeToStorage();
 		console.log(

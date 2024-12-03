@@ -4,6 +4,7 @@
 			<AppHeader />
 			<slot />
 			<!-- <AppFooter /> -->
+			<AppHeader />
 		</UContainer>
 	</div>
 </template>
