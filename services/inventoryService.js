@@ -93,84 +93,6 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		}
 		responseDataSorted[materialType] = responseData[materialType];
 
-		// if the material is synthesizable
-		// since this is sorted data,
-		if (
-			useKeys(gameInventoryItem.synthesizable_materials).includes(materialType)
-		) {
-			let diff =
-				responseData[materialType].owned - responseData[materialType].needed;
-			const synthesizableData =
-				gameInventoryItem.synthesizable_materials[materialType];
-			// if it has from
-			if (synthesizableData.to !== undefined) {
-				// check if there's a synthesizable material
-				const syntesizedMaterial = synthesizedList[materialType] || 0;
-				// count the synthesizable materials
-				synthesizedList[synthesizableData.to] = Math.floor(
-					(syntesizedMaterial + diff) / synthesizableData.cost
-				);
-				if (synthesizedList[synthesizableData.to] < 0) {
-					synthesizedList[synthesizableData.to] = 0;
-				}
-			}
-
-			// calculation should be fine above. now about displaying syntesized material
-			responseDataSorted[materialType]['synthesized'] =
-				synthesizedList[materialType];
-
-			// recalibrate synthesized value
-			if (synthesizableData.to === undefined) {
-				let recheckedMaterial = materialType;
-				while (recheckedMaterial !== undefined) {
-					// iterator
-					let upperTierRecheckedMaterial =
-						gameInventoryItem.synthesizable_materials[recheckedMaterial].to;
-					let lowerTierRecheckedMaterial =
-						gameInventoryItem.synthesizable_materials[recheckedMaterial].from;
-
-					if (lowerTierRecheckedMaterial === undefined) {
-						break;
-					}
-
-					if (
-						responseDataSorted[recheckedMaterial].owned >=
-						responseDataSorted[recheckedMaterial].needed
-					) {
-						recheckedMaterial = lowerTierRecheckedMaterial;
-						continue;
-					}
-
-					if (
-						responseDataSorted[recheckedMaterial]['synthesized'] +
-							responseDataSorted[recheckedMaterial].owned <
-						responseDataSorted[recheckedMaterial].needed
-					) {
-						recheckedMaterial = lowerTierRecheckedMaterial;
-						continue;
-					}
-
-					if (upperTierRecheckedMaterial === undefined) {
-						responseDataSorted[recheckedMaterial]['synthesized'] = Math.min(
-							responseDataSorted[recheckedMaterial]['synthesized'],
-							responseDataSorted[recheckedMaterial].needed -
-								responseDataSorted[recheckedMaterial].owned
-						);
-					}
-
-					responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] =
-						gameInventoryItem.synthesizable_materials[
-							lowerTierRecheckedMaterial
-						].cost *
-							responseDataSorted[recheckedMaterial]['synthesized'] +
-						responseDataSorted[lowerTierRecheckedMaterial].needed -
-						responseDataSorted[lowerTierRecheckedMaterial].owned;
-
-					recheckedMaterial = lowerTierRecheckedMaterial;
-				}
-			}
-		}
-
 		// key for v-model
 		responseDataSorted[materialType]['key'] =
 			materialType +
@@ -178,6 +100,88 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			(responseDataSorted[materialType]['owned'] || 0) +
 			'_' +
 			(responseDataSorted[materialType]['needed'] || 0);
+
+		// early exit for non-synthesizable materials
+		if (
+			!useKeys(gameInventoryItem.synthesizable_materials).includes(materialType)
+		) {
+			continue;
+		}
+
+		// if the material is synthesizable
+		// calculate how many possible materials to synthesize
+		// since this is sorted data, this can do directly
+		let diff =
+			responseData[materialType].owned - responseData[materialType].needed;
+		const synthesizableData =
+			gameInventoryItem.synthesizable_materials[materialType];
+		// if it has upper material
+		if (synthesizableData.to !== undefined) {
+			// check if there's a synthesizable material
+			const syntesizedMaterial = synthesizedList[materialType] || 0;
+			// count the synthesizable materials
+			synthesizedList[synthesizableData.to] = Math.floor(
+				(syntesizedMaterial + diff) / synthesizableData.cost
+			);
+			if (synthesizedList[synthesizableData.to] < 0) {
+				synthesizedList[synthesizableData.to] = 0;
+			}
+		}
+
+		// calculation should be fine above. now about displaying syntesized material
+		responseDataSorted[materialType]['synthesized'] =
+			synthesizedList[materialType] || 0;
+
+		// early exit for synthesizable materials that is not highest tier
+		if (synthesizableData.to !== undefined) {
+			continue;
+		}
+
+		// this loop is for syntesized materials that is highest tier
+		// loop back from highest to lowest
+		// to recalibrate synthesized value
+		let recheckedMaterial = materialType;
+		while (recheckedMaterial !== undefined) {
+			// iterator
+			let upperTierRecheckedMaterial =
+				gameInventoryItem.synthesizable_materials[recheckedMaterial].to;
+			let lowerTierRecheckedMaterial =
+				gameInventoryItem.synthesizable_materials[recheckedMaterial].from;
+
+			// early exit for lowest tier material
+			if (lowerTierRecheckedMaterial === undefined) {
+				break;
+			}
+
+			// if this is the highest tier material
+			// only syntesize what's needed
+			if (upperTierRecheckedMaterial === undefined) {
+				responseDataSorted[recheckedMaterial]['synthesized'] = Math.min(
+					responseDataSorted[recheckedMaterial]['synthesized'],
+					responseDataSorted[recheckedMaterial].needed -
+						responseDataSorted[recheckedMaterial].owned
+				);
+			}
+
+			// if lower tier material is possible to syntesize
+			if (responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] > 0) {
+				// recalculate lower tier synthesize material considering it will be synthesized
+				// for current tier
+				responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] =
+					gameInventoryItem.synthesizable_materials[lowerTierRecheckedMaterial]
+						.cost *
+						responseDataSorted[recheckedMaterial]['synthesized'] +
+					responseDataSorted[lowerTierRecheckedMaterial].needed -
+					responseDataSorted[lowerTierRecheckedMaterial].owned;
+
+				// if lower tier synthesized < 0, means it owns more than enough
+				if (responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] < 0) {
+					responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] = 0;
+				}
+			}
+
+			recheckedMaterial = lowerTierRecheckedMaterial;
+		}
 	}
 
 	return responseDataSorted;
