@@ -129,15 +129,19 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		}
 
 		// calculation should be fine above. now about displaying syntesized material
-		responseDataSorted[materialType]['synthesized'] =
+		responseDataSorted[materialType].synthesized =
 			synthesizedList[materialType] || 0;
 
-		// early exit for synthesizable materials that is not highest tier
-		if (synthesizableData.to !== undefined) {
+		// skip next iteration for synthesizable materials that
+		// is not highest tier that NEEDED.
+		if (
+			synthesizableData.to !== undefined &&
+			responseData[synthesizableData.to] !== undefined
+		) {
 			continue;
 		}
 
-		// this loop is for syntesized materials that is highest tier
+		// this loop is for syntesized materials that is highest tier that NEEDED
 		// loop back from highest to lowest
 		// to recalibrate synthesized value
 		let recheckedMaterial = materialType;
@@ -148,35 +152,61 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			let lowerTierRecheckedMaterial =
 				gameInventoryItem.synthesizable_materials[recheckedMaterial].from;
 
-			// early exit for lowest tier material
+			// exit for lowest tier material
 			if (lowerTierRecheckedMaterial === undefined) {
 				break;
 			}
 
-			// if this is the highest tier material
-			// only syntesize what's needed
-			if (upperTierRecheckedMaterial === undefined) {
-				responseDataSorted[recheckedMaterial]['synthesized'] = Math.min(
-					responseDataSorted[recheckedMaterial]['synthesized'],
+			// if this is the highest tier material that NEEDED
+			if (
+				responseDataSorted[upperTierRecheckedMaterial] === undefined ||
+				responseDataSorted[upperTierRecheckedMaterial].needed <= 0
+			) {
+				// only syntesize what's needed
+				responseDataSorted[recheckedMaterial].synthesized = Math.min(
+					responseDataSorted[recheckedMaterial].synthesized,
 					responseDataSorted[recheckedMaterial].needed -
 						responseDataSorted[recheckedMaterial].owned
 				);
-			}
+				if (responseDataSorted[recheckedMaterial].synthesized < 0) {
+					responseDataSorted[recheckedMaterial].synthesized = 0;
+				}
+			} else {
+				// if NOT the highest tier material that needed
+				// recalculate synthesized so that only syntesized what's needed
 
-			// if lower tier material is possible to syntesize
-			if (responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] > 0) {
-				// recalculate lower tier synthesize material considering it will be synthesized
-				// for current tier
-				responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] =
-					gameInventoryItem.synthesizable_materials[lowerTierRecheckedMaterial]
-						.cost *
-						responseDataSorted[recheckedMaterial]['synthesized'] +
-					responseDataSorted[lowerTierRecheckedMaterial].needed -
-					responseDataSorted[lowerTierRecheckedMaterial].owned;
+				// calculate synthesized that is needed for higher tier
+				let synthesizedNeededForHigherTier =
+					responseDataSorted[upperTierRecheckedMaterial].synthesized *
+					gameInventoryItem.synthesizable_materials[recheckedMaterial].cost;
 
-				// if lower tier synthesized < 0, means it owns more than enough
-				if (responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] < 0) {
-					responseDataSorted[lowerTierRecheckedMaterial]['synthesized'] = 0;
+				// needed current tier + needed for higher tier - owned
+				// = synthesized from lower tier
+				let calibrateSyntesizedNeed =
+					responseDataSorted[recheckedMaterial].needed +
+					synthesizedNeededForHigherTier -
+					responseDataSorted[recheckedMaterial].owned;
+
+				// if negative, it means potential synthesized material at this tier
+				// isn't needed. keep it at lower tier.
+				if (calibrateSyntesizedNeed < 0) {
+					responseDataSorted[recheckedMaterial].synthesized = 0;
+				} else {
+					if (
+						responseDataSorted[recheckedMaterial].synthesized >=
+						calibrateSyntesizedNeed
+					) {
+						// preemptive logical checking.
+						// i have feeling this will be buggy someday.
+						responseDataSorted[recheckedMaterial].synthesized =
+							calibrateSyntesizedNeed;
+					}
+				}
+
+				// i think this is also guard condition
+				// if unexpected negative, set it to 0
+				if (responseDataSorted[recheckedMaterial].synthesized < 0) {
+					responseDataSorted[recheckedMaterial].synthesized = 0;
 				}
 			}
 
