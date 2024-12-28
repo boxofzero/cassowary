@@ -49,10 +49,16 @@ import {
 	tiered_char_exp_index_name,
 } from '@/data/game/inventoryItem/tiered/characterExp';
 
+import {
+	tiered_weap_exp_index_category,
+	tiered_weap_exp_index_name,
+} from '@/data/game/inventoryItem/tiered/weaponExp';
+
 export const tiered_materials_all = {
 	...tiered_enemy_drop_weapon_skill_material_index_name,
 	...tiered_forgery_weapon_skill_material_index_name,
 	...tiered_char_exp_index_name,
+	...tiered_weap_exp_index_name,
 };
 
 export const tiered_materials_per_type = {
@@ -61,6 +67,7 @@ export const tiered_materials_per_type = {
 	tiered_forgery_weapon_skill_material:
 		tiered_forgery_weapon_skill_material_index_category,
 	tiered_char_exp: tiered_char_exp_index_category,
+	tiered_weap_exp: tiered_weap_exp_index_category,
 };
 
 export const exp_data = {
