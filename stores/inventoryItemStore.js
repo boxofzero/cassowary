@@ -64,7 +64,7 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 					gameInventoryItem.synthesizable_materials[lowerTierMaterial].cost;
 				return decreaseTieredMaterial(
 					lowerTierMaterial,
-					synthesizedCost * updatedValue * -1
+					Math.floor(synthesizedCost * updatedValue * -1)
 				);
 			}
 		} else {

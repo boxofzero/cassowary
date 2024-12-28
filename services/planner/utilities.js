@@ -24,7 +24,9 @@ export const getLevelRangeDiff = (arrayData, currentLevel, targetLevel) => {
 };
 
 export const isTieredMaterialType = (material) => {
-	return Object.keys(gameInventoryItem.tiered_materials).includes(material);
+	return Object.keys(gameInventoryItem.tiered_materials_per_type).includes(
+		material
+	);
 };
 
 export const getMaterialsFromLevelListStatList = (
@@ -56,9 +58,9 @@ export const getMaterialsFromLevelListStatList = (
 				if (isTieredMaterialType(materialType)) {
 					for (let tier in level.materials[materialType]) {
 						const tieredMaterialName =
-							gameInventoryItem.tiered_materials[materialType][materialName][
-								tier
-							].name;
+							gameInventoryItem.tiered_materials_per_type[materialType][
+								materialName
+							][tier].name;
 						useSet(
 							materials,
 							tieredMaterialName,

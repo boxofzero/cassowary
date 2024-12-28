@@ -42,12 +42,12 @@ export const allInventoryItems = {
 };
 
 import * as gameInventoryItemsConfig from '~/data/game/inventoryItem/gameInventoryItemConfig';
-export const tiered_materials = {
-	...gameInventoryItemsConfig.tiered_materials,
+export const tiered_materials_per_type = {
+	...gameInventoryItemsConfig.tiered_materials_per_type,
 };
 
 export const synthesizable_materials = {
-	...gameInventoryItemsConfig.tiered_materials_2,
+	...gameInventoryItemsConfig.tiered_materials_all,
 };
 
 export const exp_data = {
