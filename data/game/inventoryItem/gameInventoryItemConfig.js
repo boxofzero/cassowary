@@ -44,12 +44,12 @@ import {
 	tiered_forgery_weapon_skill_material_index_name,
 } from '@/data/game/inventoryItem/tiered/forgeryWeaponSkillMaterial';
 
-export const tiered_materials_2 = {
+export const tiered_materials_all = {
 	...tiered_enemy_drop_weapon_skill_material_index_name,
 	...tiered_forgery_weapon_skill_material_index_name,
 };
 
-export const tiered_materials = {
+export const tiered_materials_per_type = {
 	tiered_enemy_drop_weapon_skill_material:
 		tiered_enemy_drop_weapon_skill_material_index_category,
 	tiered_forgery_weapon_skill_material:
