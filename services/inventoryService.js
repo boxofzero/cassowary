@@ -176,9 +176,10 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 				// recalculate synthesized so that only syntesized what's needed
 
 				// calculate synthesized that is needed for higher tier
-				let synthesizedNeededForHigherTier =
+				let synthesizedNeededForHigherTier = Math.floor(
 					responseDataSorted[upperTierRecheckedMaterial].synthesized *
-					gameInventoryItem.synthesizable_materials[recheckedMaterial].cost;
+						gameInventoryItem.synthesizable_materials[recheckedMaterial].cost
+				);
 
 				// needed current tier + needed for higher tier - owned
 				// = synthesized from lower tier
