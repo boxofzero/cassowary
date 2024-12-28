@@ -5,7 +5,7 @@ export const char_exp_proper_data = [
 		tier: 1,
 		from: undefined,
 		to: 'medium_resonance_potion',
-		count: 3000 / 1000,
+		count: 3000.0 / 1000,
 		exp_value: 1000,
 	},
 	{
@@ -14,7 +14,7 @@ export const char_exp_proper_data = [
 		tier: 2,
 		from: 'basic_resonance_potion',
 		to: 'advanced_resonance_potion',
-		count: 8000 / 3000,
+		count: 8000.0 / 3000,
 		exp_value: 3000,
 	},
 	{
@@ -23,7 +23,7 @@ export const char_exp_proper_data = [
 		tier: 3,
 		from: 'medium_resonance_potion',
 		to: 'premium_resonance_potion',
-		count: 20000 / 8000,
+		count: 20000.0 / 8000,
 		exp_value: 8000,
 	},
 	{
