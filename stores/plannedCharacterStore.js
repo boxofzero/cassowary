@@ -77,6 +77,7 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			return true;
 		}
 
+		// check active skills
 		for (let activeSkill of dbPlannedCharacter.characterStructure[
 			'active_skills'
 		]) {
@@ -109,8 +110,17 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 					return false;
 				}
 			}
-			return true;
 		}
+
+		// check passive skills
+		for (let passiveSkill of dbPlannedCharacter.characterStructure[
+			'passive_skills'
+		]) {
+			if (character[passiveSkill] === true) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	function getAllActivePlannedCharacters() {
