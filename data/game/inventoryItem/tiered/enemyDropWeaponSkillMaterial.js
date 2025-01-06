@@ -127,6 +127,72 @@ export const enemy_drop_proper_data = [
 		to: undefined,
 		count: undefined,
 	},
+
+	{
+		general_name: 'tidal_residuum',
+		name: 'lf_tidal_residuum',
+		tier: 1,
+		from: undefined,
+		to: 'mf_tidal_residuum',
+		count: 3,
+	},
+	{
+		general_name: 'tidal_residuum',
+		name: 'mf_tidal_residuum',
+		tier: 2,
+		from: 'lf_tidal_residuum',
+		to: 'hf_tidal_residuum',
+		count: 3,
+	},
+	{
+		general_name: 'tidal_residuum',
+		name: 'hf_tidal_residuum',
+		tier: 3,
+		from: 'mf_tidal_residuum',
+		to: 'ff_tidal_residuum',
+		count: 3,
+	},
+	{
+		general_name: 'tidal_residuum',
+		name: 'ff_tidal_residuum',
+		tier: 4,
+		from: 'hf_tidal_residuum',
+		to: undefined,
+		count: undefined,
+	},
+
+	{
+		general_name: 'polygon_core',
+		name: 'lf_polygon_core',
+		tier: 1,
+		from: undefined,
+		to: 'mf_polygon_core',
+		count: 3,
+	},
+	{
+		general_name: 'polygon_core',
+		name: 'mf_polygon_core',
+		tier: 2,
+		from: 'lf_polygon_core',
+		to: 'hf_polygon_core',
+		count: 3,
+	},
+	{
+		general_name: 'polygon_core',
+		name: 'hf_polygon_core',
+		tier: 3,
+		from: 'mf_polygon_core',
+		to: 'ff_polygon_core',
+		count: 3,
+	},
+	{
+		general_name: 'polygon_core',
+		name: 'ff_polygon_core',
+		tier: 4,
+		from: 'hf_polygon_core',
+		to: undefined,
+		count: undefined,
+	},
 ];
 
 export const tiered_enemy_drop_weapon_skill_material_index_category =
