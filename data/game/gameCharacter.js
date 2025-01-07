@@ -1,4 +1,4 @@
-export const charLevellingMaterialsCount = [
+let baseCharLevellingMaterialsCount = [
 	{ level: '1', materials: {} },
 	{ level: '20', materials: { char_exp: 33300, shell_credit: 11655 } },
 	{
@@ -349,3 +349,25 @@ export const tieredPassiveSkills = {
 import gameCharacterRawData from '@/data/game/raw/character.json';
 
 export const characters = gameCharacterRawData;
+
+export function charLevellingMaterialsCount(characterName = '') {
+	// here is characters that have custom modifiers
+
+	// ROVER
+	if (
+		typeof characterName === 'string' &&
+		characterName.toLowerCase().startsWith('rover')
+	) {
+		// deep copy the data. smh.
+		let data = JSON.parse(JSON.stringify(baseCharLevellingMaterialsCount));
+		data[4]['materials']['boss_ascension_material'] = 1;
+		data[6]['materials']['boss_ascension_material'] = 1;
+		data[8]['materials']['boss_ascension_material'] = 1;
+		data[10]['materials']['boss_ascension_material'] = 1;
+		data[12]['materials']['boss_ascension_material'] = 1;
+
+		return data;
+	}
+
+	return baseCharLevellingMaterialsCount;
+}
