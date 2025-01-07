@@ -84,15 +84,21 @@ export const usePlannedCharacterStore = defineStore('plannedCharacters', () => {
 			if (activeSkill === 'char') {
 				if (character[activeSkill + '_target_level'] !== undefined) {
 					let target = useIndexOf(
-						useMap(gameCharacter.charLevellingMaterialsCount, (value, key) => {
-							return value.level;
-						}),
+						useMap(
+							gameCharacter.charLevellingMaterialsCount(characterName),
+							(value, key) => {
+								return value.level;
+							}
+						),
 						character[activeSkill + '_target_level']
 					);
 					let current = useIndexOf(
-						useMap(gameCharacter.charLevellingMaterialsCount, (value, key) => {
-							return value.level;
-						}),
+						useMap(
+							gameCharacter.charLevellingMaterialsCount(characterName),
+							(value, key) => {
+								return value.level;
+							}
+						),
 						character[activeSkill + '_current_level']
 					);
 					if (target > current) {

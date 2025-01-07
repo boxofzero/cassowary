@@ -30,7 +30,7 @@ export const getCharacterNeededMaterials = (characterName) => {
 
 	const levelsToFarm = {
 		charLevel: getLevelRangeDiff(
-			gameCharacters.charLevellingMaterialsCount,
+			gameCharacters.charLevellingMaterialsCount(characterName),
 			currentLevel,
 			targetLevel
 		),
