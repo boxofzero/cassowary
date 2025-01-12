@@ -1,46 +1,99 @@
 <template>
-	<UCard class="w-28" :ui="{
-		header: {
-			base: 'flex justify-center',
-			padding: 'p-0 sm:p-0',
-		},
-		body: {
-			base: 'flex justify-center',
-			padding: 'p-0 sm:p-0',
-		},
-		footer: {
-			base: '',
-			padding: 'p-0 sm:p-0',
-		},
-	}">
-		<!-- <Placeholder class="h-32" /> -->
+	<UCard
+		:class="
+			'w-28 ' +
+			(item && item.missing === 0 ? 'opacity-40 hover:opacity-100' : '')
+		"
+		:ui="{
+			header: {
+				base: 'flex justify-center',
+				padding: 'p-0 sm:p-0',
+			},
+			body: {
+				base: 'flex justify-center',
+				padding: 'p-0 sm:p-0',
+			},
+			footer: {
+				base: '',
+				padding: 'p-0 sm:p-0',
+			},
+		}"
+	>
 		<div class="flex flex-col items-center">
-			<div class="relative">
-				<img class="border-gray-800 border-b size-24" :src="(item && item.icon) || ''" />
-				<div class="bottom-0 absolute inset-x-0 flex flex-wrap justify-between gap-1 opacity-75 mb-2">
-					<UBadge size="xs" :color="ownedItemColor" variant="solid">
-						<UIcon name="mdi:target" class="mr-2" />
-						<p class="truncate">
-							{{ (item && item.needed) || 0 }}
-						</p>
-					</UBadge>
-					<UBadge size="xs" color="yellow" variant="solid" v-if="item && item.synthesized > 0">
-						<UIcon name="i-heroicons-beaker" class="mr-2" />
-						{{ item && item.synthesized }}
-					</UBadge>
-				</div>
-			</div>
-			<div class="flex justify-center h-16 align-middle">
-				<span class="text-center text-sm place-self-center">
+			<div class="flex justify-center p-1 h-12 align-middle">
+				<span class="text-center text-xs place-self-center">
 					{{ (item && item.label) || '' }}
 				</span>
+			</div>
+			<div class="relative">
+				<img
+					class="border-gray-800 border-b size-24"
+					:src="(item && item.icon) || ''"
+				/>
+				<!-- Overlay for missing and syntesizable -->
+				<div
+					class="absolute inset-y-0 flex flex-col-reverse justify-between opacity-75 my-2"
+				>
+					<!-- Missing/Completed count badge and tooltip -->
+					<UTooltip
+						:text="item && item.missing > 0 ? 'Missing' : 'Completed'"
+						:popper="{ placement: 'right' }"
+						class=""
+					>
+						<UBadge
+							size="xs"
+							:color="ownedItemColor"
+							variant="solid"
+							class="flex justify-center"
+						>
+							<UIcon
+								name="ic:round-cancel"
+								class=""
+								v-if="item && item.missing > 0"
+							/>
+							<UIcon name="ic:round-check-circle-outline" class="" v-else />
+							<p class="truncate">
+								{{ (item && item.missing) || 0 }}
+							</p>
+						</UBadge>
+					</UTooltip>
+
+					<!-- Syntesizable count badge and tooltip -->
+					<UTooltip
+						text="Syntesizable"
+						:popper="{ placement: 'left' }"
+						v-if="item && item.synthesized > 0"
+					>
+						<UBadge size="xs" color="yellow" variant="solid">
+							<UIcon name="ic:outline-science" class="mr-2" />
+							{{ item && item.synthesized }}
+						</UBadge>
+					</UTooltip>
+				</div>
 			</div>
 		</div>
 
 		<template #footer>
-			<!-- <Placeholder class="h-8" /> -->
+			<!-- Needed count -->
+			<div class="flex justify-center p-1 align-middle">
+				<div class="self-center">
+					<UTooltip text="Needed" :popper="{ placement: 'top' }">
+						<p class="font-bold">
+							{{ (item && item.needed) || 0 }}
+						</p>
+					</UTooltip>
+				</div>
+			</div>
+			<!-- Owned count and user input -->
 			<div class="h-8">
-				<UInput type="number" min="0" v-model="itemRef" @change="updateMaterialCount(index, itemRef)" />
+				<UTooltip text="Owned" :popper="{ placement: 'bottom' }">
+					<UInput
+						type="number"
+						min="0"
+						v-model="itemRef"
+						@change="updateMaterialCount(index, itemRef)"
+					/>
+				</UTooltip>
 			</div>
 		</template>
 	</UCard>
