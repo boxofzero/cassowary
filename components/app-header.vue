@@ -5,7 +5,31 @@
 </template>
 
 <script setup>
-const links = [
+// dark mode
+const colorMode = useColorMode();
+const isDark = computed({
+	get() {
+		return colorMode.value === 'dark';
+	},
+	set() {
+		colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
+	},
+});
+
+const icon = computed(() =>
+	isDark.value
+		? 'material-symbols:dark-mode-outline-rounded'
+		: 'material-symbols:light-mode-outline-rounded'
+);
+
+watch(isDark, (newValue) => {
+	icon.value = newValue
+		? 'material-symbols:dark-mode-outline-rounded'
+		: 'material-symbols:light-mode-outline-rounded';
+});
+
+// link config
+const links = computed(() => [
 	[
 		{
 			label: 'Home',
@@ -45,6 +69,12 @@ const links = [
 				src: useRuntimeConfig().app.baseURL + 'favicon.ico',
 			},
 		},
+		{
+			icon: icon.value,
+			click: () => {
+				isDark.value = !isDark.value;
+			},
+		},
 	],
-];
+]);
 </script>

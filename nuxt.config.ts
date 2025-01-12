@@ -18,7 +18,7 @@ export default defineNuxtConfig({
 			routes.clear(); // Do not generate any routes (except the defaults)
 		},
 	},
-	// colorMode: {
-	// 	preference: 'dark',
-	// },
+	colorMode: {
+		preference: 'dark',
+	},
 });
