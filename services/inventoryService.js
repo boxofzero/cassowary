@@ -20,9 +20,13 @@ const generateExpData = (
 	for (let expData of expDataSortedDesc) {
 		const expDataNeeded = Math.floor(expNeededCounting / expData[1].exp_value);
 		expLeftover = expNeededCounting % expData[1].exp_value;
+		let owned = ownedMaterials[expData[0]].count || 0;
+		let needed = expDataNeeded || 0;
+		let missing = Math.max(needed - owned, 0);
 		data[expData[0]] = {
-			owned: ownedMaterials[expData[0]].count || 0,
-			needed: expDataNeeded || 0,
+			owned: owned,
+			needed: needed,
+			missing: missing,
 			icon: gameInventoryItem.allInventoryItems[expData[0]].icon,
 			label: gameInventoryItem.allInventoryItems[expData[0]].label,
 		};
@@ -51,6 +55,7 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			continue;
 		}
 
+		// loop for initializating lower tier synthesizable materials for the needed upper tier materials
 		if (
 			useKeys(gameInventoryItem.synthesizable_materials).includes(materialType)
 		) {
@@ -63,6 +68,7 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 								ownedMaterials[iterateMaterialType].count) ||
 							0,
 						needed: neededMaterials[iterateMaterialType] || 0,
+						missing: 0,
 						icon: gameInventoryItem.allInventoryItems[iterateMaterialType].icon,
 						label:
 							gameInventoryItem.allInventoryItems[iterateMaterialType].label,
@@ -73,11 +79,15 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 			}
 		}
 
+		let owned =
+			(ownedMaterials[materialType] && ownedMaterials[materialType].count) || 0;
+		let needed = neededMaterials[materialType] || 0;
+		let missing = Math.max(needed - owned, 0);
 		responseData[materialType] = {
-			owned:
-				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
-				0,
-			needed: neededMaterials[materialType] || 0,
+			owned: owned,
+
+			needed: needed,
+			missing: missing,
 			icon: gameInventoryItem.allInventoryItems[materialType].icon,
 			label: gameInventoryItem.allInventoryItems[materialType].label,
 		};
@@ -210,11 +220,19 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 					responseDataSorted[recheckedMaterial].synthesized = 0;
 				}
 			}
+			// recalibrate missing count
+			responseDataSorted[recheckedMaterial].missing = Math.max(
+				responseDataSorted[recheckedMaterial].needed -
+					(responseDataSorted[recheckedMaterial].owned +
+						responseDataSorted[recheckedMaterial].synthesized),
+				0
+			);
 
 			recheckedMaterial = lowerTierRecheckedMaterial;
 		}
 	}
 
+	console.log('responseDataSorted: ' + JSON.stringify(responseDataSorted));
 	return responseDataSorted;
 };
 
@@ -255,6 +273,7 @@ export const getAllMaterialsResponseData = () => {
 				(ownedMaterials[materialType] && ownedMaterials[materialType].count) ||
 				0,
 			needed: 0,
+			missing: 0,
 			icon: gameInventoryItem.allInventoryItems[materialType].icon,
 			label: gameInventoryItem.allInventoryItems[materialType].label,
 		};

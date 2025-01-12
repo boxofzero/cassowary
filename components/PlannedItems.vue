@@ -3,21 +3,24 @@
 		<div class="flex flex-wrap gap-2">
 			<div v-for="(item, index) in displayList()" :key="item.value" class="">
 				<NuxtLink :to="item.link">
-					<UCard class="w-28" :ui="{
-						body: {
-							base: 'flex justify-center',
-							padding: 'p-0 sm:p-0',
-						},
-						footer: {
-							base: '',
-							padding: 'p-0 sm:p-0',
-						},
-					}">
+					<UCard
+						class="w-28"
+						:ui="{
+							body: {
+								base: 'flex justify-center',
+								padding: 'p-0 sm:p-0',
+							},
+							header: {
+								base: '',
+								padding: 'p-0 sm:p-0',
+							},
+						}"
+					>
 						<img class="size-24" :src="(item && item.icon) || ''" />
 
-						<template #footer>
+						<template #header>
 							<div class="flex justify-center h-12">
-								<span class="place-self-center text-center text-sm">{{
+								<span class="text-center text-sm place-self-center">{{
 									(item && item.title) || ''
 								}}</span>
 							</div>
