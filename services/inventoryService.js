@@ -232,7 +232,6 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		}
 	}
 
-	console.log('responseDataSorted: ' + JSON.stringify(responseDataSorted));
 	return responseDataSorted;
 };
 

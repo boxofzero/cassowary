@@ -14,21 +14,30 @@ export const useInventoryItemStore = defineStore('inventoryItems', () => {
 	}
 
 	function get(stuffKey) {
+		// check if stuffKey exists in inventoryItems
 		if (!Object.prototype.hasOwnProperty.call(inventoryItems.value, stuffKey)) {
 			inventoryItems.value[stuffKey] = {
 				count: 0,
 			};
 		}
+
+		// this should fix broken data structure (if any)
+		if (
+			typeof inventoryItems.value[stuffKey] !== 'object' ||
+			!Object.prototype.hasOwnProperty.call(
+				inventoryItems.value[stuffKey],
+				'count'
+			)
+		) {
+			inventoryItems.value[stuffKey] = {
+				count: 0,
+			};
+		}
+
 		return inventoryItems.value[stuffKey];
 	}
 
 	function updateInventory(stuffKey, value) {
-		console.log('updateInventory ' + stuffKey + ' -> ' + value);
-		console.log(
-			'before update: ' +
-				JSON.stringify(inventoryItems.value[stuffKey].count || 0)
-		);
-
 		const getInventoryItemMaterial = get(stuffKey);
 		getInventoryItemMaterial['count'] = parseInt(value);
 
