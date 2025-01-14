@@ -51,6 +51,11 @@ export const useNoteStore = defineStore('notes', () => {
 		storeToStorage();
 	}
 
+	function restoreData(data) {
+		notes.value = data;
+		storeToStorage();
+	}
+
 	return {
 		notes,
 		init,
@@ -58,5 +63,6 @@ export const useNoteStore = defineStore('notes', () => {
 		getLastId,
 		upsert,
 		deleteNote,
+		restoreData,
 	};
 });

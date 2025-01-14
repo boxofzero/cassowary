@@ -1,6 +1,9 @@
 import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
+import { useNoteStore } from '@/stores/noteStore';
+import { useAccordionStore } from '@/stores/accordionStore';
+
 import * as gameInventoryItem from '@/data/game/inventoryItem/gameInventoryItem';
 import * as datetimeHelper from '@/libraries/datetimeHelper';
 
@@ -49,6 +52,8 @@ export const downloadData = () => {
 	data['plannedCharacters'] = usePlannedCharacterStore().plannedCharacters;
 	data['plannedWeapons'] = usePlannedWeaponStore().plannedWeapons;
 	data['inventoryItems'] = useInventoryItemStore().inventoryItems;
+	data['notes'] = useNoteStore().notes;
+	data['accordions'] = useAccordionStore().accordions;
 
 	// download data
 	// credit: https://www.bitdegree.org/learn/javascript-download
@@ -73,6 +78,8 @@ export const uploadData = (uploadedData) => {
 	usePlannedCharacterStore().init();
 	useInventoryItemStore().init();
 	usePlannedWeaponStore().init();
+	useNoteStore().init();
+	useAccordionStore().init();
 
 	// TODO validation in the future. maybe.
 
@@ -80,17 +87,27 @@ export const uploadData = (uploadedData) => {
 	let success = [];
 	if (uploadedData['plannedCharacters'] !== undefined) {
 		usePlannedCharacterStore().restoreData(uploadedData['plannedCharacters']);
-		success.push('characters');
+		success.push('plannedCharacters');
 	}
 
 	if (uploadedData['plannedWeapons'] !== undefined) {
 		usePlannedWeaponStore().restoreData(uploadedData['plannedWeapons']);
-		success.push('weapons');
+		success.push('plannedWeapons');
 	}
 
 	if (uploadedData['inventoryItems'] !== undefined) {
 		useInventoryItemStore().restoreData(uploadedData['inventoryItems']);
 		success.push('inventoryItems');
+	}
+
+	if (uploadedData['notes'] !== undefined) {
+		useNoteStore().restoreData(uploadedData['notes']);
+		success.push('notes');
+	}
+
+	if (uploadedData['accordions'] !== undefined) {
+		useAccordionStore().restoreData(uploadedData['accordions']);
+		// success.push('accordions');
 	}
 
 	return success;
