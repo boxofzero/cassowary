@@ -65,11 +65,17 @@ export const useAccordionStore = defineStore('accordions', () => {
 		storeToStorage();
 	}
 
+	function restoreData(data) {
+		accordions.value = data;
+		storeToStorage();
+	}
+
 	return {
 		accordions,
 		init,
 		upsert,
 		getGroup,
 		getIndex,
+		restoreData,
 	};
 });
