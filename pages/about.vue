@@ -1,14 +1,22 @@
 <template>
-	<section class="flex items-center justify-between mb-5">
-		<h1 class="text-4xl font-extrabold">Cassowary : Wuthering Waves Planner</h1>
+	<section class="flex justify-between items-center mb-5">
+		<h1 class="font-extrabold text-4xl">Cassowary : Wuthering Waves Planner</h1>
 	</section>
 	<section>
 		<div>
 			<div>
+				if you found any bugs or have some suggestions, please create issue on
+				the repository https://github.com/boxofzero/cassowary or you can contact
+				me on twitter/discord @boxofzero .
+			</div>
+			<br />
+			<div>
 				thanks to seelie.me for the inspiration. you are the goat of gacha game
 				planner.
 			</div>
-			<div>thanks to wutheringwaves.gg for all the data</div>
+			<div>
+				thanks to wutheringwaves.gg and dim's wutheringdata for all the data
+			</div>
 			<br />
 			<div>about the design (updated at 24/08/01):</div>
 			<p>
