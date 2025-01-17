@@ -18,15 +18,24 @@ export const overworld_resource_ascension_material =
 export const credit = gameInventoryItemRawData.credit;
 
 export const categorizedInventoryItems = {
-	credit: credit,
-	boss_ascension_material: boss_ascension_material,
-	weekly_boss_skill_upgrade_material: weekly_boss_skill_upgrade_material,
-	resonator_exp_material: resonator_exp_material,
-	weapon_exp_material: weapon_exp_material,
-	enemy_drop_weapon_skill_material: enemy_drop_weapon_skill_material,
-	echo_development_material: echo_development_material,
-	forgery_weapon_skill_material: forgery_weapon_skill_material,
-	overworld_resource_ascension_material: overworld_resource_ascension_material,
+	credit_and_exp: {
+		label: 'Credit & EXP Material',
+		items: {
+			...credit,
+			...weapon_exp_material,
+			...resonator_exp_material,
+		},
+	},
+	boss_ascension_material: { items: boss_ascension_material },
+	weekly_boss_skill_upgrade_material: {
+		items: weekly_boss_skill_upgrade_material,
+	},
+	enemy_drop_weapon_skill_material: { items: enemy_drop_weapon_skill_material },
+	echo_development_material: { items: echo_development_material },
+	forgery_weapon_skill_material: { items: forgery_weapon_skill_material },
+	overworld_resource_ascension_material: {
+		items: overworld_resource_ascension_material,
+	},
 };
 
 export const allInventoryItems = {

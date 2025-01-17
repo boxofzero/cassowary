@@ -41,7 +41,11 @@
 			>
 				<!-- outer div of each item -->
 				<div class="gap-1 grid grid-cols-8 p-3">
-					<div v-for="(item, index) in materialTypeData" :key="index" class="">
+					<div
+						v-for="(item, index) in materialTypeData['items']"
+						:key="index"
+						class=""
+					>
 						<InventoryItemMaterialCard
 							:index="index"
 							:item="allMaterialsResponseData[index]"
@@ -114,6 +118,12 @@ const updateAllMaterial = () => {
 };
 
 const materialLabel = (text) => {
-	return useStartCase(text.replaceAll('_', ' '));
+	if (
+		gameInventoryItem.categorizedInventoryItems[text]['label'] === undefined
+	) {
+		return useStartCase(text.replaceAll('_', ' '));
+	}
+
+	return gameInventoryItem.categorizedInventoryItems[text]['label'];
 };
 </script>
