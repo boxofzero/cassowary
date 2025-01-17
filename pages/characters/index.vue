@@ -1,13 +1,22 @@
 <template>
-	<section class="mb-5 flex items-center justify-between">
-		<h1 class="text-4xl font-extrabold">Characters</h1>
+	<section class="flex justify-between items-center mb-5">
+		<h1 class="font-extrabold text-4xl">Characters</h1>
 	</section>
 	<section>
 		<div class="flex flex-wrap items-center gap-5">
 			<h2>CHARACTER NAME</h2>
-			<UInputMenu searchable searchable-placeholder="Select character" class="w-3/4" placeholder="Select character"
-				v-model="characterOption" :options="characterList()" option-attribute="title"
-				:search-attributes="['title', 'subtitle']" @change="getOrInitCharacterName($event)" size="xl">
+			<UInputMenu
+				searchable
+				searchable-placeholder="Select character"
+				class="w-3/4"
+				placeholder="Select character"
+				v-model="characterOption"
+				:options="characterList()"
+				option-attribute="title"
+				:search-attributes="['title', 'subtitle']"
+				@change="getOrInitCharacterName($event)"
+				size="xl"
+			>
 				<template #leading>
 					<UAvatar v-bind="characterOption.avatar" size="2xs" />
 				</template>
@@ -16,46 +25,86 @@
 		<section v-show="isCharacterNameSet">
 			<UDivider label="LEVEL" />
 			<div class="">
-				<div class="grid grid-cols-4 items-center gap-5">
+				<div class="items-center gap-5 grid grid-cols-4">
 					<span>Current Level</span>
-					<USelect :options="levelItems" option-attribute="label" value-attribue="value"
-						v-model="character['char_current_level']" :model-value="character['char_current_level'] || 1"
-						@change="upsertPlannedCharacter()" />
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="character['char_current_level']"
+						:model-value="character['char_current_level'] || 1"
+						@change="upsertPlannedCharacter()"
+					/>
 					<span>Target Level</span>
-					<USelect :options="levelItems" option-attribute="label" value-attribue="value"
-						v-model="character['char_target_level']" :model-value="character['char_target_level'] || 1"
-						@change="upsertPlannedCharacter()" />
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="character['char_target_level']"
+						:model-value="character['char_target_level'] || 1"
+						@change="upsertPlannedCharacter()"
+					/>
 				</div>
 			</div>
 
 			<UDivider label="SKILLS" />
 			<div class="flex flex-row gap-2">
-				<div class="basis-3/5 border-r border-solid border-gray-800 p-1">
+				<div class="border-gray-800 p-1 border-r border-solid basis-3/5">
 					<h2>ACTIVE SKILLS</h2>
 					<div v-for="(item, index) in activeSkills" :key="index">
-						<div class="grid auto-cols-max grid-flow-col grid-cols-5 gap-2">
+						<div class="gap-2 grid grid-cols-5 grid-flow-col auto-cols-max">
 							<span class="col-span-2">{{ item.label }}:</span>
 							<label>Current Level</label>
-							<UInput type="number" :min="1" :max="10" v-model="character[item.model_value + '_current_level']"
-								:model-value="character[item.model_value + '_current_level'] || 1
-									" @change="upsertPlannedCharacter()" />
+							<UInput
+								type="number"
+								:min="1"
+								:max="10"
+								v-model="character[item.model_value + '_current_level']"
+								:model-value="
+									character[item.model_value + '_current_level'] || 1
+								"
+								@change="upsertPlannedCharacter()"
+							/>
 							<label>Target Level</label>
-							<UInput type="number" :min="1" :max="10" v-model="character[item.model_value + '_target_level']"
-								:model-value="character[item.model_value + '_target_level'] || 1
-									" @change="upsertPlannedCharacter()" />
+							<UInput
+								type="number"
+								:min="1"
+								:max="10"
+								v-model="character[item.model_value + '_target_level']"
+								:model-value="
+									character[item.model_value + '_target_level'] || 1
+								"
+								@change="upsertPlannedCharacter()"
+							/>
 							<!-- </div> -->
 						</div>
 					</div>
 				</div>
-				<div class="basis-2/5 p-1">
+				<div class="p-1 basis-2/5">
 					<h2>PASSIVE SKILLS</h2>
-					<div class="flex flex-row gap-2 justify-between items-center">
-						<div v-for="(item, index) in passiveSkills" :key="index" class="w-full">
-							<div class="" v-for="passiveSkill of item.data" :key="passiveSkill.model_value">
-								<div class="grid auto-cols-max grid-flow-col grid-cols-2 gap-2 items-center">
-									<label class="col-span-2">{{ item.label }} {{ passiveSkill.label }}</label>
-									<UToggle color="primary" v-model="character[passiveSkill.model_value]"
-										:model-value="character[passiveSkill.model_value]" @change="upsertPlannedCharacter()" />
+					<div class="flex flex-row justify-between items-center gap-2">
+						<div
+							v-for="(item, index) in passiveSkills"
+							:key="index"
+							class="w-full"
+						>
+							<div
+								class=""
+								v-for="passiveSkill of item.data"
+								:key="passiveSkill.model_value"
+							>
+								<div
+									class="items-center gap-2 grid grid-cols-2 grid-flow-col auto-cols-max"
+								>
+									<label class="col-span-2"
+										>{{ item.label }} {{ passiveSkill.label }}</label
+									>
+									<UToggle
+										color="primary"
+										v-model="character[passiveSkill.model_value]"
+										:model-value="character[passiveSkill.model_value]"
+										@change="upsertPlannedCharacter()"
+									/>
 								</div>
 							</div>
 						</div>
@@ -65,7 +114,13 @@
 
 			<UDivider label="MATERIAL NEEDED" />
 			<section class="p-3">
-				<UButton class="mr-3" color="primary" variant="solid" @click="setDone" :disabled="!isMaterialsExist">
+				<UButton
+					class="mr-3"
+					color="primary"
+					variant="solid"
+					@click="setDone"
+					:disabled="!isMaterialsExist"
+				>
 					Done
 				</UButton>
 				<span class="inline-block align-middle">
@@ -74,9 +129,14 @@
 				</span>
 			</section>
 			<section>
-				<div class="grid grid-cols-6 gap-6">
+				<div class="flex flex-wrap gap-x-2">
 					<div class="" v-for="(item, index) in materials" :key="item.key">
-						<InventoryItemMaterialCard :index="index" :item="item" :key="item.key" @update-material-count="doEmit">
+						<InventoryItemMaterialCard
+							:index="index"
+							:item="item"
+							:key="item.key"
+							@update-material-count="doEmit"
+						>
 						</InventoryItemMaterialCard>
 					</div>
 				</div>
@@ -86,22 +146,22 @@
 </template>
 
 <script setup>
-import { characters } from "~/data/game/gameCharacter";
-import * as dbPlannedCharacter from "~/data/database/dbPlannedCharacter";
+import { characters } from '~/data/game/gameCharacter';
+import * as dbPlannedCharacter from '~/data/database/dbPlannedCharacter';
 import {
 	levelItems,
 	activeSkills,
 	passiveSkills,
-} from "~/data/form/characters/formCharactersNew";
-import { usePlannedCharacterStore } from "@/stores/plannedCharacterStore";
-import * as characterService from "@/services/characterService";
-import * as inventoryService from "@/services/inventoryService";
-import * as plannerService from "@/services/plannerService";
+} from '~/data/form/characters/formCharactersNew';
+import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
+import * as characterService from '@/services/characterService';
+import * as inventoryService from '@/services/inventoryService';
+import * as plannerService from '@/services/plannerService';
 
 const characterList = () => {
 	let list = [];
 	useForEach(characters, (character, characterName) => {
-		const subtitle = character.rarity + "⭐";
+		const subtitle = character.rarity + '⭐';
 		list = useConcat(list, {
 			id: characterName,
 			label: character.display_name,
@@ -111,11 +171,11 @@ const characterList = () => {
 			subtitle: subtitle,
 		});
 	});
-	list = useOrderBy(list, ["title"], ["asc"]);
+	list = useOrderBy(list, ['title'], ['asc']);
 	return list;
 };
 
-const characterName = ref("");
+const characterName = ref('');
 const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
@@ -128,17 +188,17 @@ const isMaterialsExist = computed(() => {
 });
 
 const doEmit = (a) => {
-	console.log("emit received: " + a);
+	console.log('emit received: ' + a);
 	getOrInitPlannedCharacter(characterName.value);
 };
 
 const getOrInitCharacterName = async (characterOption) => {
-	await navigateTo({ hash: '#' + characterOption.value })
+	await navigateTo({ hash: '#' + characterOption.value });
 };
 
 const getOrInitPlannedCharacter = (characterName) => {
 	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
-	character.value["name"] = characterName;
+	character.value['name'] = characterName;
 
 	materials.value = getNeededMaterials(characterName);
 };
@@ -151,8 +211,8 @@ const upsertPlannedCharacter = () => {
 			return;
 		}
 		usePlannedCharacterStore().upsert(
-			character.value["name"],
-			useOmit(character.value, "name")
+			character.value['name'],
+			useOmit(character.value, 'name')
 		);
 	}, 100)().then(() => {
 		if (!characterName.value) {
@@ -160,10 +220,10 @@ const upsertPlannedCharacter = () => {
 		}
 		toast.add({
 			title:
-				"Character " +
+				'Character ' +
 				characters[characterName.value].display_name +
-				" updated to LocalStorage",
-			icon: "i-heroicons-check-badge",
+				' updated to LocalStorage',
+			icon: 'i-heroicons-check-badge',
 			timeout: 2000,
 		});
 		materials.value = getNeededMaterials(characterName.value);
@@ -204,16 +264,19 @@ onBeforeMount(() => {
 	}
 });
 
-watch(() => route.hash, () => {
-	let urlHash = route.hash.slice(1);
+watch(
+	() => route.hash,
+	() => {
+		let urlHash = route.hash.slice(1);
 
-	if (urlHash !== undefined && useHas(characters, urlHash)) {
-		characterOption = useFind(characterList(), ['value', urlHash]);
-		characterName.value = urlHash;
-		getOrInitPlannedCharacter(characterName.value);
-	} else {
-		characterOption = {};
-		characterName.value = '';
+		if (urlHash !== undefined && useHas(characters, urlHash)) {
+			characterOption = useFind(characterList(), ['value', urlHash]);
+			characterName.value = urlHash;
+			getOrInitPlannedCharacter(characterName.value);
+		} else {
+			characterOption = {};
+			characterName.value = '';
+		}
 	}
-})
+);
 </script>

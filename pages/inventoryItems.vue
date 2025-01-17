@@ -40,7 +40,7 @@
 				#[`${materialType}`]
 			>
 				<!-- outer div of each item -->
-				<div class="gap-1 grid grid-cols-8 p-3">
+				<div class="flex flex-wrap gap-x-2">
 					<div
 						v-for="(item, index) in materialTypeData['items']"
 						:key="index"
@@ -65,6 +65,7 @@
 </template>
 
 <script setup>
+import { useAccordionStore } from '@/stores/accordionStore';
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as inventoryService from '@/services/inventoryService';
 import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';

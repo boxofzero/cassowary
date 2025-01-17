@@ -1,35 +1,79 @@
 <template>
-	<section class="flex items-center justify-between mb-5">
-		<h1 class="text-4xl font-extrabold">Weapons</h1>
+	<section class="flex justify-between items-center mb-5">
+		<h1 class="font-extrabold text-4xl">Weapons</h1>
 	</section>
 	<section>
-		<div class="flex flex-wrap gap-5 items-center">
+		<div class="flex flex-wrap items-center gap-5">
 			<h2>WEAPON NAME</h2>
-			<UInputMenu searchable searchable-placeholder="Select weapon" class="w-3/4" placeholder="Select weapon"
-				v-model="weaponOption" :options="weaponList()" option-attribute="title"
-				:search-attributes="['title', 'subtitle']" @change="getOrInitWeaponName($event)" size="xl">
-				<template #leading>
-					<UAvatar v-bind="weaponOption.avatar" size="2xs" />
+			<UInputMenu
+				searchable
+				searchable-placeholder="Select weapon"
+				class="w-3/4"
+				placeholder="Select weapon"
+				v-model="weaponOption"
+				:options="weaponList()"
+				option-attribute="title"
+				:search-attributes="['title', 'subtitle']"
+				@change="getOrInitWeaponName($event)"
+				size="xl"
+			>
+				<!-- <template #leading>
+					<UAvatar v-bind="weaponOption.avatar" size="md" class="mr-2" />
+				</template> -->
+				<template #option="{ option: weapon }">
+					<UAvatar v-bind="weapon.avatar" size="md" class="mr-2" />
+					<span>{{ active }}</span>
+					<span
+						v-if="weapon.rarity == 3"
+						class="text-blue-600 dark:text-blue-300"
+						>{{ weapon.title }}</span
+					>
+					<span
+						v-if="weapon.rarity == 4"
+						class="text-purple-600 dark:text-purple-300"
+						>{{ weapon.title }}</span
+					>
+					<span
+						v-if="weapon.rarity == 5"
+						class="text-yellow-600 dark:text-yellow-300"
+						>{{ weapon.title }}</span
+					>
 				</template>
 			</UInputMenu>
 		</div>
 		<section v-show="isWeaponNameSet">
 			<UDivider label="LEVEL" />
 			<div class="">
-				<div class="grid grid-cols-4 gap-5 items-center">
+				<div class="items-center gap-5 grid grid-cols-4">
 					<span>Current Level</span>
-					<USelect :options="levelItems" option-attribute="label" value-attribue="value"
-						v-model="weapon['weap_current_level']" :model-value="weapon['weap_current_level'] || 1"
-						@change="upsertPlannedWeapon()" />
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="weapon['weap_current_level']"
+						:model-value="weapon['weap_current_level'] || 1"
+						@change="upsertPlannedWeapon()"
+					/>
 					<span>Target Level</span>
-					<USelect :options="levelItems" option-attribute="label" value-attribue="value"
-						v-model="weapon['weap_target_level']" :model-value="weapon['weap_target_level'] || 1"
-						@change="upsertPlannedWeapon()" />
+					<USelect
+						:options="levelItems"
+						option-attribute="label"
+						value-attribue="value"
+						v-model="weapon['weap_target_level']"
+						:model-value="weapon['weap_target_level'] || 1"
+						@change="upsertPlannedWeapon()"
+					/>
 				</div>
 			</div>
 			<UDivider label="MATERIAL NEEDED" />
 			<section class="p-3">
-				<UButton class="mr-3" color="primary" variant="solid" @click="setDone" :disabled="!isMaterialsExist">
+				<UButton
+					class="mr-3"
+					color="primary"
+					variant="solid"
+					@click="setDone"
+					:disabled="!isMaterialsExist"
+				>
 					Done
 				</UButton>
 				<span class="inline-block align-middle">
@@ -38,9 +82,14 @@
 				</span>
 			</section>
 			<section>
-				<div class="grid grid-cols-6 gap-6">
+				<div class="gap-6 grid grid-cols-6">
 					<div class="" v-for="(item, index) in materials" :key="item.key">
-						<InventoryItemMaterialCard :index="index" :item="item" :key="item.key" @update-material-count="doEmit">
+						<InventoryItemMaterialCard
+							:index="index"
+							:item="item"
+							:key="item.key"
+							@update-material-count="doEmit"
+						>
 						</InventoryItemMaterialCard>
 					</div>
 				</div>
@@ -61,18 +110,19 @@ import * as plannerService from '@/services/plannerService';
 const weaponList = () => {
 	let list = [];
 	useForEach(weapons, (weapon, weaponName) => {
-		const subtitle = weapon.rarity + '⭐ ' + weapon.weapon_type;
+		const subtitle =
+			' (' + weapon.rarity + '⭐ ' + useCapitalize(weapon.weapon_type) + ')';
 		list = useConcat(list, {
 			id: weaponName,
 			label: weapon.display_name,
 			avatar: { src: weapon.icon },
-			title: weapon.display_name,
+			title: weapon.display_name + ' ' + subtitle,
 			value: weaponName,
-			subtitle: subtitle,
 			type: weapon.weapon_type,
+			rarity: weapon.rarity,
 		});
 	});
-	list = useOrderBy(list, ['type', 'subtitle', 'title'], ['asc', 'asc', 'asc']);
+	list = useOrderBy(list, ['type', 'rarity', 'label'], ['asc', 'asc', 'asc']);
 	return list;
 };
 
@@ -102,7 +152,7 @@ const doEmit = (a) => {
 };
 
 const getOrInitWeaponName = async (weaponOption) => {
-	await navigateTo({ hash: '#' + weaponOption.value })
+	await navigateTo({ hash: '#' + weaponOption.value });
 };
 
 const getOrInitPlannedWeapon = (weaponName) => {
@@ -173,16 +223,19 @@ onBeforeMount(() => {
 	}
 });
 
-watch(() => route.hash, () => {
-	let urlHash = route.hash.slice(1);
+watch(
+	() => route.hash,
+	() => {
+		let urlHash = route.hash.slice(1);
 
-	if (urlHash !== undefined && useHas(weapons, urlHash)) {
-		weaponOption = useFind(weaponList(), ['value', urlHash]);
-		weaponName.value = urlHash;
-		getOrInitPlannedWeapon(weaponName.value);
-	} else {
-		weaponOption = {};
-		weaponName.value = '';
+		if (urlHash !== undefined && useHas(weapons, urlHash)) {
+			weaponOption = useFind(weaponList(), ['value', urlHash]);
+			weaponName.value = urlHash;
+			getOrInitPlannedWeapon(weaponName.value);
+		} else {
+			weaponOption = {};
+			weaponName.value = '';
+		}
 	}
-})
+);
 </script>
