@@ -40,8 +40,12 @@
 				#[`${materialType}`]
 			>
 				<!-- outer div of each item -->
-				<div class="gap-1 grid grid-cols-8 p-3">
-					<div v-for="(item, index) in materialTypeData" :key="index" class="">
+				<div class="flex flex-wrap gap-x-2">
+					<div
+						v-for="(item, index) in materialTypeData['items']"
+						:key="index"
+						class=""
+					>
 						<InventoryItemMaterialCard
 							:index="index"
 							:item="allMaterialsResponseData[index]"
@@ -61,6 +65,7 @@
 </template>
 
 <script setup>
+import { useAccordionStore } from '@/stores/accordionStore';
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as inventoryService from '@/services/inventoryService';
 import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
@@ -114,6 +119,12 @@ const updateAllMaterial = () => {
 };
 
 const materialLabel = (text) => {
-	return useStartCase(text.replaceAll('_', ' '));
+	if (
+		gameInventoryItem.categorizedInventoryItems[text]['label'] === undefined
+	) {
+		return useStartCase(text.replaceAll('_', ' '));
+	}
+
+	return gameInventoryItem.categorizedInventoryItems[text]['label'];
 };
 </script>

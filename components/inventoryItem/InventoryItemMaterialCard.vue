@@ -27,7 +27,7 @@
 			</div>
 			<div class="relative">
 				<img
-					class="border-gray-800 border-b size-24"
+					class="border-gray-800 border-b object-cover"
 					:src="(item && item.icon) || ''"
 				/>
 				<!-- Overlay for missing and syntesizable -->
