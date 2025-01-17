@@ -18,6 +18,11 @@
 				thanks to wutheringwaves.gg and dim's wutheringdata for all the data
 			</div>
 			<br />
+			<div>
+				This site does not affiliate with KURO GAMES. Wuthering Waves game and
+				its assets belong to KURO GAMES.
+			</div>
+			<br />
 			<div>about the design (updated at 24/08/01):</div>
 			<p>
 				originally i want to make this as close as seelie.me , but then I wanted
