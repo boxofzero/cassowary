@@ -154,6 +154,10 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 		// this loop is for syntesized materials that is highest tier that NEEDED
 		// loop back from highest to lowest
 		// to recalibrate synthesized value
+
+		// var to keep track of the highest tier material that NEEDED
+		let highestTierNeededRecheckedMaterial = undefined;
+
 		let recheckedMaterial = materialType;
 		while (recheckedMaterial !== undefined) {
 			// iterator
@@ -169,9 +173,12 @@ export const getOwnedNeededMaterialsResponseData = (neededMaterials) => {
 
 			// if this is the highest tier material that NEEDED
 			if (
-				responseDataSorted[upperTierRecheckedMaterial] === undefined ||
-				responseDataSorted[upperTierRecheckedMaterial].needed <= 0
+				highestTierNeededRecheckedMaterial === undefined &&
+				(responseDataSorted[upperTierRecheckedMaterial] === undefined ||
+					responseDataSorted[upperTierRecheckedMaterial].needed <= 0)
 			) {
+				// store to var so that it wont be overriden for 2nd tier
+				highestTierNeededRecheckedMaterial = recheckedMaterial;
 				// only syntesize what's needed
 				responseDataSorted[recheckedMaterial].synthesized = Math.min(
 					responseDataSorted[recheckedMaterial].synthesized,
