@@ -11,16 +11,21 @@
   },
   "dependencies": {
     "@nuxt/ui": "^2.21.0",
-    "@pinia/nuxt": "^0.5.5",
+    "@pinia/nuxt": "^0.10.1",
     "nuxt": "^3.15.4",
-    "pinia": "^2.3.1",
+    "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "packageManager": "pnpm@9.1.4",
   "devDependencies": {
-    "@vueuse/core": "^10.11.1",
-    "@vueuse/nuxt": "^10.11.1",
-    "nuxt-lodash": "^2.5.3"
+    "@nuxt/test-utils": "^3.15.4",
+    "@vue/test-utils": "^2.4.6",
+    "@vueuse/core": "^12.7.0",
+    "@vueuse/nuxt": "^12.7.0",
+    "happy-dom": "^17.1.0",
+    "nuxt-lodash": "^2.5.3",
+    "playwright-core": "^1.50.1",
+    "vitest": "^3.0.5"
   }
 }

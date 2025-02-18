@@ -10,6 +10,7 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'nuxt-lodash',
 		'@nuxtjs/color-mode',
+		'@nuxt/test-utils/module',
 	],
 	compatibilityDate: '2024-07-13',
 	ssr: false,
