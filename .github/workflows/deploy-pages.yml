@@ -21,7 +21,7 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
@@ -30,21 +30,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Corepack Enable
         run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
+
       - name: PNPM Install
         run: pnpm install
+
       - name: Static HTML export with Nuxt
         # run: ${{ steps.detect-package-manager.outputs.manager }} run generate
         run: NUXT_APP_BASE_URL=/cassowary/ pnpx nuxt build --preset github_pages
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -56,8 +62,8 @@ jobs:
     needs: build
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
     # Deploy to the github_pages environment
     environment:
       name: github_pages
