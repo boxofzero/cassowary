@@ -1,88 +1,94 @@
 import { MAX_STAMINA, getSecondsPerStamina } from '~/libraries/constants';
-import { useStaminaRepo } from '~/composables/useStaminaRepo';
+import { useStorage } from '@vueuse/core';
 
-const { staminaRepo } = useStaminaRepo();
+const staminaRepo = () => {
+	return useStorage('stamina', {
+		stamina: 0,
+		staminaUpdatedAt: Date.now(),
+	});
+};
 
 export const useStaminaStore = defineStore('stamina', () => {
 	const maxStamina = ref(MAX_STAMINA);
 	const secondsPerStamina = ref(getSecondsPerStamina());
 	const stamina = ref(0);
-	const staminaUpdatedAt = ref(0);
+	const staminaUpdatedAt = ref(Date.now());
 	const fullStaminaAt = ref(0);
 
 	function initStaminaData() {
-		this.stamina = staminaRepo().value.stamina;
-		this.staminaUpdatedAt = staminaRepo().value.staminaUpdatedAt;
-		this.updateFullStaminaAt();
+		stamina.value = staminaRepo().value.stamina;
+		staminaUpdatedAt.value = staminaRepo().value.staminaUpdatedAt;
+		updateFullStaminaAt();
 	}
 
 	function syncStaminaData() {
 		// absolute calculation of stamina
 		// calc additional stamina since staminaUpdatedAt
-		const diffTime = Date.now() - this.staminaUpdatedAt;
+		const diffTime = Date.now() - staminaUpdatedAt.value;
 		const additionalStamina = Math.floor(
-			diffTime / (this.secondsPerStamina * 1000)
+			diffTime / (secondsPerStamina.value * 1000)
 		);
-		const alreadyPassedTime = diffTime % (this.secondsPerStamina * 1000);
+		const alreadyPassedTime = diffTime % (secondsPerStamina.value * 1000);
 		if (additionalStamina <= 0) {
 			return;
 		}
 
-		if (this.stamina + additionalStamina > this.maxStamina) {
-			this.stamina = this.maxStamina;
+		if (stamina.value + additionalStamina > maxStamina.value) {
+			stamina.value = maxStamina.value;
 		} else {
-			this.stamina += additionalStamina;
+			stamina.value += additionalStamina;
 		}
-		this.staminaUpdatedAt =
-			this.staminaUpdatedAt +
+		staminaUpdatedAt.value =
+			staminaUpdatedAt.value +
 			alreadyPassedTime +
-			additionalStamina * this.secondsPerStamina * 1000;
+			additionalStamina * secondsPerStamina.value * 1000;
 
 		// update fullStaminaAt
-		this.updateFullStaminaAt();
+		updateFullStaminaAt();
 
 		// update into staminaRepo
 		// this is a bit direct usage of API
 		// but i don't want to over engineer
 		// should be more agnostic similar to interface but nah
 		staminaRepo().value = {
-			stamina: this.stamina,
-			staminaUpdatedAt: this.staminaUpdatedAt,
+			stamina: stamina.value,
+			staminaUpdatedAt: staminaUpdatedAt.value,
 		};
 	}
+
 	function updateFullStaminaAt() {
-		const diffStamina = this.maxStamina - this.stamina;
-		this.fullStaminaAt =
-			Date.now() + diffStamina * this.secondsPerStamina * 1000;
+		const diffStamina = maxStamina.value - stamina.value;
+		fullStaminaAt.value =
+			Date.now() + diffStamina * secondsPerStamina.value * 1000;
 	}
 
 	function updateStaminaOverflow(additionalStamina) {
-		this.updateStamina(additionalStamina, true);
+		updateStamina(additionalStamina, true);
 	}
 
 	function updateStamina(additionalStamina, allowOverflow = false) {
 		// validation
 		if (!allowOverflow) {
-			if (this.stamina >= this.maxStamina) return;
+			if (stamina.value >= maxStamina.value) return;
 		}
 
 		// update stamina and staminaUpdatedAt
-		this.stamina += additionalStamina;
+		stamina.value += additionalStamina;
 		const updatedAt = Date.now();
 		const alreadyRecoveringTime =
-			(updatedAt - this.staminaUpdatedAt) % (this.secondsPerStamina * 1000);
-		this.staminaUpdatedAt = updatedAt - alreadyRecoveringTime;
+			(updatedAt - staminaUpdatedAt.value) % (secondsPerStamina.value * 1000);
+		staminaUpdatedAt.value = updatedAt - alreadyRecoveringTime;
 
 		// update fullStaminaAt
-		this.updateFullStaminaAt();
+		updateFullStaminaAt();
 
 		// update into staminaRepo
 		// this is a bit direct usage of API
 		// but i don't want to over engineer
 		// should be more agnostic similar to interface but nah
 		staminaRepo().value = {
-			stamina: this.stamina,
-			staminaUpdatedAt: this.staminaUpdatedAt,
+			stamina: stamina.value,
+			staminaUpdatedAt: staminaUpdatedAt.value,
 		};
 	}
 
