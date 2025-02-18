@@ -29,5 +29,8 @@ jobs:
       - name: PNPM Install
         run: pnpm install
 
+      - name: Install Playwright
+        run: pnpx playwright install-deps
+
       - name: Run tests
         run: pnpm vitest
