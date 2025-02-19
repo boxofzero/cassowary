@@ -12,10 +12,10 @@ export const useNoteStore = defineStore('notes', () => {
 		notes.value = notesRepo().value;
 	}
 
-	const storeToStorage = () => {
+	function storeToStorage() {
 		console.log('storing notes to localStorage');
 		notesRepo().value = notes.value;
-	};
+	}
 
 	function getOrInitEntry(id) {
 		if (id && Object.prototype.hasOwnProperty.call(notes.value, id)) {
