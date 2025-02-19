@@ -18,7 +18,25 @@
 				size="xl"
 			>
 				<template #leading>
-					<UAvatar v-bind="characterOption.avatar" size="2xs" />
+					<UAvatar v-bind="characterOption.avatar" size="xs" class="" />
+				</template>
+				<template #option="{ option: character }">
+					<UAvatar v-bind="character.avatar" size="md" class="mr-2" />
+					<span
+						v-if="character.rarity == 3"
+						class="text-blue-600 dark:text-blue-300"
+						>{{ character.title }}</span
+					>
+					<span
+						v-if="character.rarity == 4"
+						class="text-purple-600 dark:text-purple-300"
+						>{{ character.title }}</span
+					>
+					<span
+						v-if="character.rarity == 5"
+						class="text-yellow-600 dark:text-yellow-300"
+						>{{ character.title }}</span
+					>
 				</template>
 			</UInputMenu>
 		</div>
@@ -49,7 +67,7 @@
 
 			<UDivider label="SKILLS" />
 			<div class="flex flex-row gap-2">
-				<div class="border-gray-800 p-1 border-r border-solid basis-3/5">
+				<div class="p-1 border-gray-800 border-r border-solid basis-3/5">
 					<h2>ACTIVE SKILLS</h2>
 					<div v-for="(item, index) in activeSkills" :key="index">
 						<div class="gap-2 grid grid-cols-5 grid-flow-col auto-cols-max">
@@ -161,17 +179,19 @@ import * as plannerService from '@/services/plannerService';
 const characterList = () => {
 	let list = [];
 	useForEach(characters, (character, characterName) => {
-		const subtitle = character.rarity + '⭐';
+		let subtitle =
+			' (' + character.rarity + '⭐ ' + useCapitalize(character.weapon) + ')';
 		list = useConcat(list, {
 			id: characterName,
 			label: character.display_name,
 			avatar: { src: character.icon },
-			title: character.display_name,
+			title: character.display_name + ' ' + subtitle,
 			value: characterName,
-			subtitle: subtitle,
+			type: character.weapon,
+			rarity: character.rarity,
 		});
 	});
-	list = useOrderBy(list, ['title'], ['asc']);
+	list = useOrderBy(list, ['type', 'rarity', 'label'], ['asc', 'asc', 'asc']);
 	return list;
 };
 

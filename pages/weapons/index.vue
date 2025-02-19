@@ -17,12 +17,11 @@
 				@change="getOrInitWeaponName($event)"
 				size="xl"
 			>
-				<!-- <template #leading>
-					<UAvatar v-bind="weaponOption.avatar" size="md" class="mr-2" />
-				</template> -->
+				<template #leading>
+					<UAvatar v-bind="weaponOption.avatar" size="xs" class="m" />
+				</template>
 				<template #option="{ option: weapon }">
 					<UAvatar v-bind="weapon.avatar" size="md" class="mr-2" />
-					<span>{{ active }}</span>
 					<span
 						v-if="weapon.rarity == 3"
 						class="text-blue-600 dark:text-blue-300"
@@ -110,7 +109,7 @@ import * as plannerService from '@/services/plannerService';
 const weaponList = () => {
 	let list = [];
 	useForEach(weapons, (weapon, weaponName) => {
-		const subtitle =
+		let subtitle =
 			' (' + weapon.rarity + '⭐ ' + useCapitalize(weapon.weapon_type) + ')';
 		list = useConcat(list, {
 			id: weaponName,
