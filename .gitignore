@@ -24,3 +24,5 @@ logs
 !.env.example
 
 *.code-workspace
+
+coverage/
