@@ -21,7 +21,7 @@
 	>
 		<div class="flex flex-col items-center">
 			<div class="flex justify-center p-1 h-12 align-middle">
-				<span class="text-center text-xs place-self-center">
+				<span class="place-self-center text-xs text-center">
 					{{ (item && item.label) || '' }}
 				</span>
 			</div>
@@ -124,7 +124,7 @@ const updateMaterialCount = (index, count) => {
 		toast.add({
 			title: 'Inventory Item ' + props.item.label + ' updated to LocalStorage',
 			icon: 'i-heroicons-check-badge',
-			timeout: 2000,
+			duration: 2000,
 		});
 		$emit('updateMaterialCount', true);
 	});

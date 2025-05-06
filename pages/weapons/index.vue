@@ -10,8 +10,8 @@
 				searchable-placeholder="Select weapon"
 				class="w-3/4"
 				placeholder="Select weapon"
-				v-model="weaponOption"
-				:options="weaponList()"
+				v-model:open="weaponOption"
+				:items="weaponList()"
 				option-attribute="title"
 				:search-attributes="['title', 'subtitle']"
 				@change="getOrInitWeaponName($event)"
@@ -41,30 +41,30 @@
 			</UInputMenu>
 		</div>
 		<section v-show="isWeaponNameSet">
-			<UDivider label="LEVEL" />
+			<USeparator label="LEVEL" />
 			<div class="">
 				<div class="items-center gap-5 grid grid-cols-4">
 					<span>Current Level</span>
 					<USelect
-						:options="levelItems"
+						:items="levelItems"
 						option-attribute="label"
 						value-attribue="value"
-						v-model="weapon['weap_current_level']"
+						v-model:open="weapon['weap_current_level']"
 						:model-value="weapon['weap_current_level'] || 1"
 						@change="upsertPlannedWeapon()"
 					/>
 					<span>Target Level</span>
 					<USelect
-						:options="levelItems"
+						:items="levelItems"
 						option-attribute="label"
 						value-attribue="value"
-						v-model="weapon['weap_target_level']"
+						v-model:open="weapon['weap_target_level']"
 						:model-value="weapon['weap_target_level'] || 1"
 						@change="upsertPlannedWeapon()"
 					/>
 				</div>
 			</div>
-			<UDivider label="MATERIAL NEEDED" />
+			<USeparator label="MATERIAL NEEDED" />
 			<section class="p-3">
 				<UButton
 					class="mr-3"
@@ -183,7 +183,7 @@ const upsertPlannedWeapon = () => {
 				weapons[weaponName.value].display_name +
 				' updated to LocalStorage',
 			icon: 'i-heroicons-check-badge',
-			timeout: 2000,
+			duration: 2000,
 		});
 		materials.value = getNeededMaterials(weaponName.value);
 	});

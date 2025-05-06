@@ -10,8 +10,8 @@
 				searchable-placeholder="Select character"
 				class="w-3/4"
 				placeholder="Select character"
-				v-model="characterOption"
-				:options="characterList()"
+				v-model:open="characterOption"
+				:items="characterList()"
 				option-attribute="title"
 				:search-attributes="['title', 'subtitle']"
 				@change="getOrInitCharacterName($event)"
@@ -41,31 +41,31 @@
 			</UInputMenu>
 		</div>
 		<section v-show="isCharacterNameSet">
-			<UDivider label="LEVEL" />
+			<USeparator label="LEVEL" />
 			<div class="">
 				<div class="items-center gap-5 grid grid-cols-4">
 					<span>Current Level</span>
 					<USelect
-						:options="levelItems"
+						:items="levelItems"
 						option-attribute="label"
 						value-attribue="value"
-						v-model="character['char_current_level']"
+						v-model:open="character['char_current_level']"
 						:model-value="character['char_current_level'] || 1"
 						@change="upsertPlannedCharacter()"
 					/>
 					<span>Target Level</span>
 					<USelect
-						:options="levelItems"
+						:items="levelItems"
 						option-attribute="label"
 						value-attribue="value"
-						v-model="character['char_target_level']"
+						v-model:open="character['char_target_level']"
 						:model-value="character['char_target_level'] || 1"
 						@change="upsertPlannedCharacter()"
 					/>
 				</div>
 			</div>
 
-			<UDivider label="SKILLS" />
+			<USeparator label="SKILLS" />
 			<div class="flex flex-row gap-2">
 				<div class="p-1 border-gray-800 border-r border-solid basis-3/5">
 					<h2>ACTIVE SKILLS</h2>
@@ -117,7 +117,7 @@
 									<label class="col-span-2"
 										>{{ item.label }} {{ passiveSkill.label }}</label
 									>
-									<UToggle
+									<USwitch
 										color="primary"
 										v-model="character[passiveSkill.model_value]"
 										:model-value="character[passiveSkill.model_value]"
@@ -130,7 +130,7 @@
 				</div>
 			</div>
 
-			<UDivider label="MATERIAL NEEDED" />
+			<USeparator label="MATERIAL NEEDED" />
 			<section class="p-3">
 				<UButton
 					class="mr-3"
@@ -244,7 +244,7 @@ const upsertPlannedCharacter = () => {
 				characters[characterName.value].display_name +
 				' updated to LocalStorage',
 			icon: 'i-heroicons-check-badge',
-			timeout: 2000,
+			duration: 2000,
 		});
 		materials.value = getNeededMaterials(characterName.value);
 	});

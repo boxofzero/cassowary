@@ -57,7 +57,7 @@ const submitUploadData = () => {
 		toast.add({
 			title: 'No JSON data selected',
 			icon: 'i-heroicons-x-mark',
-			timeout: 2000,
+			duration: 2000,
 		});
 		return;
 	}
@@ -70,7 +70,7 @@ const submitUploadData = () => {
 	toast.add({
 		title: 'Data successfully restored: ' + result.join(', '),
 		icon: 'i-heroicons-check-badge',
-		timeout: 2000,
+		duration: 2000,
 	});
 };
 
