@@ -117,16 +117,22 @@ const ownedItemColor = computed(() => {
 });
 
 const toast = useToast();
+let toastId = null;
 const itemRef = ref(0);
 
 const updateMaterialCount = (index, count) => {
 	debouncedUpdateMaterialCount(index, count).then(() => {
-		toast.add({
-			title: 'Inventory Item ' + props.item.label + ' updated to LocalStorage',
-			icon: 'i-heroicons-check-badge',
-			timeout: 2000,
+		toast.remove('inventory-update');
+
+		nextTick(() => {
+			toastId = toast.add({
+				id: 'inventory-update',
+				title: 'Inventory Item ' + props.item.label + ' updated to LocalStorage',
+				icon: 'i-heroicons-check-badge',
+				timeout: 2000,
+			});
+			$emit('updateMaterialCount', true);
 		});
-		$emit('updateMaterialCount', true);
 	});
 };
 
