@@ -3,7 +3,7 @@
 		<UNavigationMenu
 			orientation="horizontal"
 			:items="links"
-			class="border-gray-800 border-b"
+			class="border-gray-800 border-b data-[orientation=vertical]:w-48"
 		/>
 	</header>
 </template>
@@ -33,7 +33,7 @@ watch(isDark, (newValue) => {
 });
 
 // link config
-const links = computed(() => [
+const links = ref([
 	[
 		{
 			label: 'Home',
