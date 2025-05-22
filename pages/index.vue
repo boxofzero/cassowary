@@ -1,116 +1,74 @@
 <template>
 	<UAccordion
-		@open="handleChange($event, true)"
-		@close="handleChange($event, false)"
+		:ref="templateRef"
+		type="multiple"
 		:items="accordionItems"
-		:ui="{ item: { color: '' } }"
-		multiple
+		v-model="accordionActives"
 	>
-		<template #default="{ item, index, open }">
-			<UButton
-				color="gray"
-				variant="ghost"
-				class="border-gray-700 mb-1 border-b"
-				:ui="{ rounded: 'rounded-none', padding: { sm: 'p-3 pl-0' } }"
-			>
-				<template #leading>
-					<!-- <div class="flex justify-center items-center bg-primary-500 dark:bg-primary-400 -my-1 rounded-full w-6 h-6">
-						<UIcon :name="item.icon" class="w-4 h-4 text-white dark:text-gray-900" />
-					</div> -->
-				</template>
-
-				<span class="font-extrabold text-4xl">{{ item.label }}</span>
-
-				<template #trailing>
-					<UIcon
-						name="i-heroicons-chevron-right-20-solid"
-						class="w-5 h-5 transform transition-transform duration-200 ms-auto"
-						:class="[open && 'rotate-90']"
-					/>
-				</template>
-			</UButton>
-		</template>
-
-		<template #welcome>
-			<!-- Stamina section -->
-			<Welcome />
-		</template>
-
-		<template #stamina>
-			<!-- Stamina section -->
-			<Stamina />
-		</template>
-
-		<template #notes>
-			<!-- Notes section -->
-			<Notes />
-		</template>
-
-		<template #planned_items>
-			<!-- Planned section -->
-			<PlannedItems />
-		</template>
-
-		<template #needed_materials>
-			<!-- Needed materials section -->
-			<AllNeededMaterials />
+		<template v-for="(value, key) in accordionTemplates" #[key]="{ item }">
+			<component :is="value.component" />
 		</template>
 	</UAccordion>
 </template>
 
 <script setup>
-import { useAccordionStore } from '@/stores/accordionStore';
+/*
+accordionTemplates
+set key and resolveComponent for each item for accordion
+this is only needed for this page, not every accordion
+case by case
 
-const accordionGroupKey = 'index_page';
+ in the future maybe move label to i18n
 
+IMPORTANT: resolveComponent needs to happen on vue files,
+ should not on composables
+*/
+let accordionTemplates = {
+	welcome: {
+		component: resolveComponent('HomeWelcome'),
+		label: 'Welcome To Cassowary!',
+	},
+	stamina: {
+		component: resolveComponent('Stamina'),
+		label: 'Stamina Tracker',
+	},
+	notes: {
+		component: resolveComponent('Notes'),
+		label: 'Notes',
+	},
+	planned_items: {
+		component: resolveComponent('PlannedItems'),
+		label: 'Planned Characters & Weapons',
+	},
+	needed_materials: {
+		component: resolveComponent('AllNeededMaterials'),
+		label: 'Needed Materials',
+	},
+};
+const accordionDefaultOrder = Object.keys(accordionTemplates);
+// init variables
+let accordionGroupKey = 'index_page';
+let templateRef = 'homeAccordion';
 let accordionItems = ref([]);
+let accordionActives = ref([]);
 
-onBeforeMount(() => {
-	useAccordionStore().init();
-	let accordionGroupData = useAccordionStore().getGroup(accordionGroupKey);
-
-	accordionItems.value = [
-		{
-			label: 'Welcome To Cassowary!',
-			icon: 'i-heroicons-information-circle',
-			defaultOpen: useGet(accordionGroupData, 'welcome.open', true),
-			slot: 'welcome',
-		},
-		{
-			label: 'Stamina Tracker',
-			icon: 'i-heroicons-information-circle',
-			defaultOpen: useGet(accordionGroupData, 'stamina.open', true),
-			slot: 'stamina',
-		},
-		{
-			label: 'Notes',
-			icon: 'i-heroicons-arrow-down-tray',
-			defaultOpen: useGet(accordionGroupData, 'notes.open', false),
-			slot: 'notes',
-		},
-		{
-			label: 'Planned Characters & Weapons',
-			icon: 'i-heroicons-arrow-down-tray',
-			defaultOpen: useGet(accordionGroupData, 'planned_items.open', true),
-			slot: 'planned_items',
-		},
-		{
-			label: 'Needed Materials',
-			icon: 'i-heroicons-arrow-down-tray',
-			defaultOpen: useGet(accordionGroupData, 'needed_materials.open', true),
-			slot: 'needed_materials',
-		},
-	];
+// init default values
+// accordionItems tell accordion what the content would be
+accordionDefaultOrder.forEach((item) => {
+	accordionItems.value.push({
+		label: accordionTemplates[item].label,
+		slot: item,
+		value: item,
+	});
 });
+// accordionActive tell accordion which items to open
+accordionActives.value = accordionDefaultOrder.slice(0, 2);
 
-function handleChange(index, status) {
-	let accordionItem = accordionItems.value[index];
-	let accordionDbData = {
-		group_key: accordionGroupKey,
-		index_key: accordionItem.slot,
-		index_position: parseInt(index),
-		open: status,
-	};
-	useAccordionStore().upsert(accordionDbData);
-}
+// composable
+({ accordionItems, accordionActives } = useAccordion(
+	templateRef,
+	accordionGroupKey,
+	accordionItems,
+	accordionActives
+));
 </script>

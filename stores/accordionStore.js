@@ -65,6 +65,22 @@ export const useAccordionStore = defineStore('accordions', () => {
 		storeToStorage();
 	}
 
+	function upsertWholeGroup(groupKey, accordionData) {
+		// check if the accordion data each has index_position and open
+		Object.entries(accordionData).forEach(([key, value], index) => {
+			if (
+				!Object.prototype.hasOwnProperty.call(value, 'index_position') ||
+				!Object.prototype.hasOwnProperty.call(value, 'open')
+			) {
+				console.warn(
+					'some accordions data is missing index_position or open data'
+				);
+			}
+		});
+		accordions.value[groupKey] = accordionData;
+		storeToStorage();
+	}
+
 	function restoreData(data) {
 		accordions.value = data;
 		storeToStorage();
@@ -77,5 +93,6 @@ export const useAccordionStore = defineStore('accordions', () => {
 		getGroup,
 		getIndex,
 		restoreData,
+		upsertWholeGroup,
 	};
 });
