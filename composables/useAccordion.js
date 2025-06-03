@@ -74,13 +74,6 @@ export function useAccordion(
 	watch(
 		[accordionItems, accordionActives],
 		([newAccordionItems, newAccordionActives]) => {
-			console.log(
-				'watcher accordionItems: ' + JSON.stringify(newAccordionItems)
-			);
-			console.log(
-				'watcher accordionActives: ' + JSON.stringify(newAccordionActives)
-			);
-
 			//prepare data for store
 			let accordionStoreData = {};
 			newAccordionItems.forEach((item, index) => {
@@ -94,12 +87,7 @@ export function useAccordion(
 				accordionGroupKey,
 				accordionStoreData
 			);
-			console.log('accordion ' + accordionGroupKey + ' stored');
 		}
-	);
-
-	console.log(
-		'useAccordion accordionItems: ' + JSON.stringify(accordionItems.value)
 	);
 
 	// return what sorted accordion should be with each open/active status

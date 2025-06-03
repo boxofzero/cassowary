@@ -47,7 +47,7 @@ let accordionTemplates = {
 };
 const accordionDefaultOrder = Object.keys(accordionTemplates);
 // init variables
-let accordionGroupKey = 'index_page';
+const accordionGroupKey = 'index_page';
 let templateRef = 'homeAccordion';
 let accordionItems = ref([]);
 let accordionActives = ref([]);
@@ -59,6 +59,9 @@ accordionDefaultOrder.forEach((item) => {
 		label: accordionTemplates[item].label,
 		slot: item,
 		value: item,
+		ui: {
+			label: 'font-extrabold text-4xl',
+		},
 	});
 });
 // accordionActive tell accordion which items to open

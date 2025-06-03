@@ -38,6 +38,10 @@ export const categorizedInventoryItems = {
 	},
 };
 
+var { echo_development_material: a, ...ommitedInventoryItems } =
+	categorizedInventoryItems;
+export const charWeaponOnlyCategorizedInventoryItems = ommitedInventoryItems;
+
 export const allInventoryItems = {
 	...credit,
 	...boss_ascension_material,

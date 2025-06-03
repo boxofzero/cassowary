@@ -1,56 +1,37 @@
 <template>
 	<section>
-		<div class="flex flex-wrap gap-2">
+		<div class="flex flex-wrap gap-2 px-4">
 			<UAccordion
-				multiple
+				:ref="templateRef"
+				type="multiple"
 				:items="accordionItems"
-				:ui="{ item: { color: '' } }"
-				@open="handleAccordionChange($event, true)"
-				@close="handleAccordionChange($event, false)"
+				v-model="accordionActives"
 			>
-				<template #default="{ item, index, open }">
-					<UButton
-						color="gray"
-						variant="ghost"
-						class="border-gray-200 dark:border-gray-700 border-b"
-						:ui="{ rounded: 'rounded-none', padding: { sm: 'p-3 pl-0 py-0' } }"
-					>
-						<template #leading></template>
-
-						<span class="my-1 text-lg indent-4">{{ item.label }}</span>
-
-						<template #trailing>
-							<UIcon
-								name="i-heroicons-chevron-right-20-solid"
-								class="w-5 h-5 transform transition-transform duration-200 ms-auto"
-								:class="[open && 'rotate-90']"
-							/>
-						</template>
-					</UButton>
-				</template>
-
 				<template
-					v-for="(materialTypeData, materialType) in useOmit(
-						gameInventoryItem.categorizedInventoryItems,
-						['echo_development_material']
-					)"
-					:key="materialType"
-					#[`${materialType}`]
+					v-for="(materialTypeData, materialType) in accordionTemplates()"
+					#[materialType]="{ item }"
 				>
+					<!-- <span>materialType {{ materialType }}</span
+					><br />
+					<span>materialTypeData {{ materialTypeData }}</span
+					><br />
+					<span>item.label {{ item.label }}</span
+					><br /> -->
+
 					<!-- outer div of each item -->
 					<div class="flex flex-wrap gap-x-2">
 						<div
-							v-for="item in filterNeededMaterials(
+							v-for="item2 in filterNeededMaterials(
 								materialTypeData['items'],
 								allMaterialsResponseData
 							)"
-							:key="item"
+							:key="item2"
 							class=""
 						>
 							<InventoryItemMaterialCard
-								:index="item"
-								:item="allMaterialsResponseData[item]"
-								:key="item"
+								:index="materialType"
+								:item="allMaterialsResponseData[item2]"
+								:key="materialType"
 								@update-material-count="doEmit"
 							></InventoryItemMaterialCard>
 						</div>
@@ -65,54 +46,6 @@
 import { useInventoryItemStore } from '@/stores/inventoryItemStore';
 import * as inventoryService from '@/services/inventoryService';
 import * as gameInventoryItem from '~/data/game/inventoryItem/gameInventoryItem';
-import { useAccordionStore } from '@/stores/accordionStore';
-
-const accordionGroupKey = 'all_needed_materials_index_page';
-
-let accordionItems = ref([]);
-let accordionGroupData = [];
-
-let allMaterialsResponseData = ref({});
-
-function filterNeededMaterials(listArray, neededArray) {
-	return useFilter(Object.keys(listArray), function (item) {
-		return neededArray[item];
-	});
-}
-
-onBeforeMount(() => {
-	useInventoryItemStore().init();
-	updateAllMaterial();
-
-	useAccordionStore().init();
-	accordionGroupData = useAccordionStore().getGroup(accordionGroupKey);
-
-	generateAccordionInventoryItems();
-});
-
-function handleAccordionChange(index, status) {
-	let accordionItem = accordionItems.value[index];
-	let accordionDbData = {
-		group_key: accordionGroupKey,
-		index_key: accordionItem.slot,
-		index_position: parseInt(index),
-		open: status,
-	};
-	useAccordionStore().upsert(accordionDbData);
-}
-
-const generateAccordionInventoryItems = () => {
-	for (let materialType in useOmit(
-		gameInventoryItem.categorizedInventoryItems,
-		['echo_development_material']
-	)) {
-		accordionItems.value.push({
-			label: materialLabel(materialType),
-			defaultOpen: useGet(accordionGroupData, materialType + '.open', false),
-			slot: materialType,
-		});
-	}
-};
 
 const materialLabel = (text) => {
 	if (
@@ -123,6 +56,74 @@ const materialLabel = (text) => {
 
 	return gameInventoryItem.categorizedInventoryItems[text]['label'];
 };
+
+let accordionGroupData = [];
+
+let allMaterialsResponseData = ref({});
+
+let accordionTemplates = () => {
+	let data = gameInventoryItem.charWeaponOnlyCategorizedInventoryItems;
+	let out = {};
+	for (let key in data) {
+		out[key] = {
+			label: key,
+			slot: key,
+			items: data[key]['items'],
+		};
+	}
+	return out;
+};
+
+const accordionDefaultOrder = Object.keys(accordionTemplates());
+// console.log('accordionDefaultOrder: ' + JSON.stringify(accordionDefaultOrder));
+
+const accordionGroupKey = 'all_needed_materials_index_page';
+let templateRef = 'allNeededMaterialsAccordion';
+let accordionItems = ref([]);
+let accordionActives = ref([]);
+
+accordionDefaultOrder.forEach((materialType) => {
+	accordionItems.value.push({
+		label: materialLabel(materialType),
+		slot: materialType,
+		value: materialType,
+	});
+});
+
+// console.log('accordionItems: ' + JSON.stringify(accordionItems.value));
+
+// composable
+({ accordionItems, accordionActives } = useAccordion(
+	templateRef,
+	accordionGroupKey,
+	accordionItems,
+	accordionActives
+));
+
+// console.log(
+// 	'after useAccordion AllNeededMaterials accordionItems: ' +
+// 		JSON.stringify(accordionItems.value)
+// );
+
+function filterNeededMaterials(listArray, neededArray) {
+	let out = useFilter(Object.keys(listArray), function (item) {
+		return neededArray[item];
+	});
+	return out;
+}
+
+watch(accordionActives, () => {
+	// console.log('accordionActives: ' + JSON.stringify(accordionActives.value));
+	// console.log(
+	// 	'filterNeededMaterials: ' + JSON.stringify(filterNeededMaterials)
+	// );
+	// console.log('accordionTemplates: ' + JSON.stringify(accordionTemplates()));
+});
+
+onBeforeMount(() => {
+	useInventoryItemStore().init();
+	updateAllMaterial();
+});
 
 const doEmit = (a) => {
 	console.log('emit received: ' + a);
