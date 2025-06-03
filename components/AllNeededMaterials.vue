@@ -11,13 +11,6 @@
 					v-for="(materialTypeData, materialType) in accordionTemplates()"
 					#[materialType]="{ item }"
 				>
-					<!-- <span>materialType {{ materialType }}</span
-					><br />
-					<span>materialTypeData {{ materialTypeData }}</span
-					><br />
-					<span>item.label {{ item.label }}</span
-					><br /> -->
-
 					<!-- outer div of each item -->
 					<div class="flex flex-wrap gap-x-2">
 						<div
@@ -57,8 +50,6 @@ const materialLabel = (text) => {
 	return gameInventoryItem.categorizedInventoryItems[text]['label'];
 };
 
-let accordionGroupData = [];
-
 let allMaterialsResponseData = ref({});
 
 let accordionTemplates = () => {
@@ -75,7 +66,6 @@ let accordionTemplates = () => {
 };
 
 const accordionDefaultOrder = Object.keys(accordionTemplates());
-// console.log('accordionDefaultOrder: ' + JSON.stringify(accordionDefaultOrder));
 
 const accordionGroupKey = 'all_needed_materials_index_page';
 let templateRef = 'allNeededMaterialsAccordion';
@@ -90,8 +80,6 @@ accordionDefaultOrder.forEach((materialType) => {
 	});
 });
 
-// console.log('accordionItems: ' + JSON.stringify(accordionItems.value));
-
 // composable
 ({ accordionItems, accordionActives } = useAccordion(
 	templateRef,
@@ -100,25 +88,12 @@ accordionDefaultOrder.forEach((materialType) => {
 	accordionActives
 ));
 
-// console.log(
-// 	'after useAccordion AllNeededMaterials accordionItems: ' +
-// 		JSON.stringify(accordionItems.value)
-// );
-
 function filterNeededMaterials(listArray, neededArray) {
 	let out = useFilter(Object.keys(listArray), function (item) {
 		return neededArray[item];
 	});
 	return out;
 }
-
-watch(accordionActives, () => {
-	// console.log('accordionActives: ' + JSON.stringify(accordionActives.value));
-	// console.log(
-	// 	'filterNeededMaterials: ' + JSON.stringify(filterNeededMaterials)
-	// );
-	// console.log('accordionTemplates: ' + JSON.stringify(accordionTemplates()));
-});
 
 onBeforeMount(() => {
 	useInventoryItemStore().init();
