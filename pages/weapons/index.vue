@@ -98,13 +98,13 @@
 </template>
 
 <script setup>
-import { weapons } from '~/data/game/gameWeapon';
 import * as dbPlannedWeapon from '@/data/database/dbPlannedWeapon';
 import { levelItems } from '@/data/form/weapons/formWeaponsNew';
-import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
-import * as weaponService from '@/services/weaponService';
 import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
+import * as weaponService from '@/services/weaponService';
+import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
+import { weapons } from '~/data/game/gameWeapon';
 
 const weaponList = () => {
 	let list = [];
@@ -162,6 +162,7 @@ const getOrInitPlannedWeapon = (weaponName) => {
 };
 
 const toast = useToast();
+let toastId = null;
 
 const upsertPlannedWeapon = () => {
 	useDebounceFn(() => {
@@ -177,15 +178,17 @@ const upsertPlannedWeapon = () => {
 		if (!weaponName.value) {
 			return;
 		}
-		toast.add({
-			title:
-				'Weapon ' +
-				weapons[weaponName.value].display_name +
-				' updated to LocalStorage',
-			icon: 'i-heroicons-check-badge',
-			timeout: 2000,
-		});
+		toast.remove('weapon-update');
+
+		nextTick(() => {
+			toastId = toast.add({
+				id:'weapon-update',
+				title:'Weapon ' + weapons[weaponName.value].display_name + ' updated to LocalStorage',
+				icon: 'i-heroicons-check-badge',
+				timeout: 2000,
+			});
 		materials.value = getNeededMaterials(weaponName.value);
+        });
 	});
 };
 

@@ -55,6 +55,7 @@ const toast = useToast();
 const submitUploadData = () => {
 	if (!uploadedJsonTextArea.value) {
 		toast.add({
+			id: 'missing-json',
 			title: 'No JSON data selected',
 			icon: 'i-heroicons-x-mark',
 			timeout: 2000,
@@ -68,6 +69,7 @@ const submitUploadData = () => {
 
 	uploadedJsonTextArea.value = null;
 	toast.add({
+		id: 'data-restore',
 		title: 'Data successfully restored: ' + result.join(', '),
 		icon: 'i-heroicons-check-badge',
 		timeout: 2000,
