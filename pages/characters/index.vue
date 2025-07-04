@@ -6,36 +6,29 @@
 		<div class="flex flex-wrap items-center gap-5">
 			<h2>CHARACTER NAME</h2>
 			<UInputMenu
-				searchable
-				searchable-placeholder="Select character"
-				class="w-3/4"
-				placeholder="Select character"
-				v-model:open="characterOption"
-				:items="characterList()"
-				option-attribute="title"
-				:search-attributes="['title', 'subtitle']"
-				@change="getOrInitCharacterName($event)"
+				v-model="characterName"
+				:avatar="characterName?.avatar"
+				:items="characterList"
+				:filter-fields="['title']"
 				size="xl"
+				class="w-3/4"
+				:ui="{ item: 'p-4' }"
 			>
-				<template #leading>
-					<UAvatar v-bind="characterOption.avatar" size="xs" class="" />
-				</template>
-				<template #option="{ option: character }">
-					<UAvatar v-bind="character.avatar" size="md" class="mr-2" />
+				<template #item-label="{ item }">
 					<span
-						v-if="character.rarity == 3"
+						v-if="item.rarity == 3"
 						class="text-blue-600 dark:text-blue-300"
-						>{{ character.title }}</span
+						>{{ item.title }}</span
 					>
 					<span
-						v-if="character.rarity == 4"
+						v-if="item.rarity == 4"
 						class="text-purple-600 dark:text-purple-300"
-						>{{ character.title }}</span
+						>{{ item.title }}</span
 					>
 					<span
-						v-if="character.rarity == 5"
+						v-if="item.rarity == 5"
 						class="text-yellow-600 dark:text-yellow-300"
-						>{{ character.title }}</span
+						>{{ item.title }}</span
 					>
 				</template>
 			</UInputMenu>
@@ -47,20 +40,16 @@
 					<span>Current Level</span>
 					<USelect
 						:items="levelItems"
-						option-attribute="label"
-						value-attribue="value"
-						v-model:open="character['char_current_level']"
+						v-model="character['char_current_level']"
 						:model-value="character['char_current_level'] || 1"
-						@change="upsertPlannedCharacter()"
+						@change="upsertPlannedCharacter(characterName)"
 					/>
 					<span>Target Level</span>
 					<USelect
 						:items="levelItems"
-						option-attribute="label"
-						value-attribue="value"
-						v-model:open="character['char_target_level']"
+						v-model="character['char_target_level']"
 						:model-value="character['char_target_level'] || 1"
-						@change="upsertPlannedCharacter()"
+						@change="upsertPlannedCharacter(characterName)"
 					/>
 				</div>
 			</div>
@@ -81,7 +70,7 @@
 								:model-value="
 									character[item.model_value + '_current_level'] || 1
 								"
-								@change="upsertPlannedCharacter()"
+								@change="upsertPlannedCharacter(characterName)"
 							/>
 							<label>Target Level</label>
 							<UInput
@@ -92,7 +81,7 @@
 								:model-value="
 									character[item.model_value + '_target_level'] || 1
 								"
-								@change="upsertPlannedCharacter()"
+								@change="upsertPlannedCharacter(characterName)"
 							/>
 							<!-- </div> -->
 						</div>
@@ -121,7 +110,7 @@
 										color="primary"
 										v-model="character[passiveSkill.model_value]"
 										:model-value="character[passiveSkill.model_value]"
-										@change="upsertPlannedCharacter()"
+										@change="upsertPlannedCharacter(characterName)"
 									/>
 								</div>
 							</div>
@@ -172,34 +161,35 @@ import {
 	passiveSkills,
 } from '~/data/form/characters/formCharactersNew';
 import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
-import * as characterService from '@/services/characterService';
-import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
 
-const characterList = () => {
-	let list = [];
-	useForEach(characters, (character, characterName) => {
-		let subtitle =
-			' (' + character.rarity + '⭐ ' + useCapitalize(character.weapon) + ')';
-		list = useConcat(list, {
-			id: characterName,
-			label: character.display_name,
-			avatar: { src: character.icon },
-			title: character.display_name + ' ' + subtitle,
-			value: characterName,
-			type: character.weapon,
-			rarity: character.rarity,
-		});
-	});
-	list = useOrderBy(list, ['type', 'rarity', 'label'], ['asc', 'asc', 'asc']);
-	return list;
-};
+import * as util from '@/viewScriptUtils/pagesCharactersIndex';
 
-const characterName = ref('');
+const characterList = util.characterList();
+
+const characterName = ref(undefined);
 const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
-let characterOption = ref({});
+
+watch(characterName, async () => {
+	console.log(
+		'characterName watcher: changed: ' + JSON.stringify(characterName.value)
+	);
+
+	// redirect if url hash is not set
+	let urlHash = route.hash.slice(1);
+	console.log('urlHash changed: ' + urlHash);
+	if (
+		urlHash !== undefined &&
+		urlHash !== characterName.value.id &&
+		useHas(characters, characterName.value.id)
+	) {
+		getOrInitPlannedCharacter(characterName.value.id);
+		console.log('redirecting...');
+		await navigateTo({ hash: '#' + characterName.value.id });
+	}
+});
 
 const character = ref({ ...dbPlannedCharacter.character });
 const materials = ref({});
@@ -209,25 +199,15 @@ const isMaterialsExist = computed(() => {
 
 const doEmit = (a) => {
 	console.log('emit received: ' + a);
-	getOrInitPlannedCharacter(characterName.value);
-};
-
-const getOrInitCharacterName = async (characterOption) => {
-	await navigateTo({ hash: '#' + characterOption.value });
-};
-
-const getOrInitPlannedCharacter = (characterName) => {
-	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
-	character.value['name'] = characterName;
-
-	materials.value = getNeededMaterials(characterName);
+	getOrInitPlannedCharacter(characterName.value.id);
 };
 
 const toast = useToast();
 
-const upsertPlannedCharacter = () => {
+function upsertPlannedCharacter(characterName) {
+	console.log('characterName upsert: ' + JSON.stringify(characterName));
 	useDebounceFn(() => {
-		if (!characterName.value) {
+		if (!characterName || !character.value['name']) {
 			return;
 		}
 		usePlannedCharacterStore().upsert(
@@ -235,68 +215,72 @@ const upsertPlannedCharacter = () => {
 			useOmit(character.value, 'name')
 		);
 	}, 100)().then(() => {
-		if (!characterName.value) {
+		if (!characterName) {
 			return;
 		}
 		toast.add({
 			title:
 				'Character ' +
-				characters[characterName.value].display_name +
+				characters[characterName.id].display_name +
 				' updated to LocalStorage',
 			icon: 'i-heroicons-check-badge',
 			duration: 2000,
 		});
-		materials.value = getNeededMaterials(characterName.value);
+		materials.value = util.getNeededMaterials(characterName.id);
 	});
-};
-
-const getNeededMaterials = (characterName) => {
-	let neededMaterials =
-		characterService.getCharacterNeededMaterials(characterName);
-	let ownedNeededMaterialsResponseData =
-		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
-	return ownedNeededMaterialsResponseData;
-};
+}
 
 const setDone = () => {
 	useDebounceFn(() => {
 		plannerService.setCharacterDone(character.value, materials.value);
 	}, 100)().then(() => {
-		getOrInitPlannedCharacter(characterName.value);
+		getOrInitPlannedCharacter(characterName.value.id);
 	});
 };
 
 const route = useRoute();
 
-onBeforeMount(() => {
-	usePlannedCharacterStore().init();
-
+function initCharacterFromHash() {
 	// get character name from url hash
 	let urlHash = route.hash.slice(1);
 
 	if (urlHash !== undefined && useHas(characters, urlHash)) {
-		characterOption = useFind(characterList(), ['value', urlHash]);
-		characterName.value = urlHash;
-		getOrInitPlannedCharacter(characterName.value);
-	} else {
-		characterOption = {};
-		characterName.value = '';
+		characterName.value = useFind(characterList, ['value', urlHash]);
+		getOrInitPlannedCharacter(characterName.value.id);
 	}
+}
+
+function getOrInitPlannedCharacter(characterName) {
+	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
+	character.value['name'] = characterName;
+	console.log('character value: ' + JSON.stringify(character.value));
+
+	materials.value = util.getNeededMaterials(characterName);
+}
+
+onBeforeMount(() => {
+	// init store
+	usePlannedCharacterStore().init();
+
+	// init char if url has hash
+	initCharacterFromHash();
 });
 
-watch(
-	() => route.hash,
-	() => {
-		let urlHash = route.hash.slice(1);
+// watch(
+// 	() => route.hash,
+// 	() => {
+// 		let urlHash = route.hash.slice(1);
 
-		if (urlHash !== undefined && useHas(characters, urlHash)) {
-			characterOption = useFind(characterList(), ['value', urlHash]);
-			characterName.value = urlHash;
-			getOrInitPlannedCharacter(characterName.value);
-		} else {
-			characterOption = {};
-			characterName.value = '';
-		}
-	}
-);
+// 		console.log('route hash changed: ' + urlHash);
+// 		if (urlHash !== undefined && useHas(characters, urlHash)) {
+// 			characterOption = useFind(characterList, ['value', urlHash]);
+// 			characterName.value = urlHash;
+// 			console.log('characterName changed: ' + characterName.value);
+// 			getOrInitPlannedCharacter(characterName.value);
+// 		} else {
+// 			characterOption = {};
+// 			characterName.value = '';
+// 		}
+// 	}
+// );
 </script>
