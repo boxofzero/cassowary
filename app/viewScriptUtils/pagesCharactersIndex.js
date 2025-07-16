@@ -15,7 +15,6 @@ import * as objectHelper from '@/libraries/objectHelper';
 
 export function characterList() {
 	let list = [];
-	console.log('characters: ' + JSON.stringify(characters));
 	Object.entries(characters).forEach(function (
 		[characterName, character],
 		index
@@ -116,8 +115,13 @@ export function upsertPlannedCharacter() {
 export const getNeededMaterials = (characterName) => {
 	let neededMaterials =
 		characterService.getCharacterNeededMaterials(characterName);
+	// console.log('neededMaterials: ' + JSON.stringify(neededMaterials));
 	let ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
+	console.log(
+		'ownedNeededMaterialsResponseData: ' +
+			JSON.stringify(ownedNeededMaterialsResponseData)
+	);
 	return ownedNeededMaterialsResponseData;
 };
 

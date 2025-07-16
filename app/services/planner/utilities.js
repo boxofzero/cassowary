@@ -55,10 +55,6 @@ export const getMaterialsFromLevelListStatList = (
 							gameInventoryItem.tiered_materials_per_type[materialType][
 								materialName
 							][tier].name;
-						console.log('materials: ' + JSON.stringify(materials));
-						console.log('tieredMaterialName: ' + tieredMaterialName);
-						console.log('tier: ' + tier);
-						console.log('level.materials: ' + JSON.stringify(level.materials));
 						materials[tieredMaterialName] =
 							(materials[tieredMaterialName] ?? 0) +
 							(level.materials?.[materialType][tier] ?? 0);

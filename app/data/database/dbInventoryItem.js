@@ -7,6 +7,7 @@ export const boss_ascension_material = (() => {
 	) {
 		data[key] = { count: 0 };
 	});
+	return data;
 })();
 
 export const weekly_boss_skill_upgrade_material = (() => {
@@ -16,6 +17,7 @@ export const weekly_boss_skill_upgrade_material = (() => {
 			data[key] = { count: 0 };
 		}
 	);
+	return data;
 })();
 
 export const resonator_exp_material = (() => {
@@ -26,6 +28,7 @@ export const resonator_exp_material = (() => {
 	) {
 		data[key] = { count: 0 };
 	});
+	return data;
 })();
 
 export const weapon_exp_material = (() => {
@@ -36,6 +39,7 @@ export const weapon_exp_material = (() => {
 	) {
 		data[key] = { count: 0 };
 	});
+	return data;
 })();
 
 export const enemy_drop_weapon_skill_material = (() => {
@@ -45,6 +49,7 @@ export const enemy_drop_weapon_skill_material = (() => {
 			data[key] = { count: 0 };
 		}
 	);
+	return data;
 })();
 
 export const echo_development_material = (() => {
@@ -55,6 +60,7 @@ export const echo_development_material = (() => {
 	) {
 		data[key] = { count: 0 };
 	});
+	return data;
 })();
 
 export const forgery_weapon_skill_material = (() => {
@@ -64,6 +70,7 @@ export const forgery_weapon_skill_material = (() => {
 			data[key] = { count: 0 };
 		}
 	);
+	return data;
 })();
 
 export const overworld_resource_ascension_material = (() => {
@@ -73,6 +80,7 @@ export const overworld_resource_ascension_material = (() => {
 	).forEach(function ([key, value], index) {
 		data[key] = { count: 0 };
 	});
+	return data;
 })();
 
 export const credit = (() => {
@@ -83,6 +91,7 @@ export const credit = (() => {
 	) {
 		data[key] = { count: 0 };
 	});
+	return data;
 })();
 
 // inventory contains inventoryItems (materials)
