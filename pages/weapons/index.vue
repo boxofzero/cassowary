@@ -6,36 +6,29 @@
 		<div class="flex flex-wrap items-center gap-5">
 			<h2>WEAPON NAME</h2>
 			<UInputMenu
-				searchable
-				searchable-placeholder="Select weapon"
-				class="w-3/4"
-				placeholder="Select weapon"
-				v-model:open="weaponOption"
-				:items="weaponList()"
-				option-attribute="title"
-				:search-attributes="['title', 'subtitle']"
-				@change="getOrInitWeaponName($event)"
+				v-model="weaponName"
+				:avatar="weaponName?.avatar"
+				:items="weaponList"
+				:filter-fields="['title']"
 				size="xl"
+				class="w-3/4"
+				:ui="{ item: 'p-4' }"
 			>
-				<template #leading>
-					<UAvatar v-bind="weaponOption.avatar" size="xs" class="m" />
-				</template>
-				<template #option="{ option: weapon }">
-					<UAvatar v-bind="weapon.avatar" size="md" class="mr-2" />
+				<template #item-label="{ item }">
 					<span
-						v-if="weapon.rarity == 3"
+						v-if="item.rarity == 3"
 						class="text-blue-600 dark:text-blue-300"
-						>{{ weapon.title }}</span
+						>{{ item.title }}</span
 					>
 					<span
-						v-if="weapon.rarity == 4"
+						v-if="item.rarity == 4"
 						class="text-purple-600 dark:text-purple-300"
-						>{{ weapon.title }}</span
+						>{{ item.title }}</span
 					>
 					<span
-						v-if="weapon.rarity == 5"
+						v-if="item.rarity == 5"
 						class="text-yellow-600 dark:text-yellow-300"
-						>{{ weapon.title }}</span
+						>{{ item.title }}</span
 					>
 				</template>
 			</UInputMenu>
@@ -47,20 +40,16 @@
 					<span>Current Level</span>
 					<USelect
 						:items="levelItems"
-						option-attribute="label"
-						value-attribue="value"
-						v-model:open="weapon['weap_current_level']"
+						v-model="weapon['weap_current_level']"
 						:model-value="weapon['weap_current_level'] || 1"
-						@change="upsertPlannedWeapon()"
+						@change="upsertPlannedWeapon(weaponName)"
 					/>
 					<span>Target Level</span>
 					<USelect
 						:items="levelItems"
-						option-attribute="label"
-						value-attribue="value"
-						v-model:open="weapon['weap_target_level']"
+						v-model="weapon['weap_target_level']"
 						:model-value="weapon['weap_target_level'] || 1"
-						@change="upsertPlannedWeapon()"
+						@change="upsertPlannedWeapon(weaponName)"
 					/>
 				</div>
 			</div>
@@ -105,38 +94,34 @@ import { usePlannedWeaponStore } from '@/stores/plannedWeaponStore';
 import * as weaponService from '@/services/weaponService';
 import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
+import * as util from '@/viewScriptUtils/pagesWeaponsIndex';
 
-const weaponList = () => {
-	let list = [];
-	useForEach(weapons, (weapon, weaponName) => {
-		let subtitle =
-			' (' + weapon.rarity + '⭐ ' + useCapitalize(weapon.weapon_type) + ')';
-		list = useConcat(list, {
-			id: weaponName,
-			label: weapon.display_name,
-			avatar: { src: weapon.icon },
-			title: weapon.display_name + ' ' + subtitle,
-			value: weaponName,
-			type: weapon.weapon_type,
-			rarity: weapon.rarity,
-		});
-	});
-	list = useOrderBy(list, ['type', 'rarity', 'label'], ['asc', 'asc', 'asc']);
-	return list;
-};
-
-const customFilter = (itemTitle, queryText, item) => {
-	const textOne = item.raw.title.toLowerCase();
-	const textTwo = item.raw.subtitle.toLowerCase();
-	const searchText = queryText.toLowerCase();
-
-	return textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1;
-};
+const weaponList = util.weaponList();
 
 const weaponName = ref('');
 const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
+
+watch(weaponName, async () => {
+	console.log(
+		'weaponName watcher: changed: ' + JSON.stringify(weaponName.value)
+	);
+
+	// redirect if url hash is not set
+	let urlHash = route.hash.slice(1);
+	console.log('urlHash changed: ' + urlHash);
+	if (
+		urlHash !== undefined &&
+		urlHash !== weaponName.value.id &&
+		useHas(weapons, weaponName.value.id)
+	) {
+		getOrInitPlannedWeapon(weaponName.value.id);
+		console.log('redirecting...');
+		await navigateTo({ hash: '#' + weaponName.value.id });
+	}
+});
+
 let weaponOption = ref({});
 
 const weapon = ref({ ...dbPlannedWeapon.weapon });
@@ -147,25 +132,14 @@ const isMaterialsExist = computed(() => {
 
 const doEmit = (a) => {
 	console.log('emit received: ' + a);
-	getOrInitPlannedWeapon(weaponName.value);
-};
-
-const getOrInitWeaponName = async (weaponOption) => {
-	await navigateTo({ hash: '#' + weaponOption.value });
-};
-
-const getOrInitPlannedWeapon = (weaponName) => {
-	weapon.value = usePlannedWeaponStore().getOrInitEntry(weaponName);
-	weapon.value['name'] = weaponName;
-
-	materials.value = getNeededMaterials(weaponName);
+	getOrInitPlannedWeapon(weaponName.value.id);
 };
 
 const toast = useToast();
 
-const upsertPlannedWeapon = () => {
+const upsertPlannedWeapon = (weaponName) => {
 	useDebounceFn(() => {
-		if (!weaponName.value) {
+		if (!weaponName || !weapon.value['name']) {
 			return;
 		}
 
@@ -180,61 +154,63 @@ const upsertPlannedWeapon = () => {
 		toast.add({
 			title:
 				'Weapon ' +
-				weapons[weaponName.value].display_name +
+				weapons[weaponName.id].display_name +
 				' updated to LocalStorage',
 			icon: 'i-heroicons-check-badge',
 			duration: 2000,
 		});
-		materials.value = getNeededMaterials(weaponName.value);
+		materials.value = util.getNeededMaterials(weaponName.id);
 	});
-};
-
-const getNeededMaterials = (weaponName) => {
-	const neededMaterials = weaponService.getWeaponNeededMaterials(weaponName);
-	const ownedNeededMaterialsResponseData =
-		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
-	return ownedNeededMaterialsResponseData;
 };
 
 const setDone = () => {
 	useDebounceFn(() => {
 		plannerService.setWeaponDone(weapon.value, materials.value);
 	}, 100)().then(() => {
-		getOrInitPlannedWeapon(weaponName.value);
+		getOrInitPlannedWeapon(weaponName.value.id);
 	});
 };
 
 const route = useRoute();
 
-onBeforeMount(() => {
-	usePlannedWeaponStore().init();
-
-	// get weapon name from url hash
+function initWeaponFromHash() {
+	// get character name from url hash
 	let urlHash = route.hash.slice(1);
 
 	if (urlHash !== undefined && useHas(weapons, urlHash)) {
-		weaponOption = useFind(weaponList(), ['value', urlHash]);
-		weaponName.value = urlHash;
-		getOrInitPlannedWeapon(weaponName.value);
-	} else {
-		weaponOption = {};
-		weaponName.value = '';
+		weaponName.value = useFind(weaponList, ['value', urlHash]);
+		getOrInitPlannedWeapon(weaponName.value.id);
 	}
+}
+
+function getOrInitPlannedWeapon(weaponName) {
+	weapon.value = usePlannedWeaponStore().getOrInitEntry(weaponName);
+	weapon.value['name'] = weaponName;
+
+	materials.value = util.getNeededMaterials(weaponName);
+}
+
+onBeforeMount(() => {
+	// init store
+	usePlannedWeaponStore().init();
+
+	// init char if url has hash
+	initWeaponFromHash();
 });
 
-watch(
-	() => route.hash,
-	() => {
-		let urlHash = route.hash.slice(1);
+// watch(
+// 	() => route.hash,
+// 	() => {
+// 		let urlHash = route.hash.slice(1);
 
-		if (urlHash !== undefined && useHas(weapons, urlHash)) {
-			weaponOption = useFind(weaponList(), ['value', urlHash]);
-			weaponName.value = urlHash;
-			getOrInitPlannedWeapon(weaponName.value);
-		} else {
-			weaponOption = {};
-			weaponName.value = '';
-		}
-	}
-);
+// 		if (urlHash !== undefined && useHas(weapons, urlHash)) {
+// 			weaponOption = useFind(weaponList, ['value', urlHash]);
+// 			weaponName.value = urlHash;
+// 			getOrInitPlannedWeapon(weaponName.value);
+// 		} else {
+// 			weaponOption = {};
+// 			weaponName.value = '';
+// 		}
+// 	}
+// );
 </script>
