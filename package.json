@@ -11,25 +11,24 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@nuxt/ui": "^3.1.2",
-    "@pinia/nuxt": "^0.11.0",
-    "@vueuse/integrations": "^13.2.0",
-    "nuxt": "^3.17.3",
-    "pinia": "^3.0.2",
+    "@nuxt/ui": "^3.2.0",
+    "@pinia/nuxt": "^0.11.1",
+    "@vueuse/integrations": "^13.5.0",
+    "nuxt": "^4.0.0",
+    "pinia": "^3.0.3",
     "sortablejs": "^1.15.6",
-    "tailwindcss": "^4.1.7",
-    "vue": "^3.5.14",
+    "tailwindcss": "^4.1.11",
+    "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
-  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
   "devDependencies": {
-    "@nuxt/test-utils": "^3.19.0",
-    "@playwright/test": "^1.52.0",
+    "@nuxt/test-utils": "^3.19.2",
+    "@playwright/test": "^1.54.1",
     "@vue/test-utils": "^2.4.6",
-    "@vueuse/core": "^13.2.0",
-    "@vueuse/nuxt": "^13.2.0",
-    "happy-dom": "^17.4.7",
-    "nuxt-lodash": "^2.5.3",
-    "vitest": "^3.1.4"
+    "@vueuse/core": "^13.5.0",
+    "@vueuse/nuxt": "^13.5.0",
+    "happy-dom": "^17.6.3",
+    "vitest": "^3.2.4"
   }
 }

@@ -8,7 +8,6 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'@vueuse/nuxt',
 		'@pinia/nuxt',
-		'nuxt-lodash',
 		'@nuxtjs/color-mode',
 		'@nuxt/test-utils/module',
 	],
