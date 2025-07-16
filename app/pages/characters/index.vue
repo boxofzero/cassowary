@@ -136,16 +136,17 @@
 				</span>
 			</section>
 			<section>
-				<div class="flex flex-wrap gap-x-2">
-					<div class="" v-for="(item, index) in materials" :key="item.key">
-						<InventoryItemMaterialCard
-							:index="index"
-							:item="item"
-							:key="item.key"
-							@update-material-count="doEmit"
-						>
-						</InventoryItemMaterialCard>
-					</div>
+				<div
+					class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+				>
+					<InventoryItemMaterialCard
+						v-for="(item, index) in materials"
+						:index="index"
+						:item="item"
+						:key="item.key"
+						@update-material-count="doEmit"
+					>
+					</InventoryItemMaterialCard>
 				</div>
 			</section>
 		</section>
@@ -206,7 +207,6 @@ const doEmit = (a) => {
 const toast = useToast();
 
 function upsertPlannedCharacter(characterName) {
-	console.log('characterName upsert: ' + JSON.stringify(characterName));
 	useDebounceFn(() => {
 		if (!characterName || !character.value['name']) {
 			return;

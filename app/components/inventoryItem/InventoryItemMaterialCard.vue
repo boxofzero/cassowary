@@ -1,75 +1,63 @@
 <template>
 	<UCard
-		:class="
-			'w-28 ' +
-			(item && item.missing === 0 ? 'opacity-40 hover:opacity-100' : '')
-		"
 		:ui="{
-			header: {
-				base: 'flex justify-center',
-				padding: 'p-0 sm:p-0',
-			},
-			body: {
-				base: 'flex justify-center',
-				padding: 'p-0 sm:p-0',
-			},
-			footer: {
-				base: '',
-				padding: 'p-0 sm:p-0',
-			},
+			header: 'p-1 sm:p-1',
+			body: 'p-1 sm:p-1',
+			footer: 'p-1 sm:p-1',
 		}"
 	>
-		<div class="flex flex-col items-center">
-			<div class="flex justify-center p-1 h-12 align-middle">
-				<span class="place-self-center text-xs text-center">
-					{{ (item && item.label) || '' }}
-				</span>
+		<template #header>
+			<div
+				class="flex justify-center items-center h-20 font-medium text-base text-center break-words"
+				:title="(item && item.label) || ''"
+			>
+				{{ (item && item.label) || '' }}
 			</div>
-			<div class="relative">
-				<img
-					class="border-gray-800 border-b object-cover"
-					:src="(item && item.icon) || ''"
-				/>
-				<!-- Overlay for missing and syntesizable -->
-				<div
-					class="absolute inset-y-0 flex flex-col-reverse justify-between opacity-75 my-2"
-				>
-					<!-- Missing/Completed count badge and tooltip -->
-					<UTooltip
-						:text="item && item.missing > 0 ? 'Missing' : 'Completed'"
-						:popper="{ placement: 'right' }"
-						class=""
-					>
-						<UBadge
-							size="xs"
-							:color="ownedItemColor"
-							variant="solid"
-							class="flex justify-center"
-						>
-							<UIcon
-								name="ic:round-cancel"
-								class=""
-								v-if="item && item.missing > 0"
-							/>
-							<UIcon name="ic:round-check-circle-outline" class="" v-else />
-							<p class="truncate">
-								{{ (item && item.missing) || 0 }}
-							</p>
-						</UBadge>
-					</UTooltip>
+		</template>
 
-					<!-- Syntesizable count badge and tooltip -->
-					<UTooltip
-						text="Syntesizable"
-						:popper="{ placement: 'left' }"
-						v-if="item && item.synthesized > 0"
-					>
-						<UBadge size="xs" color="yellow" variant="solid">
-							<UIcon name="ic:outline-science" class="mr-2" />
-							{{ item && item.synthesized }}
-						</UBadge>
-					</UTooltip>
-				</div>
+		<div class="relative">
+			<img
+				class="border-gray-800 border-b object-cover"
+				:src="(item && item.icon) || ''"
+			/>
+			<!-- Overlay for missing and syntesizable -->
+			<div
+				class="absolute inset-y-0 flex flex-col-reverse justify-between opacity-75 my-2"
+			>
+				<!-- Missing/Completed count badge and tooltip -->
+				<UTooltip
+					:text="item && item.missing > 0 ? 'Missing' : 'Completed'"
+					:content="{
+						side: 'right',
+					}"
+					class=""
+				>
+					<UBadge size="md" :color="ownedItemColor" variant="solid" class="">
+						<UIcon
+							name="ic:round-cancel"
+							class=""
+							v-if="item && item.missing > 0"
+						/>
+						<UIcon name="ic:round-check-circle-outline" class="" v-else />
+						<p class="truncate">
+							{{ (item && item.missing) || 0 }}
+						</p>
+					</UBadge>
+				</UTooltip>
+
+				<!-- Syntesizable count badge and tooltip -->
+				<UTooltip
+					text="Syntesizable"
+					:content="{
+						side: 'left',
+					}"
+					v-if="item && item.synthesized > 0"
+				>
+					<UBadge size="md" color="warning" variant="solid">
+						<UIcon name="ic:outline-science" class="" />
+						{{ item && item.synthesized }}
+					</UBadge>
+				</UTooltip>
 			</div>
 		</div>
 
@@ -112,8 +100,10 @@ const props = defineProps({
 const ownedItemColor = computed(() => {
 	const synthesizedOwned =
 		props.item && (props.item.synthesized || 0) + (props.item.owned || 0);
-	if (props.item && props.item.needed === 0) return 'white';
-	return props.item && synthesizedOwned >= props.item.needed ? 'green' : 'red';
+	if (props.item && props.item.needed === 0) return 'neutral';
+	return props.item && synthesizedOwned >= props.item.needed
+		? 'success'
+		: 'error';
 });
 
 const toast = useToast();

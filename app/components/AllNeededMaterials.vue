@@ -12,22 +12,19 @@
 					#[materialType]="{ item }"
 				>
 					<!-- outer div of each item -->
-					<div class="flex flex-wrap gap-x-2">
-						<div
+					<div
+						class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+					>
+						<InventoryItemMaterialCard
 							v-for="item2 in filterNeededMaterials(
 								materialTypeData['items'],
 								allMaterialsResponseData
 							)"
-							:key="item2"
-							class=""
-						>
-							<InventoryItemMaterialCard
-								:index="materialType"
-								:item="allMaterialsResponseData[item2]"
-								:key="materialType"
-								@update-material-count="doEmit"
-							></InventoryItemMaterialCard>
-						</div>
+							:index="materialType"
+							:item="allMaterialsResponseData[item2]"
+							:key="materialType"
+							@update-material-count="doEmit"
+						></InventoryItemMaterialCard>
 					</div>
 				</template>
 			</UAccordion>

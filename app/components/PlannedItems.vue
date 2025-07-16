@@ -1,22 +1,18 @@
 <template>
 	<section>
-		<div class="flex flex-wrap gap-2">
+		<div
+			class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+		>
 			<div v-for="(item, index) in displayList()" :key="item.value" class="">
 				<NuxtLink :to="item.link">
 					<UCard
-						class="w-28"
 						:ui="{
-							body: {
-								base: 'flex justify-center',
-								padding: 'p-0 sm:p-0',
-							},
-							header: {
-								base: '',
-								padding: 'p-0 sm:p-0',
-							},
+							header: 'p-1 sm:p-1',
+							body: 'p-1 sm:p-1',
+							footer: 'p-1 sm:p-1',
 						}"
 					>
-						<img class="size-24" :src="(item && item.icon) || ''" />
+						<img class="" :src="(item && item.icon) || ''" />
 
 						<template #header>
 							<div class="flex justify-center h-12">
