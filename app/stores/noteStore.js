@@ -25,7 +25,7 @@ export const useNoteStore = defineStore('notes', () => {
 	}
 
 	function getLastId() {
-		return parseInt(useLast(Object.keys(notes.value).toSorted())) || 0;
+		return parseInt(Object.keys(notes.value).toSorted().at(-1)) || 0;
 	}
 
 	function upsert(note) {

@@ -1,30 +1,30 @@
 <template>
 	<section class="flex flex-col gap-1">
-		<UButton
-			class="justify-center mb-1 w-1/6"
-			color="primary"
-			variant="solid"
-			@click="isAddNewNoteModalOpen = true"
-		>
-			Create New Note
-		</UButton>
-
 		<UModal v-model:open="isAddNewNoteModalOpen">
-			<div class="flex flex-col gap-1 p-3">
-				<span class="font-bold text-xl">Create New Note</span>
-				<span>Title</span>
-				<UInput v-model="newNote.title" />
-				<span>Description</span>
-				<UTextarea v-model="newNote.description" />
-				<UButton
-					class="justify-center mt-3 w-1/5"
-					color="primary"
-					variant="solid"
-					@click="createNote"
-				>
-					Create Note
-				</UButton>
-			</div>
+			<UButton
+				class="justify-center mb-1 w-1/6"
+				color="primary"
+				variant="solid"
+			>
+				Create New Note
+			</UButton>
+			<template #content>
+				<div class="flex flex-col gap-1 p-3">
+					<span class="font-bold text-xl">Create New Note</span>
+					<span>Title</span>
+					<UInput v-model="newNote.title" />
+					<span>Description</span>
+					<UTextarea v-model="newNote.description" />
+					<UButton
+						class="justify-center mt-3 w-1/5"
+						color="primary"
+						variant="solid"
+						@click="createNote"
+					>
+						Create Note
+					</UButton>
+				</div>
+			</template>
 		</UModal>
 
 		<section class="flex flex-col gap-1 bg-">
