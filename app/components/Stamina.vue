@@ -1,34 +1,51 @@
 <template>
-	<section class="flex flex-wrap gap-5">
+	<section
+		class="gap-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3"
+	>
 		<div>
-			<div class="font-bold">Track Your Stamina</div>
-			<div class="text-2xl font-extrabold mb-2">
-				<div>{{ staminaStore.stamina }} / {{ staminaStore.maxStamina }}</div>
+			<h2 class="font-bold">Track Your Stamina</h2>
+			<div class="mb-2 font-extrabold text-2xl">
+				{{ staminaStore.stamina }} / {{ staminaStore.maxStamina }}
 			</div>
-			<div class="font-bold">Stamina regen rate</div>
-			<div class="text-xl mb-2">
-				<div>{{ staminaRate }} / stamina</div>
-			</div>
+			<h3 class="font-bold">Stamina regen rate</h3>
+			<div class="mb-2 text-xl">{{ staminaRate }} / stamina</div>
 		</div>
-		<div class="">
-			<div class="font-bold">Your Stamina will be:</div>
-			<div class="text-sm mb-2 columns-1">
-				<div v-for="(item, index) in calculateFutureStaminaAt()" :key="index">
-					{{ index }} at {{ datetimeFormat(item) }}
+
+		<div
+			class="gap-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2"
+		>
+			<div class="">
+				<h3 class="font-bold">Your Stamina will be:</h3>
+				<div class="columns-1 mb-2 text-sm">
+					<div v-for="(item, index) in calculateFutureStaminaAt()" :key="index">
+						{{ index }} at {{ datetimeFormat(item) }}
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="">
-			<div class="font-bold">Adjust Stamina</div>
-			<div class="grid grid-cols-4 gap-2">
-				<div class="h-8 w-10 flex items-center justify-center" v-for="(item, index) in staminaButtonList()"
-					:key="index">
-					<UButton class="h-8 w-10 flex items-center justify-center" :color="parseInt(item) < 0 ? 'yellow' : 'green'"
-						variant="solid" :padded="false" @click="staminaStore.updateStaminaOverflow(parseInt(item))">
-						<span class="justify-self-center">
-							{{ item }}
-						</span>
-					</UButton>
+			<div class="">
+				<div class="font-bold">Adjust Stamina</div>
+				<div
+					class="gap-4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-1"
+				>
+					<div class="gap-4 grid grid-cols-4 max-w-3xl">
+						<div
+							class="flex justify-center items-center w-10 h-8"
+							v-for="(item, index) in staminaButtonList()"
+							:key="index"
+						>
+							<UButton
+								class="flex justify-center items-center w-10 h-8"
+								:color="parseInt(item) < 0 ? 'warning' : 'success'"
+								variant="solid"
+								:padded="false"
+								@click="staminaStore.updateStaminaOverflow(parseInt(item))"
+							>
+								<span class="justify-self-center">
+									{{ item }}
+								</span>
+							</UButton>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -41,30 +58,28 @@ import { MAX_STAMINA } from '~/libraries/constants';
 
 const staminaStore = useStaminaStore();
 const staminaRate = computed(() => {
-	if ((staminaStore.secondsPerStamina % 60) !== 0) {
-		return (staminaStore.secondsPerStamina) + ' seconds';
+	if (staminaStore.secondsPerStamina % 60 !== 0) {
+		return staminaStore.secondsPerStamina + ' seconds';
 	}
-	return (staminaStore.secondsPerStamina / 60) + ' minutes';
+	return staminaStore.secondsPerStamina / 60 + ' minutes';
 });
 
 const datetimeFormat = (datetime) => {
-	return new Intl.DateTimeFormat('en-US',
-		{
-			timeStyle: 'medium',
-			hourCycle: 'h23'
-		}
-	).format(datetime)
-}
+	return new Intl.DateTimeFormat('en-US', {
+		timeStyle: 'medium',
+		hourCycle: 'h23',
+	}).format(datetime);
+};
 
 const staminaButtonList = () => {
-	let list = []
+	let list = [];
 	for (let sign of ['-', '+']) {
 		for (let number of ['1', '20', '40', '60']) {
 			list.push(sign + number);
 		}
 	}
-	return list
-}
+	return list;
+};
 
 const calculateFutureStaminaAt = () => {
 	let startStamina = 60;
