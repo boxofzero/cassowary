@@ -80,7 +80,6 @@ const doEmit = (a) => {
 export function getOrInitPlannedCharacter(characterName) {
 	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
 	character.value['name'] = characterName;
-	console.log('character value: ' + JSON.stringify(character.value));
 
 	materials.value = getNeededMaterials(characterName);
 }
@@ -118,10 +117,6 @@ export const getNeededMaterials = (characterName) => {
 	// console.log('neededMaterials: ' + JSON.stringify(neededMaterials));
 	let ownedNeededMaterialsResponseData =
 		inventoryService.getOwnedNeededMaterialsResponseData(neededMaterials);
-	console.log(
-		'ownedNeededMaterialsResponseData: ' +
-			JSON.stringify(ownedNeededMaterialsResponseData)
-	);
 	return ownedNeededMaterialsResponseData;
 };
 

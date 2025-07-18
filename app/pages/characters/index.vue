@@ -15,21 +15,7 @@
 				:ui="{ item: 'p-4' }"
 			>
 				<template #item-label="{ item }">
-					<span
-						v-if="item.rarity == 3"
-						class="text-blue-600 dark:text-blue-300"
-						>{{ item.title }}</span
-					>
-					<span
-						v-if="item.rarity == 4"
-						class="text-purple-600 dark:text-purple-300"
-						>{{ item.title }}</span
-					>
-					<span
-						v-if="item.rarity == 5"
-						class="text-yellow-600 dark:text-yellow-300"
-						>{{ item.title }}</span
-					>
+					<span :class="itemRarityColor(item.rarity)">{{ item.title }}</span>
 				</template>
 			</UInputMenu>
 		</div>
@@ -174,6 +160,15 @@ const isCharacterNameSet = computed(() => {
 	return !!characterName.value;
 });
 
+function itemRarityColor(rarity) {
+	if (rarity == 5) {
+		return 'text-yellow-600 dark:text-yellow-300';
+	} else if (rarity == 4) {
+		return 'text-purple-600 dark:text-purple-300';
+	}
+	return 'text-blue-600 dark:text-blue-300';
+}
+
 watch(characterName, async () => {
 	console.log(
 		'characterName watcher: changed: ' + JSON.stringify(characterName.value)
@@ -181,14 +176,13 @@ watch(characterName, async () => {
 
 	// redirect if url hash is not set
 	let urlHash = route.hash.slice(1);
-	console.log('urlHash changed: ' + urlHash);
 	if (
 		urlHash !== undefined &&
 		urlHash !== characterName.value.id &&
 		objectHelper.has(characters, characterName.value.id)
 	) {
 		getOrInitPlannedCharacter(characterName.value.id);
-		console.log('redirecting...');
+		console.log('redirecting to ' + characterName.value.id);
 		await navigateTo({ hash: '#' + characterName.value.id });
 	}
 });
@@ -254,7 +248,6 @@ function initCharacterFromHash() {
 function getOrInitPlannedCharacter(characterName) {
 	character.value = usePlannedCharacterStore().getOrInitEntry(characterName);
 	character.value['name'] = characterName;
-	console.log('character value: ' + JSON.stringify(character.value));
 
 	materials.value = util.getNeededMaterials(characterName);
 }

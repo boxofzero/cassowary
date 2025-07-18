@@ -15,21 +15,7 @@
 				:ui="{ item: 'p-4' }"
 			>
 				<template #item-label="{ item }">
-					<span
-						v-if="item.rarity == 3"
-						class="text-blue-600 dark:text-blue-300"
-						>{{ item.title }}</span
-					>
-					<span
-						v-if="item.rarity == 4"
-						class="text-purple-600 dark:text-purple-300"
-						>{{ item.title }}</span
-					>
-					<span
-						v-if="item.rarity == 5"
-						class="text-yellow-600 dark:text-yellow-300"
-						>{{ item.title }}</span
-					>
+					<span :class="itemRarityColor(item.rarity)">{{ item.title }}</span>
 				</template>
 			</UInputMenu>
 		</div>
@@ -104,6 +90,15 @@ const isWeaponNameSet = computed(() => {
 	return !!weaponName.value;
 });
 
+function itemRarityColor(rarity) {
+	if (rarity == 5) {
+		return 'text-yellow-600 dark:text-yellow-300';
+	} else if (rarity == 4) {
+		return 'text-purple-600 dark:text-purple-300';
+	}
+	return 'text-blue-600 dark:text-blue-300';
+}
+
 watch(weaponName, async () => {
 	console.log(
 		'weaponName watcher: changed: ' + JSON.stringify(weaponName.value)
@@ -111,14 +106,13 @@ watch(weaponName, async () => {
 
 	// redirect if url hash is not set
 	let urlHash = route.hash.slice(1);
-	console.log('urlHash changed: ' + urlHash);
 	if (
 		urlHash !== undefined &&
 		urlHash !== weaponName.value.id &&
 		objectHelper.has(weapons, weaponName.value.id)
 	) {
 		getOrInitPlannedWeapon(weaponName.value.id);
-		console.log('redirecting...');
+		console.log('redirecting to #' + weaponName.value.id);
 		await navigateTo({ hash: '#' + weaponName.value.id });
 	}
 });
