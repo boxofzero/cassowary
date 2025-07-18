@@ -19,7 +19,7 @@
 				<div class="flex flex-row justify-stretch">
 					<UInput
 						v-model="inputFileModel"
-						class="block mr-3 w-2/3"
+						class="block self-center mr-3 w-2/3"
 						type="file"
 						accept=".json"
 						icon="i-heroicons-arrow-up-tray"
