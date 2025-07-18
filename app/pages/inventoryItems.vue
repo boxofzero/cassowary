@@ -15,7 +15,9 @@
 				#[materialType]="{ item }"
 			>
 				<!-- outer div of each item -->
-				<div class="flex flex-wrap gap-x-2">
+				<div
+					class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+				>
 					<div
 						v-for="(item2, index) in materialTypeData['items']"
 						:key="index"
