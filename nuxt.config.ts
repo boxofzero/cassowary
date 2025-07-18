@@ -8,7 +8,6 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'@vueuse/nuxt',
 		'@pinia/nuxt',
-		'nuxt-lodash',
 		'@nuxtjs/color-mode',
 		'@nuxt/test-utils/module',
 	],
@@ -22,4 +21,5 @@ export default defineNuxtConfig({
 	colorMode: {
 		preference: 'dark',
 	},
+	css: ['~/assets/css/main.css'],
 });
