@@ -18,19 +18,26 @@
 			<div class="mb-2">
 				<div class="flex flex-row justify-stretch">
 					<UInput
-						class="block mr-3 w-full"
+						v-model="inputFileModel"
+						class="block mr-3 w-2/3"
 						type="file"
 						accept=".json"
 						icon="i-heroicons-arrow-up-tray"
 						@change="handleJsonDataSelected"
 					/>
-					<UButton color="primary" variant="solid" @click="submitUploadData">
+					<UButton
+						class=""
+						color="primary"
+						variant="solid"
+						@click="submitUploadData"
+					>
 						Upload JSON Data
 					</UButton>
 				</div>
 				<div :class="uploadedJsonTextArea ? 'block' : 'hidden'">
-					<span>Preview restored JSON data</span>
+					<div>Preview restored JSON data</div>
 					<UTextarea
+						class="w-full"
 						v-model="uploadedJsonTextArea"
 						resize
 						:rows="uploadedJsonTextArea ? 10 : 1"
@@ -50,6 +57,8 @@ const downloadData = () => {
 };
 
 const uploadedJsonTextArea = ref(null);
+const inputFileModel = ref(null);
+const selectedFiles = ref(null);
 
 const toast = useToast();
 const submitUploadData = () => {
@@ -64,25 +73,35 @@ const submitUploadData = () => {
 	let result = [];
 	if (confirm('Are you sure you want to restore this data?')) {
 		result = plannerService.uploadData(JSON.parse(uploadedJsonTextArea.value));
+		uploadedJsonTextArea.value = null;
+		toast.add({
+			title: 'Data successfully restored: ' + result.join(', '),
+			icon: 'i-heroicons-check-badge',
+			duration: 2000,
+		});
+		inputFileModel.value = null;
+		selectedFiles.value = null;
+	}
+};
+
+async function handleJsonDataSelected(event) {
+	selectedFiles.value = event.target.files;
+	const file = selectedFiles.value?.[0];
+	if (!file) return;
+
+	if (file.type !== 'application/json') {
+		console.error('Only JSON files are supported.');
+		return;
 	}
 
-	uploadedJsonTextArea.value = null;
-	toast.add({
-		title: 'Data successfully restored: ' + result.join(', '),
-		icon: 'i-heroicons-check-badge',
-		duration: 2000,
-	});
-};
-
-const handleJsonDataSelected = (uploadedFiles) => {
-	const reader = new FileReader();
-	reader.readAsText(uploadedFiles[0]);
-	reader.onload = () => {
-		const jsonData = reader.result;
-		console.log(JSON.parse(jsonData));
+	try {
+		const text = await file.text();
+		const jsonData = JSON.parse(text);
 
 		// show preview
-		uploadedJsonTextArea.value = jsonData;
-	};
-};
+		uploadedJsonTextArea.value = JSON.stringify(jsonData, null, 2);
+	} catch (err) {
+		console.error('Invalid JSON file:', err);
+	}
+}
 </script>
