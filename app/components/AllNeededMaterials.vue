@@ -20,9 +20,9 @@
 								materialTypeData['items'],
 								allMaterialsResponseData
 							)"
-							:index="materialType"
+							:index="item2"
 							:item="allMaterialsResponseData[item2]"
-							:key="materialType"
+							:key="item2"
 							@update-material-count="doEmit"
 						></InventoryItemMaterialCard>
 					</div>
