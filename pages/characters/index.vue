@@ -164,17 +164,17 @@
 </template>
 
 <script setup>
-import { characters } from '~/data/game/gameCharacter';
-import * as dbPlannedCharacter from '~/data/database/dbPlannedCharacter';
-import {
-	levelItems,
-	activeSkills,
-	passiveSkills,
-} from '~/data/form/characters/formCharactersNew';
-import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
 import * as characterService from '@/services/characterService';
 import * as inventoryService from '@/services/inventoryService';
 import * as plannerService from '@/services/plannerService';
+import { usePlannedCharacterStore } from '@/stores/plannedCharacterStore';
+import * as dbPlannedCharacter from '~/data/database/dbPlannedCharacter';
+import {
+	activeSkills,
+	levelItems,
+	passiveSkills,
+} from '~/data/form/characters/formCharactersNew';
+import { characters } from '~/data/game/gameCharacter';
 
 const characterList = () => {
 	let list = [];
@@ -224,6 +224,7 @@ const getOrInitPlannedCharacter = (characterName) => {
 };
 
 const toast = useToast();
+let toastId = null;
 
 const upsertPlannedCharacter = () => {
 	useDebounceFn(() => {
@@ -238,15 +239,20 @@ const upsertPlannedCharacter = () => {
 		if (!characterName.value) {
 			return;
 		}
-		toast.add({
-			title:
-				'Character ' +
-				characters[characterName.value].display_name +
-				' updated to LocalStorage',
-			icon: 'i-heroicons-check-badge',
-			timeout: 2000,
+		toast.remove('character-update');
+		
+		nextTick(() => {
+			toastId = toast.add({
+				id: 'character-update',
+				title:
+					'Character ' +
+					characters[characterName.value].display_name +
+					' updated to LocalStorage',
+				icon: 'i-heroicons-check-badge',
+				timeout: 2000,
+			});
+			materials.value = getNeededMaterials(characterName.value);
 		});
-		materials.value = getNeededMaterials(characterName.value);
 	});
 };
 

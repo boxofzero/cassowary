@@ -1,5 +1,5 @@
-import { MAX_STAMINA, getSecondsPerStamina } from '~/libraries/constants';
 import { useStorage } from '@vueuse/core';
+import { MAX_STAMINA, getSecondsPerStamina } from '~/libraries/constants';
 
 const staminaRepo = () => {
 	return useStorage('stamina', {
@@ -72,8 +72,14 @@ export const useStaminaStore = defineStore('stamina', () => {
 			if (stamina.value >= maxStamina.value) return;
 		}
 
-		// update stamina and staminaUpdatedAt
-		stamina.value += additionalStamina;
+		const staminaAddTest = (stamina.value + additionalStamina)
+
+		// If button presses result in overflow, set the stamina to max or min to keep within bounds
+		if (staminaAddTest > maxStamina.value) stamina.value = maxStamina.value
+		else if (staminaAddTest < 0) stamina.value = 0;
+		else stamina.value += additionalStamina;
+		
+		// update staminaUpdatedAt
 		const updatedAt = Date.now();
 		const alreadyRecoveringTime =
 			(updatedAt - staminaUpdatedAt.value) % (secondsPerStamina.value * 1000);
