@@ -13,7 +13,7 @@
 				>
 					<!-- outer div of each item -->
 					<div
-						class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+						class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 m-1"
 					>
 						<InventoryItemMaterialCard
 							v-for="item2 in filterNeededMaterials(
