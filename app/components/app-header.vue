@@ -1,5 +1,10 @@
 <template>
 	<header class="my-5">
+		<div class="flex justify-center items-center m-2" v-if="isDev">
+			<span class="font-bold text-amber-900 dark:text-amber-100 text-3xl"
+				>⚠️ DEVELOPMENT MODE ⚠️</span
+			>
+		</div>
 		<div class="flex justify-between">
 			<!-- Desktop: Horizontal Menu -->
 			<UNavigationMenu
@@ -102,4 +107,7 @@ const links = ref([
 		to: '/about',
 	},
 ]);
+
+let isDev =
+	import.meta.dev || import.meta?.env?.TEST?.toLowerCase?.() === 'true';
 </script>
