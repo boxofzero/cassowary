@@ -9,7 +9,8 @@ import { useSortable } from '@vueuse/integrations/useSortable';
 @param templateRef for useSortable
 @param accordionGroupKey for key of data
 
-@return sortedAccordionItems
+@return accordionItems
+@return accordionActives
 
 */
 export function useAccordion(
@@ -25,7 +26,6 @@ export function useAccordion(
 	{key: 'bbb', active: false},
 	]
 	*/
-	let sortedAccordionItems = [];
 
 	// init sortable
 	useSortable(useTemplateRef(templateRef), accordionItems, {
@@ -47,10 +47,6 @@ export function useAccordion(
 		let reoderedAccordionItems = [];
 		accordionActives.value = [];
 		Object.entries(accordionGroupData).forEach(([key, value], index) => {
-			sortedAccordionItems[value.index_position] = {
-				key: key,
-				open: value.open,
-			};
 			// set accordionItems value
 			// reoder accordionItems
 			reoderedAccordionItems[value.index_position] = accordionItems.value.find(
@@ -65,7 +61,19 @@ export function useAccordion(
 			}
 		});
 
-		accordionItems.value = reoderedAccordionItems;
+		// add item that is not stored
+		accordionItems.value.forEach((item) => {
+			if (
+				!accordionGroupData[item.slot] &&
+				!accordionActives.value.includes(item.slot)
+			) {
+				reoderedAccordionItems.push(item);
+			}
+		});
+
+		accordionItems.value = reoderedAccordionItems.filter(
+			(value) => value !== null
+		);
 	});
 
 	// watcher for accordionActives
