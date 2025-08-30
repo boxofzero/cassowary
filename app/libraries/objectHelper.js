@@ -21,14 +21,20 @@ export function mergeWithSum(...sources) {
 	return result;
 }
 
-export function pickBy(object) {
-	const obj = {};
-	for (const key in object) {
-		if (object[key]) {
-			obj[key] = object[key];
+/**
+ * Replacement for lodash.pickBy
+ * @param {Object} obj - Source object
+ * @param {Function} predicate - Function (value, key) => boolean
+ * @returns {Object} - New object with filtered properties
+ */
+export function pickBy(obj, predicate) {
+	return Object.keys(obj).reduce((result, key) => {
+		const value = obj[key];
+		if (predicate(value, key)) {
+			result[key] = value;
 		}
-	}
-	return obj;
+		return result;
+	}, {});
 }
 
 export function omit(obj, ...keysToOmit) {
