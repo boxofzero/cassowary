@@ -5,6 +5,7 @@
 			body: 'p-1 sm:p-1',
 			footer: 'p-1 sm:p-1',
 		}"
+		:class="item && item.missing === 0 ? 'opacity-40 hover:opacity-100' : ''"
 	>
 		<template #header>
 			<div
