@@ -2,7 +2,7 @@
 	<section class="flex flex-col gap-1">
 		<UModal v-model:open="isAddNewNoteModalOpen">
 			<UButton
-				class="justify-center mb-1 w-1/6"
+				class="justify-center mb-1 w-1/6 text-black dark:text-black"
 				color="primary"
 				variant="solid"
 			>
@@ -16,7 +16,7 @@
 					<span>Description</span>
 					<UTextarea v-model="newNote.description" />
 					<UButton
-						class="justify-center mt-3 w-1/5"
+						class="justify-center mt-3 w-1/5 text-black dark:text-black"
 						color="primary"
 						variant="solid"
 						@click="createNote"
