@@ -40,7 +40,7 @@
 								:padded="false"
 								@click="staminaStore.updateStaminaOverflow(parseInt(item))"
 							>
-								<span class="justify-self-center">
+								<span class="justify-self-center text-black dark:text-black">
 									{{ item }}
 								</span>
 							</UButton>
