@@ -20,6 +20,9 @@
 			<img
 				class="border-gray-800 border-b object-cover"
 				:src="(item && item.icon) || ''"
+				:alt="(item && item.label) || ''"
+				width="256"
+				height="256"
 			/>
 			<!-- Overlay for missing and syntesizable -->
 			<div

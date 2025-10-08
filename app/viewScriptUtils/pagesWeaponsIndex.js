@@ -21,7 +21,7 @@ export function weaponList() {
 		list = list.concat({
 			id: weaponName,
 			label: weapon.display_name,
-			avatar: { src: weapon.icon },
+			avatar: { src: weapon.icon, alt: weapon.display_name },
 			title: weapon.display_name + ' ' + subtitle,
 			value: weaponName,
 			type: weapon.weapon_type,

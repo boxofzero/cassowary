@@ -12,7 +12,18 @@
 							footer: 'p-1 sm:p-1',
 						}"
 					>
-						<img class="" :src="(item && item.icon) || ''" />
+						<img
+							class=""
+							:src="(item && item.icon) || ''"
+							:alt="(item && item.title) || ''"
+							width="256"
+							height="256"
+						/>
+						<!-- <UAvatar
+							:src="(item && item.icon) || ''"
+							:alt="(item && item.title) || ''"
+							size="3xl"
+						/> -->
 
 						<template #header>
 							<div class="flex justify-center h-12">
