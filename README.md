@@ -1,3 +1,5 @@
+# [⛔ This project is NO LONGER UPDATED ⛔](https://github.com/boxofzero/cassowary/issues/36)
+
 # Cassowary
 
 ![Cassowary screenshot](./cassowary-screenshot.png 'Cassowary')
